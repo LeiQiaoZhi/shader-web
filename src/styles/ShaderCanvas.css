@@ -1,0 +1,16 @@
+.shader-canvas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.shader-canvas-file-selector-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: lightblue;
+}
