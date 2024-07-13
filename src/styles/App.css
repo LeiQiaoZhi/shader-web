@@ -1,4 +1,14 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+  
+  font-family: 'CaskaydiaCove Nerd Font', sans-serif;
 }
 
+html, body, #root{
+  height: 100%;
+}

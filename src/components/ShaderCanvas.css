@@ -5,6 +5,7 @@
     justify-content: center;
     gap: 20px;
     margin: 20px;
+    background-color: lightgray;
 }
 
 .shader-canvas-file-selector-header {

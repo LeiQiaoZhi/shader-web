@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {createShader, createProgram} from "../utils/webglUtils";
 import {defaultVertexShaderSource, defaultFragmentShaderSource} from "../utils/webglConstants";
-import '../styles/ShaderCanvas.css'
+import './ShaderCanvas.css'
 
 const ShaderCanvas: React.FC = () => {
     // create a mutable canvas object that lives for the lifetime of this component
@@ -11,6 +11,7 @@ const ShaderCanvas: React.FC = () => {
     const previousFrameTime = useRef<number>(0);
     const elapsedTime = useRef<number>(0);
     const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
+    const [pausedState, setPausedState] = useState(pausedRef.current);
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -99,6 +100,7 @@ const ShaderCanvas: React.FC = () => {
 
     const handlePauseToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
         pausedRef.current = !pausedRef.current;
+        setPausedState(pausedRef.current);
     }
 
     return (
@@ -106,10 +108,10 @@ const ShaderCanvas: React.FC = () => {
             <div className='shader-canvas-file-selector-header'>
                 <input type="file" accept=".frag" onChange={handleShaderUpload}/>
             </div>
-            <canvas ref={canvasRef} width={800} height={600}/>
+            <canvas ref={canvasRef} width={600} height={600}/>
             <div className='shader-canvas-time-control-header'>
                 <button onClick={handlePauseToggle}>
-                    Pause
+                    {pausedState ? 'Resume' : 'Pause'} 
                 </button>
             </div>
         </div>

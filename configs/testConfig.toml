@@ -1,0 +1,23 @@
+title = "Test Config"
+
+[[uniforms]]
+name = "A Float Uniform"
+[[uniforms.gl]]
+type = "float"
+name = "iFloat"
+[[uniforms.ui]]
+type = "slider"
+value = 1
+min = 0
+max = 10
+
+[[uniforms]]
+name = "A Bool Uniform"
+[[uniforms.gl]]
+type = "bool"
+name = "iBool"
+[[uniforms.ui]]
+type = "checkbox"
+value = true
+
+
