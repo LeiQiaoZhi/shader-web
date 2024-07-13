@@ -53,7 +53,7 @@ const ShaderCanvas: React.FC = () => {
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-
+            // animation
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTime.current += deltaTime;

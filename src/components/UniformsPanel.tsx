@@ -1,31 +1,39 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import "./UniformsPanel.css"
-import ConfigManager from "../utils/ConfigManager";
-import CheckboxUniformComponent from "./CheckboxUniformComponent";
+import ConfigManager, {TomlData} from "../utils/ConfigManager";
+import FileSelect from "./FileSelect";
 
 const UniformsPanel: React.FC = () => {
 
-    const configManagerRef = useRef<ConfigManager | null>(null);
+    const configManagerRef = useRef<ConfigManager>(new ConfigManager());
+    const [uniformsObject, setUniformsObject] = useState<TomlData[]>([]);
 
-    const onConfigFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onConfigFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-            // TODO: create config manager from file
+            try {
+                await configManagerRef.current.loadFile(file);
+                setUniformsObject(configManagerRef.current.get("uniforms"));
+            } catch (error) {
+                console.error('Error loading config file:', error);
+            }
         }
     }
 
     return (
         <div className="uniforms-panel-container">
             <div className="uniforms-panel">
-                <strong>Uniforms</strong> 
+                <strong>Uniforms</strong>
                 <input type="file" accept=".toml" onChange={onConfigFileChange}/>
+                <FileSelect/>
                 <div className="uniforms-components-container">
-                    <CheckboxUniformComponent/>
-                    <CheckboxUniformComponent/>
-                    <input type="color"/>
-                    <input type="range" min="1" max="10" step="1" defaultValue="1" onChange={onConfigFileChange}/>
-                    <input type="number"/>
-                    <input type="button"/>
+                    {
+                        uniformsObject.map((item: TomlData, i: number) => {
+                            return (<div>
+                                <span>{item['name']}</span>
+                            </div>)
+                        })
+                    }
                 </div>
             </div>
         </div>
