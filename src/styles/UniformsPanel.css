@@ -1,25 +1,21 @@
-.uniforms-panel-container {
-    flex: 1;
-    height: 100%;
-    width: 100%;
-    display: flex;
-}
+@import "theme.css";
 
 .uniforms-panel {
-    background-color: lightgray;
-    margin: 20px 0 20px 20px;
-    /*padding: 10px;*/
     flex: 1;
-    box-sizing: border-box;
     
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
     justify-content: flex-start;
+
+    box-sizing: border-box;
+    padding: var(--medium-gap);
+    gap: var(--medium-gap);
+
+    background-color: var(--secondary-background-color);
 }
 
 .uniforms-components-container {
-    background-color: lightblue;
     flex: 1;
     padding: 10px;
     

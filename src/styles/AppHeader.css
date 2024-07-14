@@ -1,0 +1,28 @@
+.app-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: var(--small-gap);
+    
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.app-header-center h2{
+    text-align: center;
+    font-weight: bolder;
+    background: var(--secondary-color);
+    padding: 0 var(--small-gap);
+    border-radius: var(--normal-radius);
+}
+
+.app-header-right button{
+    background: var(--secondary-color);
+    border: 0;
+    border-radius: var(--small-radius);
+    color: var(--primary-color);
+    font-size: var(--normal-font-size);
+    padding: 0 var(--small-gap);
+}

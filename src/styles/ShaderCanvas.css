@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px;
-    background-color: lightgray;
+    justify-content: start;
+    
+    padding: var(--medium-gap);
+    gap: var(--medium-gap);
+    
+    background-color: var(--secondary-background-color);
 }
 
 .shader-canvas-file-selector-header {
@@ -13,5 +15,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background: lightblue;
+}
+
+canvas {
+    border-radius: var(--small-radius);
 }

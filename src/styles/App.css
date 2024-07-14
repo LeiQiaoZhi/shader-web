@@ -1,15 +1,42 @@
-.App {
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.app-body {
+  flex: 1;
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: start;
-  width: 100%;
-  height: 100%;
+  align-items: stretch;
   
-  font-family: 'CaskaydiaCove Nerd Font', sans-serif;
-  font-size: 14px;
+  --app-gap: var(--medium-gap);
+  gap: var(--app-gap);
+  /*padding: 0 var(--app-gap);*/
+  box-sizing: border-box;
+  
+  background-color: var(--background-color);
 }
 
-html, body, #root{
+html, body, #root, button{
   height: 100%;
+  color: var(--text-color);
+  font-family: 'CaskaydiaCove Nerd Font', sans-serif;
+  font-size: var(--normal-font-size);
+  border: none;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--small-radius);
+  padding: var(--small-gap) var(--medium-gap);
+}
+
+h2 {
+  font-size: var(--normal-font-size);
+  margin: 0;
 }

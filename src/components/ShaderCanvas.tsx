@@ -1,12 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {createShader, createProgram} from "../utils/webglUtils";
 import {defaultVertexShaderSource, defaultFragmentShaderSource} from "../utils/webglConstants";
-import './ShaderCanvas.css'
+import '../styles/ShaderCanvas.css'
+import FileSelect from "./FileSelect";
 
 const ShaderCanvas: React.FC = () => {
     // create a mutable canvas object that lives for the lifetime of this component
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const fragFileRef = useRef<File | null>(null);
     const pausedRef = useRef<boolean>(false);
     const previousFrameTime = useRef<number>(0);
     const elapsedTime = useRef<number>(0);
@@ -58,7 +58,7 @@ const ShaderCanvas: React.FC = () => {
             if (!pausedRef.current) {
                 elapsedTime.current += deltaTime;
                 gl.uniform1f(timeUniformLocation, elapsedTime.current * 0.001);
-            } 
+            }
 
             gl.drawArrays(gl.TRIANGLES, 0, 6);
 
@@ -79,14 +79,7 @@ const ShaderCanvas: React.FC = () => {
 
     }, [fragmentShaderSource]);
 
-    const handleShaderUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files[0]) {
-            fragFileRef.current = event.target.files[0];
-            loadFragShaderFromFile(fragFileRef.current);
-        }
-    };
-
-    const loadFragShaderFromFile = (file: File | null) => {
+    const loadFragShaderFromFile = (file: File) => {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -105,13 +98,14 @@ const ShaderCanvas: React.FC = () => {
 
     return (
         <div className='shader-canvas-container'>
+            <h2>Shader Output</h2>
             <div className='shader-canvas-file-selector-header'>
-                <input type="file" accept=".frag" onChange={handleShaderUpload}/>
+                <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select"/>
             </div>
             <canvas ref={canvasRef} width={600} height={600}/>
             <div className='shader-canvas-time-control-header'>
                 <button onClick={handlePauseToggle}>
-                    {pausedState ? 'Resume' : 'Pause'} 
+                    {pausedState ? 'Resume' : 'Pause'}
                 </button>
             </div>
         </div>
