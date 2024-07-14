@@ -12,7 +12,7 @@
     box-sizing: border-box;
     aspect-ratio: 1;
     background-color: var(--secondary-background-color);
-    border: var(--small-border) solid var(--primary-color);
+    border: var(--normal-border) solid var(--primary-color);
     border-radius: var(--normal-radius);
     transition: all var(--normal-transition); 
 }

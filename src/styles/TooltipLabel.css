@@ -1,15 +1,13 @@
 .tooltip-container {
     position: relative;
-    /*cursor: help;*/
+    display: inline-block;
 }
 
 /* Tooltip text hidden by default */
 .tooltip-container::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 100%; /* Position above the container */
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translate(5%, -10%);
     background-color: var(--primary-color);
     color: var(--secondary-color);
     padding: var(--small-gap);

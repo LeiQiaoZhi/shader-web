@@ -4,5 +4,4 @@ import {Shader} from "../utils/Shader";
 
 export interface IUniformComponentProps {
     config: TomlData,
-    shaderRef: React.MutableRefObject<Shader | null>
 }

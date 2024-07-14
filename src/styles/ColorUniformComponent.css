@@ -1,0 +1,12 @@
+.color-component-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--small-gap)
+}
+
+.color-component-container input {
+    border: none;
+}
+

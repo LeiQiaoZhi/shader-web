@@ -4,12 +4,12 @@ import {defaultVertexShaderSource, defaultFragmentShaderSource} from "../utils/w
 import '../styles/ShaderCanvas.css'
 import FileSelect from "./FileSelect";
 import {Shader} from "../utils/Shader";
+import {useShaderContext} from "../utils/ShaderContext";
 
 interface ShaderCanvasProps {
-    shaderRef: React.MutableRefObject<Shader | null>
 }
 
-const ShaderCanvas: React.FC<ShaderCanvasProps> = ({shaderRef}) => {
+const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     // create a mutable canvas object that lives for the lifetime of this component
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const pausedRef = useRef<boolean>(false);
@@ -17,9 +17,11 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({shaderRef}) => {
     const elapsedTime = useRef<number>(0);
     const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
     const [pausedState, setPausedState] = useState(pausedRef.current);
-
+    const { setShader } = useShaderContext();
+    
     // contains side effect, runs after the component is rendered
     useEffect(() => {
+        console.log("Starting WebGL")
         const canvas = canvasRef.current;
         if (!canvas) return;
         const gl = canvas.getContext('webgl');
@@ -32,7 +34,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({shaderRef}) => {
         const program = createProgram(gl, vertexShader, fragmentShader);
         if (!program) return;
         const shader = new Shader(gl, program);
-        shaderRef.current = shader;
+        let firstRenderLoop = true;
 
         const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
         const positionBuffer = gl.createBuffer();
@@ -51,6 +53,11 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({shaderRef}) => {
         gl.clearColor(0, 0, 0, 0);
 
         const render = (time: number) => {
+            if (firstRenderLoop) {
+                console.log("Setting new shader")
+                setShader(shader);
+                firstRenderLoop = false;
+            }
             gl.clear(gl.COLOR_BUFFER_BIT);
             shader.activate();
 
@@ -88,9 +95,14 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({shaderRef}) => {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
-            const text = e.target?.result;
+            const text = e.target?.result as string;
             if (text) {
-                setFragmentShaderSource(text as string);
+                console.log(`Set frag source from ${file.name}`);
+                if (text === fragmentShaderSource){
+                    setFragmentShaderSource(text + "\n") // ensure difference to trigger effect
+                } else {
+                    setFragmentShaderSource(text);
+                }
             }
         };
         reader.readAsText(file);

@@ -24,3 +24,16 @@ export const createProgram = (gl: WebGLRenderingContext, vertexShader: WebGLShad
     }
     return program;
 };
+
+export const hexToRgba = (hex: string, alpha: number = 1): [number, number, number, number] => {
+    // Remove the hash at the start if it's there
+    hex = hex.replace(/^#/, '');
+
+    // Parse the r, g, b values
+    let bigint = parseInt(hex, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+
+    return [r / 255, g / 255, b / 255, alpha];
+}

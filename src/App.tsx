@@ -1,20 +1,21 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import ShaderCanvas from "./components/ShaderCanvas";
 import UniformsPanel from "./components/UniformsPanel";
 import './styles/App.css';
 import AppHeader from "./components/AppHeader";
-import {Shader} from "./utils/Shader";
+import {ShaderContextProvider} from "./utils/ShaderContext";
 
 function App() {
-    const shaderRef = useRef<Shader | null>(null);
     return (
-        <div className="app">
-            <AppHeader/>
-            <div className="app-body">
-                <UniformsPanel shaderRef={shaderRef}/>
-                <ShaderCanvas shaderRef={shaderRef}/>
+        <ShaderContextProvider>
+            <div className="app">
+                <AppHeader/>
+                <div className="app-body">
+                    <UniformsPanel/>
+                    <ShaderCanvas/>
+                </div>
             </div>
-        </div>
+        </ShaderContextProvider>
     );
 }
 
