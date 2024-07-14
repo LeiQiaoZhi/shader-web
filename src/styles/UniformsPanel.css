@@ -18,7 +18,7 @@
 .uniforms-components-container {
     flex: 1;
     padding: var(--normal-gap);
-    gap: var(--normal-gap);
+    gap: var(--large-gap);
     
     display: flex;
     flex-direction: column;

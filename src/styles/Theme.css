@@ -1,5 +1,5 @@
 :root {
-    --large-gap: 20px;
+    --large-gap: 14px;
     --normal-gap: 10px;
     --small-gap: 6px;
     
@@ -18,6 +18,8 @@
     --long-transition: 400ms;
     --normal-transition: 200ms;
     --short-transition: 100ms;
+    
+    --font: 'CaskaydiaCove Nerd Font';
 }
 
 [data-theme="light"] {
@@ -26,6 +28,7 @@
     --background-color: #ffffff;
     --secondary-background-color: #f1f1f1;
     --text-color: #1d1d1d;
+    --secondary-text-color: #556067;
 }
 
 
@@ -35,4 +38,5 @@
     --background-color: #313131;
     --secondary-background-color: #2d2d2d;
     --text-color: #f1f1f1;
+    --secondary-text-color: #838e98;
 }

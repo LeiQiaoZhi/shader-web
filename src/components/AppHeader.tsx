@@ -7,7 +7,7 @@ const AppHeader: React.FC = () => {
         <div className="app-header">
             <div className="app-header-left"></div>
             <div className="app-header-center">
-                <h2> Shader Web</h2>
+                <h1>Shader Web</h1>
             </div>
             <div className="app-header-right">
                 <ThemeSwitch/>

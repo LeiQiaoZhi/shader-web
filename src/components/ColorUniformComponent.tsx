@@ -11,12 +11,24 @@ const ColorUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
 
     // initialize
     useEffect(() => {
-        shader?.set_uniform_color4(config.gl.name, config.ui.value);
+        setUniform();
         setColor(config.ui.value);
     }, [config, shader]);
+    
+    const setUniform = () => {
+        if (shader == null) {
+            console.log("shader is null")
+        } else if (config.ui.type === "color3"){
+            shader.set_uniform_color3(config.gl.name, config.ui.value);
+        } else if (config.ui.type === "color4"){
+            shader.set_uniform_color4(config.gl.name, config.ui.value);
+        } else {
+            throw new Error(`config.ui.name should be either color3 or color4, instead it is ${config.ui.type}`);
+        }
+    }
 
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        shader?.set_uniform_color4(config.gl.name, event.target.value);
+        setUniform();
         config.ui.value = event.target.value;
         setColor(config.ui.value);
     }

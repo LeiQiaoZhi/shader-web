@@ -23,7 +23,7 @@
 html, body, #root, button{
   height: 100%;
   color: var(--text-color);
-  font-family: 'CaskaydiaCove Nerd Font', sans-serif;
+  font-family: var(--font), sans-serif;
   font-size: var(--normal-font-size);
   border: none;
 }
@@ -32,17 +32,24 @@ button {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   border: none;
-  border-radius: var(--small-radius);
+  border-radius: var(--normal-radius);
   padding: var(--small-gap) var(--normal-gap);
+  transition: var(--normal-transition);
 }
-
 
 button:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
 
-h2 {
+h1 {
   font-size: var(--normal-font-size);
+  margin: 0;
+}
+
+h2 {
+  color: var(--secondary-text-color);
+  font-size: var(--small-font-size);
+  font-weight: bold;
   margin: 0;
 }

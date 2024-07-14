@@ -10,12 +10,13 @@
     color: var(--primary-color);
 }
 
-.app-header-center h2{
+.app-header-center h1{
     text-align: center;
     font-weight: bolder;
     background: var(--secondary-color);
     padding: 0 var(--small-gap);
     border-radius: var(--normal-radius);
+    font-size: var(--normal-font-size);
 }
 
 .app-header-right button{

@@ -9,10 +9,11 @@
     color: var(--secondary-color);
     padding: var(--small-gap) var(--normal-gap);
     border: none;
-    border-radius: var(--small-radius);
+    border-radius: var(--normal-radius);
     cursor: pointer;
     
     font-size: var(--small-font-size);
+    transition: var(--normal-transition);
 }
 
 .custom-file-input:hover {
@@ -21,7 +22,7 @@
 }
 
 .file-name {
-    color: var(--text-color);
+    color: var(--secondary-text-color);
     margin-left: var(--small-gap);
     font-size: var(--small-font-size);
 }
