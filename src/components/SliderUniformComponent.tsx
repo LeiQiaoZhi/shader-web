@@ -12,14 +12,14 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     // initialize
     useEffect(() => {
         console.log("Init Slider Uniform Component");
-        shader?.set_uniform_float(config.gl.name, config.ui.value);
+        shader?.setUniform(config);
         setValue(config.ui.value);
     }, [config, shader]);
-
+    
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        shader?.set_uniform_float(config.gl.name, event.target.valueAsNumber);
         config.ui.value = event.target.valueAsNumber;
         setValue(config.ui.value);
+        shader?.setUniform(config);
     }
 
     return (

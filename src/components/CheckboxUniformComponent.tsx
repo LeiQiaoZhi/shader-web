@@ -11,13 +11,13 @@ const CheckboxUniformComponent: React.FC<IUniformComponentProps> = ({config}) =>
 
     // Initialize
     useEffect(() => {
-        shader?.set_uniform_bool(config.gl.name, config.ui.value);
+        shader?.setUniform(config);
         setChecked(config.ui.value);
     }, [config, shader]);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        shader?.set_uniform_bool(config.gl.name, event.target.checked)
         config.ui.value = event.target.checked;
+        shader?.setUniform(config);
         setChecked(event.target.checked);
     }
 

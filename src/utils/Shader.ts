@@ -1,4 +1,5 @@
 import {hexToRgba} from "./webglUtils";
+import {TomlData} from "./ConfigManager";
 
 export class Shader {
     private gl: WebGLRenderingContext;
@@ -13,29 +14,67 @@ export class Shader {
         this.gl.useProgram(this.program);
     }
 
-    public set_uniform_bool(name: string, value: boolean): void {
-        const uniform_location = this.gl.getUniformLocation(this.program, name);
-        this.gl.uniform1i(uniform_location, value ? 1 : 0);
+    public setUniformBool(name: string, value: boolean): void {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
+        this.gl.uniform1i(uniformLocation, value ? 1 : 0);
     }
 
-    public set_uniform_color4(name: string, hex: string): void {
-        const uniform_location = this.gl.getUniformLocation(this.program, name);
+    public setUniformInt(name: string, value: number): void {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
+        this.gl.uniform1i(uniformLocation, value);
+    }
+
+    public setUniformColor4(name: string, hex: string): void {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
         const rgba = hexToRgba(hex);
-        this.gl.uniform4f(uniform_location, rgba[0], rgba[1], rgba[2], rgba[3]);
+        this.gl.uniform4f(uniformLocation, rgba[0], rgba[1], rgba[2], rgba[3]);
     }
 
-    public set_uniform_color3(name: string, hex: string): void {
-        const uniform_location = this.gl.getUniformLocation(this.program, name);
+    public setUniformColor3(name: string, hex: string): void {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
         const rgba = hexToRgba(hex);
-        this.gl.uniform3f(uniform_location, rgba[0], rgba[1], rgba[2]);
+        this.gl.uniform3f(uniformLocation, rgba[0], rgba[1], rgba[2]);
     }
 
-    public set_uniform_float(name: string, value: number, log: boolean = false): void {
+    public setUniformFloat(name: string, value: number, log: boolean = false): void {
         if (log) {
             console.log(`set shader ${name} to ${value}`)
         }
-        const uniform_location = this.gl.getUniformLocation(this.program, name);
-        this.gl.uniform1f(uniform_location, value);
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
+        this.gl.uniform1f(uniformLocation, value);
     }
 
+    public setUniformVec2(name: string, value1: number, value2: number) {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
+        this.gl.uniform2f(uniformLocation, value1, value2);
+    }
+
+    public setUniformVec2I(name: string, value1: number, value2: number) {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
+        this.gl.uniform2i(uniformLocation, value1, value2);
+    }
+
+    public setUniform(config: TomlData) {
+        const name = config.gl.name;
+        const value = config.ui.value;
+        switch (config.gl.type) {
+            case "float":
+                this.setUniformFloat(name, value);
+                break;
+            case "bool":
+                this.setUniformBool(name, value);
+                break;
+            case "int":
+                this.setUniformInt(name, value);
+                break;
+            case "color4":
+                this.setUniformColor4(name, value);
+                break;
+            case "color3":
+                this.setUniformColor3(name, value);
+                break;
+            default:
+                throw new Error(`Unsupported type ${config.gl.type}`);
+        }
+    }
 }

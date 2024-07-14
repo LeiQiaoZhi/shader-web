@@ -27,10 +27,12 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     const createUniformComponentFromConfig = (uniformConfig: TomlData): JSX.Element => {
         const type = uniformConfig.ui.type;
         console.log("create uniform component of type: " + type);
-        return type === "checkbox" ? (<CheckboxUniformComponent config={uniformConfig}/>) :
-            type === "slider" ? (<SliderUniformComponent config={uniformConfig}/>) :
-                type === "color4" ? (<ColorUniformComponent config={uniformConfig}/>) :
-                    (<TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl.name}/>);
+        return (
+            type === "checkbox" ? (<CheckboxUniformComponent config={uniformConfig}/>) :
+                type === "slider" ? (<SliderUniformComponent config={uniformConfig}/>) :
+                    type === "color" ? (<ColorUniformComponent config={uniformConfig}/>) :
+                        (<TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl.name}/>)
+        );
     }
 
     return (

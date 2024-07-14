@@ -17,8 +17,8 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const elapsedTime = useRef<number>(0);
     const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
     const [pausedState, setPausedState] = useState(pausedRef.current);
-    const { setShader } = useShaderContext();
-    
+    const {setShader} = useShaderContext();
+
     // contains side effect, runs after the component is rendered
     useEffect(() => {
         console.log("Starting WebGL")
@@ -65,12 +65,13 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-            // animation
+            // animation and resolution uniforms
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTime.current += deltaTime;
-                shader.set_uniform_float("iTime", elapsedTime.current * 0.001);
+                shader.setUniformFloat("iTime", elapsedTime.current * 0.001);
             }
+            shader.setUniformVec2I("iResolution", gl.canvas.width, gl.canvas.height);
 
             gl.drawArrays(gl.TRIANGLES, 0, 6);
 
@@ -98,7 +99,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             const text = e.target?.result as string;
             if (text) {
                 console.log(`Set frag source from ${file.name}`);
-                if (text === fragmentShaderSource){
+                if (text === fragmentShaderSource) {
                     setFragmentShaderSource(text + "\n") // ensure difference to trigger effect
                 } else {
                     setFragmentShaderSource(text);

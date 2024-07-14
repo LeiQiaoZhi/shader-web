@@ -1,5 +1,8 @@
 title = "Test Config"
 
+# gl.type determines how to pass the uniforms
+# ui.type determines what component to use
+
 [[uniforms]]
 name = "A Float Uniform"
 [uniforms.gl]
@@ -27,5 +30,5 @@ name = "A Color Uniform"
 type = "color4"
 name = "iColor"
 [uniforms.ui]
-type = "color4"
+type = "color"
 value = "#3498db"
