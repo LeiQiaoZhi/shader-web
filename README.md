@@ -13,5 +13,6 @@ Features
   - [x] pause and resume
   - [ ] speed
   - [ ] timeline
-- [ ] iResolution uniform
+- [x] iResolution uniform
+- [ ] shader compilation error message
 - [ ] online editor
