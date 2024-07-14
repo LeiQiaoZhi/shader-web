@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: stretch;
   
-  --app-gap: var(--medium-gap);
+  --app-gap: var(--normal-gap);
   gap: var(--app-gap);
   /*padding: 0 var(--app-gap);*/
   box-sizing: border-box;
@@ -33,7 +33,13 @@ button {
   color: var(--secondary-color);
   border: none;
   border-radius: var(--small-radius);
-  padding: var(--small-gap) var(--medium-gap);
+  padding: var(--small-gap) var(--normal-gap);
+}
+
+
+button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 h2 {

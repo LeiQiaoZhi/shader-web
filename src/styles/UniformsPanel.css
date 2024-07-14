@@ -1,4 +1,4 @@
-@import "theme.css";
+@import "Theme.css";
 
 .uniforms-panel {
     flex: 1;
@@ -9,17 +9,17 @@
     justify-content: flex-start;
 
     box-sizing: border-box;
-    padding: var(--medium-gap);
-    gap: var(--medium-gap);
+    padding: var(--normal-gap);
+    gap: var(--normal-gap);
 
     background-color: var(--secondary-background-color);
 }
 
 .uniforms-components-container {
     flex: 1;
-    padding: 10px;
+    padding: var(--normal-gap);
+    gap: var(--normal-gap);
     
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }

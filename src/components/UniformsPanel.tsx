@@ -2,8 +2,15 @@ import React, {useRef, useState} from "react";
 import "../styles/UniformsPanel.css"
 import ConfigManager, {TomlData} from "../utils/ConfigManager";
 import FileSelect from "./FileSelect";
+import CheckboxUniformComponent from "./CheckboxUniformComponent";
+import TooltipLabel from "./TooltipLabel";
+import {Shader} from "../utils/Shader";
 
-const UniformsPanel: React.FC = () => {
+interface UniformsPanelProps {
+    shaderRef: React.MutableRefObject<Shader | null>
+}
+
+const UniformsPanel: React.FC<UniformsPanelProps> = ({shaderRef}) => {
 
     const configManagerRef = useRef<ConfigManager>(new ConfigManager());
     const [uniformsObject, setUniformsObject] = useState<TomlData[]>([]);
@@ -17,16 +24,25 @@ const UniformsPanel: React.FC = () => {
         }
     }
 
+    const createUniformComponentFromConfig = (uniformConfig: TomlData): JSX.Element => {
+        const type = uniformConfig.ui.type;
+        console.log(type);
+        return type === "checkbox" ? (<CheckboxUniformComponent shaderRef={shaderRef} config={uniformConfig}/>) :
+            (<TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl.name}/>);
+    }
+
     return (
         <div className="uniforms-panel">
             <h2>Uniforms</h2>
             <FileSelect onFileSelect={onConfigFileSelect} accept=".toml" id="config select"/>
             <div className="uniforms-components-container">
                 {
-                    uniformsObject.map((item: TomlData, i: number) => {
-                        return (<div key={i}>
-                            <span>{item['name']}</span>
-                        </div>)
+                    uniformsObject.map((uniformConfig: TomlData, i: number) => {
+                        return (
+                            <div key={i}>
+                                {createUniformComponentFromConfig(uniformConfig)}
+                            </div>
+                        );
                     })
                 }
             </div>

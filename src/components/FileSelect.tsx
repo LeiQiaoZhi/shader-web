@@ -21,7 +21,7 @@ const FileSelect: React.FC<FileSelectProps> = ({onFileSelect, id, accept="*"}) =
     };
 
     return (
-        <div>
+        <div className="file-select-container">
             <input
                 type="file"
                 id={"fileInput"+id}

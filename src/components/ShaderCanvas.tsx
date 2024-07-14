@@ -3,8 +3,13 @@ import {createShader, createProgram} from "../utils/webglUtils";
 import {defaultVertexShaderSource, defaultFragmentShaderSource} from "../utils/webglConstants";
 import '../styles/ShaderCanvas.css'
 import FileSelect from "./FileSelect";
+import {Shader} from "../utils/Shader";
 
-const ShaderCanvas: React.FC = () => {
+interface ShaderCanvasProps {
+    shaderRef: React.MutableRefObject<Shader | null>
+}
+
+const ShaderCanvas: React.FC<ShaderCanvasProps> = ({shaderRef}) => {
     // create a mutable canvas object that lives for the lifetime of this component
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const pausedRef = useRef<boolean>(false);
@@ -26,10 +31,10 @@ const ShaderCanvas: React.FC = () => {
 
         const program = createProgram(gl, vertexShader, fragmentShader);
         if (!program) return;
+        const shader = new Shader(gl, program);
+        shaderRef.current = shader;
 
         const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
-        const timeUniformLocation = gl.getUniformLocation(program, 'iTime');
-
         const positionBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
         const positions = [
@@ -47,7 +52,7 @@ const ShaderCanvas: React.FC = () => {
 
         const render = (time: number) => {
             gl.clear(gl.COLOR_BUFFER_BIT);
-            gl.useProgram(program);
+            shader.activate();
 
             gl.enableVertexAttribArray(positionAttributeLocation);
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -57,7 +62,7 @@ const ShaderCanvas: React.FC = () => {
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTime.current += deltaTime;
-                gl.uniform1f(timeUniformLocation, elapsedTime.current * 0.001);
+                shader.set_uniform_float("iTime", elapsedTime.current * 0.001);
             }
 
             gl.drawArrays(gl.TRIANGLES, 0, 6);

@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: start;
     
-    padding: var(--medium-gap);
-    gap: var(--medium-gap);
+    padding: var(--normal-gap);
+    gap: var(--normal-gap);
     
     background-color: var(--secondary-background-color);
 }

@@ -1,19 +1,27 @@
+.file-select-container {
+    display: flex;    
+    align-items: baseline;
+    justify-content: center;
+}
+
 .custom-file-input {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    padding: var(--small-gap) var(--medium-gap);
+    padding: var(--small-gap) var(--normal-gap);
     border: none;
     border-radius: var(--small-radius);
     cursor: pointer;
-    display: inline-block;
+    
+    font-size: var(--small-font-size);
 }
 
 .custom-file-input:hover {
     background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .file-name {
     color: var(--text-color);
-    margin-left: var(--medium-gap);
-    vertical-align: middle;
+    margin-left: var(--small-gap);
+    font-size: var(--small-font-size);
 }
