@@ -1,8 +1,8 @@
 import React, {useEffect, useId, useState} from 'react';
-import {IUniformComponentProps} from "./IUniformComponentProps";
-import "../styles/ColorUniformComponent.css"
-import TooltipLabel from "./TooltipLabel";
-import {useShaderContext} from "../utils/ShaderContext";
+import {IUniformComponentProps} from "../IUniformComponentProps";
+import "../../styles/ColorUniformComponent.css"
+import TooltipLabel from "../TooltipLabel";
+import {useShaderContext} from "../../utils/ShaderContext";
 
 const ColorUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();

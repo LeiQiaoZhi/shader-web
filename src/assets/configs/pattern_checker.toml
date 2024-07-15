@@ -1,31 +1,55 @@
 title = "Test Config"
 
 [[uniforms]]
+name = "Folder 1"
+[uniforms.ui]
+type = "folder"
+value = true # folded or not
+
+[[uniforms.children]]
 name = "Number of Checkers"
-[uniforms.gl]
+[uniforms.children.gl]
 type = "int"
 name = "iNumCheckers"
-[uniforms.ui]
+[uniforms.children.ui]
 type = "slider"
 value = 5
 min = 0
 max = 20
 step = 1
 
-[[uniforms]]
+[[uniforms.children]]
 name = "Checker Color 1"
-[uniforms.gl]
+[uniforms.children.gl]
 type = "color3"
 name = "iColor1"
-[uniforms.ui]
+[uniforms.children.ui]
 type = "color"
 value = "#ffffff"
 
-[[uniforms]]
+[[uniforms.children]]
 name = "Checker Color 2"
-[uniforms.gl]
+[uniforms.children.gl]
 type = "color3"
 name = "iColor2"
-[uniforms.ui]
+[uniforms.children.ui]
 type = "color"
 value = "#000000"
+
+[[uniforms]]
+name = "Folder 2"
+[uniforms.ui]
+type = "folder"
+value = true # folded or not
+
+[[uniforms.children]]
+name = "Test"
+[uniforms.children.gl]
+type = "int"
+name = "iTest"
+[uniforms.children.ui]
+type = "slider"
+value = 5
+min = 0
+max = 20
+step = 1

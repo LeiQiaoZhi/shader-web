@@ -16,12 +16,13 @@
     flex: 1;
 }
 
-.slider-label-and-input-field input {
+.slider-label-and-input-field input[type="number"] {
     width: calc(var(--small-font-size) * 5);
     font-family: "CaskaydiaCove Nerd Font", sans-serif; 
     font-size: var(--small-font-size);
     border: var(--small-border) solid var(--primary-color);
-    background-color: var(--background-color);
+    border-radius: var(--small-radius);
+    background-color: var(--secondary-background-color);
     color: var(--text-color);
 }
 
