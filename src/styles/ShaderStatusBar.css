@@ -1,0 +1,18 @@
+.shader-status-bar {
+    --status-width: 0;
+    font-size: var(--small-font-size);
+    color: var(--secondary-text-color);
+    padding: var(--small-gap) var(--normal-gap);
+    border-radius: var(--normal-radius);
+    width: var(--status-width);
+    box-sizing: border-box;
+}
+
+.shader-status-bar[data-success="false"]{
+    background: var(--contrast-color);
+    color: var(--background-color);
+}
+
+.shader-status-bar[data-success="true"]{
+    background: var(--background-color);
+}

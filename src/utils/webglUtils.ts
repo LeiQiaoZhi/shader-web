@@ -1,14 +1,28 @@
-export const createShader = (gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null => {
+import {IShaderStatus} from "./ShaderContext";
+
+interface ICreateShaderReturn {
+    shader: WebGLShader | null;
+    status: IShaderStatus;
+}
+
+export const createShader = (gl: WebGLRenderingContext, type: number, source: string): ICreateShaderReturn | null => {
     const shader = gl.createShader(type);
     if (!shader) return null;
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(shader));
+        const errorMessage = gl.getShaderInfoLog(shader);
+        console.error(errorMessage);
         gl.deleteShader(shader);
-        return null;
+        return {
+            shader: null,
+            status: {
+                success: false,
+                message: errorMessage
+            }
+        };
     }
-    return shader;
+    return {shader: shader, status: {success: true, message: "Compile Success"}}
 };
 
 export const createProgram = (gl: WebGLRenderingContext, vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram | null => {

@@ -1,11 +1,16 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import {Shader} from "./Shader";
 
+export interface IShaderStatus {
+    success: boolean;
+    message: string | null;
+}
+
 interface IShaderContext {
     shader: Shader | null;
     setShader: (shader: Shader) => void;
-    shaderChangeEvent: number;
-    triggerShaderEvent: () => void;
+    status: IShaderStatus | null;
+    setStatus: (status: IShaderStatus) => void;
 }
 
 const ShaderContext = createContext<IShaderContext | undefined>(undefined);
@@ -15,15 +20,11 @@ interface ShaderContextProps {
 }
 
 const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
-    const [shaderChangeEvent, setEvent] = useState(0);
     const [shader, setShader] = useState<Shader | null>(null);
+    const [shaderStatus, setShaderStatus] = useState<IShaderStatus | null>(null);
 
-    const triggerShaderEvent = () => {
-        setEvent(prev => prev + 1); // Increment to trigger the event
-    };
-   
     return (
-        <ShaderContext.Provider value={{shader, setShader, shaderChangeEvent, triggerShaderEvent}}>
+        <ShaderContext.Provider value={{shader, setShader, status: shaderStatus, setStatus: setShaderStatus}}>
             {children}
         </ShaderContext.Provider>
     );

@@ -1,10 +1,12 @@
-import React, {useRef, useEffect, useState} from 'react';
-import {createShader, createProgram} from "../utils/webglUtils";
-import {defaultVertexShaderSource, defaultFragmentShaderSource} from "../utils/webglConstants";
+import React, {useEffect, useRef, useState} from 'react';
+import {createProgram, createShader} from "../utils/webglUtils";
+import {defaultFragmentShaderSource, defaultVertexShaderSource} from "../utils/webglConstants";
 import '../styles/ShaderCanvas.css'
 import FileSelect from "./FileSelect";
 import {Shader} from "../utils/Shader";
 import {useShaderContext} from "../utils/ShaderContext";
+import ShaderStatusBar from "./ShaderStatusBar";
+
 
 interface ShaderCanvasProps {
 }
@@ -17,7 +19,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const elapsedTime = useRef<number>(0);
     const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
     const [pausedState, setPausedState] = useState(pausedRef.current);
-    const {setShader} = useShaderContext();
+    const {setShader, setStatus} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -27,10 +29,14 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         const gl = canvas.getContext('webgl');
         if (!gl) return;
 
-        const vertexShader = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+        const vertexShaderResult = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
+        const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+        if (!vertexShaderResult || !fragmentShaderResult) return;
+        const {shader: vertexShader} = vertexShaderResult;
+        const {shader: fragmentShader, status: shaderStatus } = fragmentShaderResult;
+        setStatus(shaderStatus);
+        
         if (!vertexShader || !fragmentShader) return;
-
         const program = createProgram(gl, vertexShader, fragmentShader);
         if (!program) return;
         const shader = new Shader(gl, program);
@@ -120,6 +126,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             <div className='shader-canvas-file-selector-header'>
                 <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select"/>
             </div>
+            <ShaderStatusBar width={600}/>
             <canvas ref={canvasRef} width={600} height={600}/>
             <div className='shader-canvas-time-control-header'>
                 <button onClick={handlePauseToggle}>

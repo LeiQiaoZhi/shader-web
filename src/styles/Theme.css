@@ -1,7 +1,7 @@
 :root {
-    --large-gap: 14px;
-    --normal-gap: 10px;
-    --small-gap: 6px;
+    --large-gap: 12px;
+    --normal-gap: 8px;
+    --small-gap: 4px;
     
     --large-font-size: 24px;
     --normal-font-size: 16px;
@@ -29,6 +29,7 @@
     --secondary-background-color: #f1f1f1;
     --text-color: #1d1d1d;
     --secondary-text-color: #556067;
+    --contrast-color: #f46e3e;
 }
 
 
@@ -39,4 +40,5 @@
     --secondary-background-color: #2d2d2d;
     --text-color: #f1f1f1;
     --secondary-text-color: #838e98;
+    --contrast-color: #ff8142;
 }
