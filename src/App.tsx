@@ -1,8 +1,8 @@
 import React from 'react';
-import ShaderCanvas from "./components/ShaderCanvas";
-import UniformsPanel from "./components/UniformsPanel";
+import ShaderCanvas from "./components/shader_panel/ShaderCanvas";
+import UniformsPanel from "./components/uniforms/UniformsPanel";
 import './styles/App.css';
-import AppHeader from "./components/AppHeader";
+import AppHeader from "./components/app_header/AppHeader";
 import {ShaderContextProvider} from "./utils/ShaderContext";
 
 function App() {

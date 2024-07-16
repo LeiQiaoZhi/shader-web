@@ -3,8 +3,9 @@ import {TomlData} from "../../utils/ConfigManager";
 import CheckboxUniformComponent from "./CheckboxUniformComponent";
 import SliderUniformComponent from "./SliderUniformComponent";
 import ColorUniformComponent from "./ColorUniformComponent";
-import TooltipLabel from "../TooltipLabel";
+import TooltipLabel from "../common/TooltipLabel";
 import FolderUniformComponent from "./FolderUniformComponent";
+import DropdownUniformComponent from "./DropdownUniformComponent";
 
 interface UniformsComponentProps {
     uniformConfig: TomlData;
@@ -18,7 +19,8 @@ const UniformComponent: React.FC<UniformsComponentProps> = ({uniformConfig}) => 
             type === "slider" ? (<SliderUniformComponent config={uniformConfig}/>) :
                 type === "color" ? (<ColorUniformComponent config={uniformConfig}/>) :
                     type === "folder" ? (<FolderUniformComponent config={uniformConfig}/>) :
-                    (<TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl.name}/>)
+                        type === "dropdown" ? (<DropdownUniformComponent config={uniformConfig}/>) :
+                            (<TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl.name}/>)
     );
 }
 

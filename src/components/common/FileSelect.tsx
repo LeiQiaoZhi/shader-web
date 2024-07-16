@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../styles/FileSelect.css"
+import "./FileSelect.css"
 
 interface FileSelectProps {
     onFileSelect: (file: File) => void;

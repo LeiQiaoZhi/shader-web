@@ -1,7 +1,55 @@
 title = "Test Config"
 
 [[uniforms]]
-name = "Folder 1"
+name = "Outer"
+[uniforms.ui]
+type = "folder"
+value = true # folded or not
+
+[[uniforms.children]]
+name = "Outer Shape"
+[uniforms.children.gl]
+type = "int"
+name = "iShape"
+[uniforms.children.ui]
+type = "dropdown"
+value = 0
+options = ["Square", "Circle", "Diamond"]
+
+[[uniforms.children]]
+name = "Background Color"
+[uniforms.children.gl]
+type = "color4"
+name = "iBackgroundColor"
+[uniforms.children.ui]
+type = "color"
+value = "ffffff"
+
+[[uniforms.children]]
+name = "Outline Color"
+[uniforms.children.gl]
+type = "color4"
+name = "iOutlineColor"
+[uniforms.children.ui]
+type = "color"
+value = "000000"
+
+[[uniforms.children]]
+name = "Outline Thickness"
+[uniforms.children.gl]
+type = "float"
+name = "iOutlineThickness"
+[uniforms.children.ui]
+type = "slider"
+value = 0.1
+min = 0
+max = 0.2
+step = 0.001
+
+
+
+[[uniforms]]
+name = "Checker"
 [uniforms.ui]
 type = "folder"
 value = true # folded or not
@@ -36,20 +84,40 @@ name = "iColor2"
 type = "color"
 value = "#000000"
 
+
+
 [[uniforms]]
-name = "Folder 2"
+name = "Stripe"
 [uniforms.ui]
 type = "folder"
 value = true # folded or not
 
 [[uniforms.children]]
-name = "Test"
+name = "Number of Stripes"
 [uniforms.children.gl]
 type = "int"
-name = "iTest"
+name = "iNumStripes"
 [uniforms.children.ui]
 type = "slider"
 value = 5
 min = 0
 max = 20
 step = 1
+
+[[uniforms.children]]
+name = "Stripe Color 1"
+[uniforms.children.gl]
+type = "color3"
+name = "iStripeColor1"
+[uniforms.children.ui]
+type = "color"
+value = "#ffffff"
+
+[[uniforms.children]]
+name = "Stripe Color 2"
+[uniforms.children.gl]
+type = "color3"
+name = "iStripeColor2"
+[uniforms.children.ui]
+type = "color"
+value = "#000000"

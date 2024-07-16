@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/TooltipLabel.css"
+import "./TooltipLabel.css"
 
 interface TooltipLabelProps {
     label: string;

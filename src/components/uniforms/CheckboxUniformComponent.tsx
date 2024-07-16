@@ -1,7 +1,7 @@
 import React, {useEffect, useId, useRef, useState} from 'react';
-import {IUniformComponentProps} from "../IUniformComponentProps";
-import "../../styles/CheckboxUniformComponent.css"
-import TooltipLabel from "../TooltipLabel";
+import {IUniformComponentProps} from "./IUniformComponentProps";
+import "./CheckboxUniformComponent.css"
+import TooltipLabel from "../common/TooltipLabel";
 import {useShaderContext} from "../../utils/ShaderContext";
 
 const CheckboxUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
@@ -17,8 +17,8 @@ const CheckboxUniformComponent: React.FC<IUniformComponentProps> = ({config}) =>
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.checked;
-        shader?.setUniform(config);
         setChecked(event.target.checked);
+        shader?.setUniform(config);
     }
 
     return (

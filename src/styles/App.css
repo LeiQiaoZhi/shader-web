@@ -1,56 +1,46 @@
+@import "./Button.css";
+@import "./Slider.css";
+
 .app {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  transition: all var(--normal-transition);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    transition: all var(--normal-transition);
 }
 
 .app-body {
-  flex: 1;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  
-  --app-gap: var(--normal-gap);
-  gap: var(--app-gap);
-  /*padding: 0 var(--app-gap);*/
-  box-sizing: border-box;
-  
-  background-color: var(--background-color);
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    --app-gap: var(--normal-gap);
+    gap: var(--app-gap);
+    /*padding: 0 var(--app-gap);*/
+    box-sizing: border-box;
+
+    background-color: var(--background-color);
 }
 
-html, body, #root, button{
-  height: 100%;
-  color: var(--text-color);
-  font-family: var(--font), sans-serif;
-  font-size: var(--normal-font-size);
-  border: none;
+html, body, #root {
+    height: 100%;
+    color: var(--text-color);
+    font-family: var(--font), sans-serif;
+    font-size: var(--normal-font-size);
+    border: none;
 }
 
-button {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  border: none;
-  border-radius: var(--normal-radius);
-  padding: var(--small-gap) var(--normal-gap);
-  transition: var(--normal-transition);
-}
-
-button:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
 
 h1 {
-  font-size: var(--normal-font-size);
-  margin: 0;
+    font-size: var(--normal-font-size);
+    margin: 0;
 }
 
 h2 {
-  color: var(--secondary-text-color);
-  font-size: var(--small-font-size);
-  font-weight: bold;
-  margin: 0;
+    color: var(--secondary-text-color);
+    font-size: var(--small-font-size);
+    font-weight: bold;
+    margin: 0;
 }

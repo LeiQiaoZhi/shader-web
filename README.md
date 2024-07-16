@@ -23,11 +23,13 @@
   - [x] slider + input for numbers
   - [x] checkbox for bool
   - [x] fold-able component
+  - [ ] dropdown
 - [x] iResolution uniform
+- [x] shader compilation error message
 - [ ] animation control
   - [x] pause and resume
   - [ ] speed
   - [ ] timeline
 - [ ] download config
-- [ ] shader compilation error message
+- [ ] manually specify viewport dimension
 - [ ] online editor

@@ -1,12 +1,12 @@
 import React, {useRef, useState} from "react";
-import "../styles/UniformsPanel.css"
-import ConfigManager, {TomlData} from "../utils/ConfigManager";
-import FileSelect from "./FileSelect";
-import CheckboxUniformComponent from "./uniforms/CheckboxUniformComponent";
-import TooltipLabel from "./TooltipLabel";
-import SliderUniformComponent from "./uniforms/SliderUniformComponent";
-import ColorUniformComponent from "./uniforms/ColorUniformComponent";
-import UniformComponent from "./uniforms/UniformComponent";
+import "./UniformsPanel.css"
+import ConfigManager, {TomlData} from "../../utils/ConfigManager";
+import FileSelect from "../common/FileSelect";
+import CheckboxUniformComponent from "./CheckboxUniformComponent";
+import TooltipLabel from "../common/TooltipLabel";
+import SliderUniformComponent from "./SliderUniformComponent";
+import ColorUniformComponent from "./ColorUniformComponent";
+import UniformComponent from "./UniformComponent";
 
 interface UniformsPanelProps {
 }

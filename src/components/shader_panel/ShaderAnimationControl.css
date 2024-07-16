@@ -1,0 +1,27 @@
+.shader-animation-control-container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--normal-gap);
+    justify-content: center;
+    align-items: stretch;
+
+    align-self: stretch;
+    background: var(--background-color);
+    border-radius: var(--normal-radius);
+    box-sizing: border-box;
+    padding: var(--normal-gap) var(--small-gap);
+}
+
+.shader-animation-speed-control {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-gap);
+    align-items: stretch;
+}
+
+.shader-animation-speed-control label{
+    font-size: var(--small-font-size);
+    font-weight: bold;
+}

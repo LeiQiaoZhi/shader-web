@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {IUniformComponentProps} from "../IUniformComponentProps";
-import "../../styles/FolderUniformComponent.css"
+import {IUniformComponentProps} from "./IUniformComponentProps";
+import "./FolderUniformComponent.css"
 import {TomlData} from "../../utils/ConfigManager";
 import UniformComponent from "./UniformComponent";
 

@@ -1,0 +1,30 @@
+
+button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: var(--normal-radius);
+    padding: var(--small-gap) var(--normal-gap);
+    transition: var(--normal-transition);
+
+    font-family: var(--font), sans-serif;
+    font-size: var(--normal-font-size);
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.muted button {
+    background: none;
+    color: var(--secondary-text-color);
+    border: var(--normal-border) solid var(--secondary-text-color);
+    border-radius: var(--normal-radius);
+    padding: var(--small-gap) var(--normal-gap);
+    transition: var(--normal-transition);
+}
+
+.muted button:hover {
+    --secondary-text-color: var(--text-color);
+}

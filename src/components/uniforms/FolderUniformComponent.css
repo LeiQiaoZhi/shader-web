@@ -12,6 +12,7 @@
     border: var(--large-border) solid var(--background-color);
     border-radius: var(--folder-radius) var(--folder-radius) 0 0;
     transition: all var(--normal-transition);
+    font-weight: bold;
 }
 
 .folder-component-header label {

@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {createProgram, createShader} from "../utils/webglUtils";
-import {defaultFragmentShaderSource, defaultVertexShaderSource} from "../utils/webglConstants";
-import '../styles/ShaderCanvas.css'
-import FileSelect from "./FileSelect";
-import {Shader} from "../utils/Shader";
-import {useShaderContext} from "../utils/ShaderContext";
+import {createProgram, createShader} from "../../utils/webglUtils";
+import {defaultFragmentShaderSource, defaultVertexShaderSource} from "../../utils/webglConstants";
+import './ShaderCanvas.css'
+import FileSelect from "../common/FileSelect";
+import {Shader} from "../../utils/Shader";
+import {useShaderContext} from "../../utils/ShaderContext";
 import ShaderStatusBar from "./ShaderStatusBar";
+import ShaderAnimationControl from "./ShaderAnimationControl";
 
 
 interface ShaderCanvasProps {
@@ -15,8 +16,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     // create a mutable canvas object that lives for the lifetime of this component
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const pausedRef = useRef<boolean>(false);
+    const speedRef = useRef<number>(1.0);
     const previousFrameTime = useRef<number>(0);
-    const elapsedTime = useRef<number>(0);
+    const elapsedTimeRef = useRef<number>(0);
     const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const {setShader, setStatus} = useShaderContext();
@@ -33,9 +35,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
         if (!vertexShaderResult || !fragmentShaderResult) return;
         const {shader: vertexShader} = vertexShaderResult;
-        const {shader: fragmentShader, status: shaderStatus } = fragmentShaderResult;
+        const {shader: fragmentShader, status: shaderStatus} = fragmentShaderResult;
         setStatus(shaderStatus);
-        
+
         if (!vertexShader || !fragmentShader) return;
         const program = createProgram(gl, vertexShader, fragmentShader);
         if (!program) return;
@@ -63,6 +65,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 console.log("Setting new shader")
                 setShader(shader);
                 firstRenderLoop = false;
+                elapsedTimeRef.current = 0;
             }
             gl.clear(gl.COLOR_BUFFER_BIT);
             shader.activate();
@@ -74,8 +77,8 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             // animation and resolution uniforms
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
-                elapsedTime.current += deltaTime;
-                shader.setUniformFloat("iTime", elapsedTime.current * 0.001);
+                elapsedTimeRef.current += deltaTime * speedRef.current;
+                shader.setUniformFloat("iTime", elapsedTimeRef.current * 0.001);
             }
             shader.setUniformVec2I("iResolution", gl.canvas.width, gl.canvas.height);
 
@@ -115,10 +118,6 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         reader.readAsText(file);
     }
 
-    const handlePauseToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
-        pausedRef.current = !pausedRef.current;
-        setPausedState(pausedRef.current);
-    }
 
     return (
         <div className='shader-canvas-container'>
@@ -128,11 +127,8 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             </div>
             <ShaderStatusBar width={600}/>
             <canvas ref={canvasRef} width={600} height={600}/>
-            <div className='shader-canvas-time-control-header'>
-                <button onClick={handlePauseToggle}>
-                    {pausedState ? 'Resume' : 'Pause'}
-                </button>
-            </div>
+            <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef} elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState} />
+           
         </div>
     );
 };
