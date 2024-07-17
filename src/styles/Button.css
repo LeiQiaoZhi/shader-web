@@ -16,7 +16,7 @@ button:hover {
     color: var(--primary-color);
 }
 
-.muted button {
+.muted button, button.muted {
     background: none;
     color: var(--secondary-text-color);
     border: var(--normal-border) solid var(--secondary-text-color);
@@ -25,6 +25,7 @@ button:hover {
     transition: var(--normal-transition);
 }
 
-.muted button:hover {
+.muted button:hover, 
+button.muted:hover {
     --secondary-text-color: var(--text-color);
 }

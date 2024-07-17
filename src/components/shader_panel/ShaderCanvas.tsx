@@ -78,7 +78,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
-                shader.setUniformFloat("iTime", elapsedTimeRef.current * 0.001);
+                shader.setUniformFloat("iTime", elapsedTimeRef.current * 0.01);
             }
             shader.setUniformVec2I("iResolution", gl.canvas.width, gl.canvas.height);
 

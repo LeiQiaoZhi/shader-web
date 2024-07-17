@@ -1,19 +1,29 @@
 import * as TOML from "toml";
 
-export interface TomlData {
+export interface ConfigData {
     [key: string]: any; // This allows for dynamic keys
 }
 
 class ConfigManager {
-    private configData: any;
+    private configData: ConfigData;
+    private fileName: string;
 
     constructor() {
         this.configData = {};
+        this.fileName = "unknown";
     }
 
     async loadFile(file: File): Promise<void> {
         const fileContents = await this.readFile(file);
-        this.configData = TOML.parse(fileContents);
+        if (file.name.endsWith(".toml")) {
+            this.configData = TOML.parse(fileContents);
+        } else if (file.name.endsWith(".json")) {
+            this.configData = JSON.parse(fileContents);
+        } else {
+            throw new Error(`Unknown file "${file.name}", only support TOML and JSON configs`);
+        }
+        
+        this.fileName = file.name;
         console.log(this.configData);
     }
 
@@ -42,6 +52,16 @@ class ConfigManager {
         this.configData[key] = value;
     }
 
+    getConfigAsString() {
+        const str = JSON.stringify(this.configData);
+        console.log(this.configData);
+        console.log(str);
+        return str;
+    }
+
+    getFileName() {
+        return this.fileName;
+    }
 }
 
 export default ConfigManager;

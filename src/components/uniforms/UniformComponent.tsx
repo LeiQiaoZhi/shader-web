@@ -1,5 +1,5 @@
 import React from "react";
-import {TomlData} from "../../utils/ConfigManager";
+import {ConfigData} from "../../utils/ConfigManager";
 import CheckboxUniformComponent from "./CheckboxUniformComponent";
 import SliderUniformComponent from "./SliderUniformComponent";
 import ColorUniformComponent from "./ColorUniformComponent";
@@ -8,7 +8,7 @@ import FolderUniformComponent from "./FolderUniformComponent";
 import DropdownUniformComponent from "./DropdownUniformComponent";
 
 interface UniformsComponentProps {
-    uniformConfig: TomlData;
+    uniformConfig: ConfigData;
 }
 
 const UniformComponent: React.FC<UniformsComponentProps> = ({uniformConfig}) => {

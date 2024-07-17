@@ -25,10 +25,10 @@
 [data-theme="light"] {
     --primary-color: #3498db;
     --secondary-color: #d7fdff;
-    --background-color: #ffffff;
-    --secondary-background-color: #f1f1f1;
-    --text-color: #1d1d1d;
-    --secondary-text-color: #556067;
+    --background-color: #f8f8f8;
+    --secondary-background-color: #e5eaee;
+    --text-color: #1e1e1e;
+    --secondary-text-color: #7f766f;
     --contrast-color: #f46e3e;
 }
 
@@ -38,7 +38,7 @@
     --secondary-color: #d7fdff;
     --background-color: #404040;
     --secondary-background-color: #2d2d2d;
-    --text-color: #f1f1f1;
+    --text-color: #eaeaea;
     --secondary-text-color: #838e98;
     --contrast-color: #ff8142;
 }

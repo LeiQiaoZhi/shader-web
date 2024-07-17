@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./FolderUniformComponent.css"
-import {TomlData} from "../../utils/ConfigManager";
+import {ConfigData} from "../../utils/ConfigManager";
 import UniformComponent from "./UniformComponent";
 
 const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
@@ -25,7 +25,7 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
                  data-expanded={value}
             >
                 {
-                    config.children.map((uniformConfig: TomlData, i: number) => {
+                    config.children.map((uniformConfig: ConfigData, i: number) => {
                         return (
                             <div key={i}>
                                 <UniformComponent uniformConfig={uniformConfig}/>

@@ -18,7 +18,6 @@
 
     --app-gap: var(--normal-gap);
     gap: var(--app-gap);
-    /*padding: 0 var(--app-gap);*/
     box-sizing: border-box;
 
     background-color: var(--background-color);

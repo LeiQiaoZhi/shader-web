@@ -1,5 +1,5 @@
 import {hexToRgba} from "./webglUtils";
-import {TomlData} from "./ConfigManager";
+import {ConfigData} from "./ConfigManager";
 
 export class Shader {
     private gl: WebGLRenderingContext;
@@ -54,7 +54,7 @@ export class Shader {
         this.gl.uniform2i(uniformLocation, value1, value2);
     }
 
-    public setUniform(config: TomlData) {
+    public setUniform(config: ConfigData) {
         const name = config.gl.name;
         const value = config.ui.value;
         switch (config.gl.type) {

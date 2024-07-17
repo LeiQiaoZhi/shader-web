@@ -1,0 +1,156 @@
+{
+  "title": "Test Config",
+  "uniforms": [
+    {
+      "name": "Outer",
+      "ui": {
+        "type": "folder",
+        "value": true
+      },
+      "children": [
+        {
+          "name": "Outer Shape",
+          "gl": {
+            "type": "int",
+            "name": "iShape"
+          },
+          "ui": {
+            "type": "dropdown",
+            "value": 1,
+            "options": [
+              "Square",
+              "Circle",
+              "Diamond"
+            ]
+          }
+        },
+        {
+          "name": "Background Color",
+          "gl": {
+            "type": "color4",
+            "name": "iBackgroundColor"
+          },
+          "ui": {
+            "type": "color",
+            "value": "#ffc2c2"
+          }
+        },
+        {
+          "name": "Outline Color",
+          "gl": {
+            "type": "color4",
+            "name": "iOutlineColor"
+          },
+          "ui": {
+            "type": "color",
+            "value": "#7b2424"
+          }
+        },
+        {
+          "name": "Outline Thickness",
+          "gl": {
+            "type": "float",
+            "name": "iOutlineThickness"
+          },
+          "ui": {
+            "type": "slider",
+            "value": 0.018,
+            "min": 0,
+            "max": 0.2,
+            "step": 0.001
+          }
+        }
+      ]
+    },
+    {
+      "name": "Checker",
+      "ui": {
+        "type": "folder",
+        "value": true
+      },
+      "children": [
+        {
+          "name": "Number of Checkers",
+          "gl": {
+            "type": "int",
+            "name": "iNumCheckers"
+          },
+          "ui": {
+            "type": "slider",
+            "value": 9,
+            "min": 0,
+            "max": 20,
+            "step": 1
+          }
+        },
+        {
+          "name": "Checker Color 1",
+          "gl": {
+            "type": "color3",
+            "name": "iColor1"
+          },
+          "ui": {
+            "type": "color",
+            "value": "#ffd7c2"
+          }
+        },
+        {
+          "name": "Checker Color 2",
+          "gl": {
+            "type": "color3",
+            "name": "iColor2"
+          },
+          "ui": {
+            "type": "color",
+            "value": "#7b2424"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stripe",
+      "ui": {
+        "type": "folder",
+        "value": true
+      },
+      "children": [
+        {
+          "name": "Number of Stripes",
+          "gl": {
+            "type": "int",
+            "name": "iNumStripes"
+          },
+          "ui": {
+            "type": "slider",
+            "value": 16,
+            "min": 0,
+            "max": 20,
+            "step": 1
+          }
+        },
+        {
+          "name": "Stripe Color 1",
+          "gl": {
+            "type": "color3",
+            "name": "iStripeColor1"
+          },
+          "ui": {
+            "type": "color",
+            "value": "#ffa552"
+          }
+        },
+        {
+          "name": "Stripe Color 2",
+          "gl": {
+            "type": "color3",
+            "name": "iStripeColor2"
+          },
+          "ui": {
+            "type": "color",
+            "value": "#ffd599"
+          }
+        }
+      ]
+    }
+  ]
+}

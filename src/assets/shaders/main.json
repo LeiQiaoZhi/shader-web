@@ -1,0 +1,1 @@
+{"title":"Test Config","uniforms":[{"name":"A Float Uniform","gl":{"type":"float","name":"iFloat"},"ui":{"type":"slider","value":1,"min":0,"max":1,"step":0.1}},{"name":"A Bool Uniform","gl":{"type":"bool","name":"iBool"},"ui":{"type":"checkbox","value":false}},{"name":"A Color Uniform","gl":{"type":"color4","name":"iColor"},"ui":{"type":"color","value":"#3498db"}}]}
