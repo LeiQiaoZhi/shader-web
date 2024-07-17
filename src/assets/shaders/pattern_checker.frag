@@ -21,6 +21,8 @@ uniform int iNumStripes;
 uniform vec3 iStripeColor1;
 uniform vec3 iStripeColor2;
 
+uniform float iAntiAliasAmount;
+
 float sdf_circle(in vec2 _uv, in vec2 _center, in float _radius) {
     return distance(_uv, _center) - _radius;
 }
@@ -34,9 +36,21 @@ vec4 color_from_shape(in vec3 _color, in vec2 _uv) {
     if (iShape == SHAPE_CIRCLE) {
         float radius = 0.45;
         const vec2 center = vec2(0.5, 0.5);
-        bool inCircle = sdf_circle(_uv, center, radius) <= 0.0;
-        bool inOutline = !inCircle && (sdf_circle(_uv, center, radius + iOutlineThickness) <= 0.0);
-        return inCircle ? color : inOutline ? iOutlineColor : iBackgroundColor;
+        float toCircle = sdf_circle(_uv, center, radius);
+        bool inCircle = toCircle <= 0.0;
+        float toOutline = toCircle - iOutlineThickness / 2.0;
+        bool inOutline = !inCircle && (toOutline <= 0.0);
+        //        return inCircle ? color : inOutline ? iOutlineColor : iBackgroundColor;
+        float threshold = 0.001 * iAntiAliasAmount;
+        float circleWeight = smoothstep(threshold, -threshold, toCircle);
+        float outlineWeight = smoothstep(threshold, 0.0, max(0.0, abs(toOutline) - iOutlineThickness * 0.5));
+        float backgroundWeight = smoothstep(-threshold, threshold, toOutline - iOutlineThickness * 0.5);
+        vec3 weights = vec3(circleWeight, outlineWeight, backgroundWeight);
+        weights /= weights.x + weights.y + weights.z;
+        //        return vec4(vec3(backgroundWeight), 1.0);
+        //        return vec4(weights, 1.0);
+        vec4 result = weights.x * color + weights.y * iOutlineColor + weights.z * iBackgroundColor;
+        return vec4(result.xyz, 1.0);
     }
     if (iShape == SHAPE_DIAMOND) {
         return vec4(0, 1, 0, 1);

@@ -1,5 +1,6 @@
 @import "./Button.css";
 @import "./Slider.css";
+@import "./NumberInput.css";
 
 .app {
     display: flex;

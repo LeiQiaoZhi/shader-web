@@ -28,7 +28,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         console.log("Starting WebGL")
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const gl = canvas.getContext('webgl');
+        const gl = canvas.getContext('webgl', {'antialias': true});
         if (!gl) return;
 
         const vertexShaderResult = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
