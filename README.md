@@ -24,6 +24,7 @@
   - [x] checkbox for bool
   - [x] fold-able component
   - [x] dropdown
+  - [ ] image/texture component
 - [x] iResolution uniform
 - [x] shader compilation error message
 - [x] animation control
@@ -34,3 +35,4 @@
 - [x] responsive design ui
 - [x] manually specify viewport dimension
 - [ ] **online editor**
+- [ ] access the previous frame as a uniform (also the dimension)
