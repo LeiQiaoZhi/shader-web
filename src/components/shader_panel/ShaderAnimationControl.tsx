@@ -35,7 +35,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
     }
 
     return (
-        <div className={"shader-animation-control-container" + (pausedState ? " muted" : "")}>
+        <div className={"shader-row-control-container" + (pausedState ? " muted" : "")}>
             <button onClick={handlePauseToggle} >
                 {pausedState ? 'Resume' : 'Pause'}
             </button>

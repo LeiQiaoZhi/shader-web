@@ -1,0 +1,8 @@
+.shader-dimension-control label {
+    align-self: center;
+}
+
+.shader-dimension-control {
+    justify-content: start;
+    gap: var(--normal-gap);
+}

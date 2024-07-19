@@ -1,4 +1,4 @@
-.shader-animation-control-container {
+.shader-row-control-container {
     display: flex;
     flex-direction: row;
     gap: var(--normal-gap);

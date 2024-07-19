@@ -6,14 +6,14 @@
 **Key Features:**
 
 - render frag shader output using WebGL
-- use a `.toml` config file to specify the ui components for your uniforms
+- use a `.toml` or `.json` config file to specify the ui components for your uniforms
 - use the components to tweak your uniforms and see changes in real-time!
 - both light and dark themes
 
 
 ---
 
-## TODOs and Finished
+## TODOs and Finished Tasks
 
 - [x] frag shader rendering on a quad
 - [x] select shader file from local disk
@@ -31,6 +31,6 @@
   - [x] speed
   - [x] restart
 - [x] download config
-- [ ] **manually specify viewport dimension**
-- [ ] online editor
-- [ ] dynamic ui layout
+- [x] responsive design ui
+- [x] manually specify viewport dimension
+- [ ] **online editor**

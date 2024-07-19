@@ -7,10 +7,15 @@ import {Shader} from "../../utils/Shader";
 import {useShaderContext} from "../../utils/ShaderContext";
 import ShaderStatusBar from "./ShaderStatusBar";
 import ShaderAnimationControl from "./ShaderAnimationControl";
+import {ShaderDimensionControl} from "./ShaderDimensionControl";
+
+export const VIEWPORT_WIDTH: number = 600;
+export const VIEWPORT_HEIGHT: number = 600;
 
 
 interface ShaderCanvasProps {
 }
+
 
 const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     // create a mutable canvas object that lives for the lifetime of this component
@@ -21,6 +26,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const elapsedTimeRef = useRef<number>(0);
     const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
     const [pausedState, setPausedState] = useState(pausedRef.current);
+    const [viewportDimension, setViewportDimension] = useState([VIEWPORT_WIDTH, VIEWPORT_HEIGHT]);
     const {setShader, setStatus} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
@@ -99,7 +105,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             }
         };
 
-    }, [fragmentShaderSource]);
+    }, [fragmentShaderSource, viewportDimension]);
 
     const loadFragShaderFromFile = (file: File) => {
         if (!file) return;
@@ -125,10 +131,11 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             <div className='shader-canvas-file-selector-header'>
                 <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select"/>
             </div>
-            <ShaderStatusBar width={600}/>
-            <canvas ref={canvasRef} width={600} height={600}/>
-            <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef} elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState} />
-           
+            <ShaderStatusBar width={viewportDimension[0]}/>
+            <canvas ref={canvasRef} width={viewportDimension[0]} height={viewportDimension[1]}/>
+            <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef}
+                                    elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState}/>
+            <ShaderDimensionControl viewportDimension={viewportDimension} setViewportDimension={setViewportDimension}/>
         </div>
     );
 };
