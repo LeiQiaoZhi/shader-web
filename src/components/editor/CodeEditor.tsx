@@ -2,18 +2,17 @@ import React, {useEffect, useState} from 'react';
 import AceEditor from "react-ace";
 import "./CodeEditor.css"
 import "ace-builds/src-noconflict/mode-glsl"
-import {useThemeContext} from "../../utils/contexts/ThemeContext";
 import EditorThemeSelect from "./EditorThemeSelect";
 import EditorFontSizeSelect from "./EditorFontSizeSelect";
 import EditorKeybindingSelect from "./EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
 import EditorSettingCheckbox from "./EditorSettingCheckbox";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
+import {FaPlay} from "react-icons/fa";
 
 const CodeEditor = () => {
-    const {theme} = useThemeContext();
     const {shaderSource, setShaderSource} = useShaderContext();
-    const [editorTheme, setEditorTheme] = useState("Follow");
+    const [editorTheme, setEditorTheme] = useState("");
     const [editorFontSize, setEditorFontSize] = useState("medium");
     const [keybinding, setKeybinding] = useState("vim");
     const [showLineNumbers, setShowLineNumbers] = useState(false);
@@ -36,11 +35,7 @@ const CodeEditor = () => {
                 value={editorShaderSource}
                 onChange={e => setEditorShaderSource(e)}
                 mode="glsl"
-                theme={
-                    editorTheme === "Follow"
-                        ? (theme === "light" ? "clouds" : "github_dark")
-                        : editorTheme
-                }
+                theme={editorTheme}
                 width="100%"
                 fontSize={editorFontSize}
                 editorProps={{$blockScrolling: true}}
@@ -61,7 +56,7 @@ const CodeEditor = () => {
                 <button
                     onClick={e => setShaderSource(editorShaderSource)}
                 >
-                    Compile
+                    <FaPlay/>
                 </button>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>
                 <EditorThemeSelect editorTheme={editorTheme} setEditorTheme={setEditorTheme}/>

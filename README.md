@@ -47,6 +47,8 @@
   - [x] toggle line number and other editor settings
   - [x] load a default template
   - [x] pass code to shader
+  - [ ] export file
+  - [ ] save file and settings on browser
 - [ ] button to toggle visibility of a panel
 - [ ] icons
 - [ ] access the previous frame as a uniform (also the dimension)

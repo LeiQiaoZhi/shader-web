@@ -1,5 +1,5 @@
 .shader-dimension-control {
-    justify-content: center;
+    justify-content: left;
     gap: var(--normal-gap);
 }
 

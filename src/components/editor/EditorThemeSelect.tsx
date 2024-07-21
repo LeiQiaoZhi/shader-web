@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "ace-builds/src-noconflict/theme-github_dark"
 import "ace-builds/src-noconflict/theme-github"
 import "ace-builds/src-noconflict/theme-clouds"
@@ -10,6 +10,7 @@ import "ace-builds/src-noconflict/theme-chaos"
 import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-noconflict/theme-chrome"
 import "ace-builds/src-noconflict/theme-solarized_light"
+import {useThemeContext} from "../../utils/contexts/ThemeContext";
 
 interface EditorThemeSelectProps {
     editorTheme: string,
@@ -17,6 +18,14 @@ interface EditorThemeSelectProps {
 }
 
 const EditorThemeSelect: React.FC<EditorThemeSelectProps> = ({setEditorTheme, editorTheme}) => {
+    const {theme} = useThemeContext();
+    const defaultDarkTheme = "dracula";
+    const defaultLightTheme = "chrome";
+
+    useEffect(() => {
+        setEditorTheme((theme === 'dark') ? defaultDarkTheme : defaultLightTheme);
+    }, [theme, setEditorTheme]);
+
     return (
         <div className="editor-settings-select">
             <label>
@@ -24,7 +33,11 @@ const EditorThemeSelect: React.FC<EditorThemeSelectProps> = ({setEditorTheme, ed
             </label>
             <select value={editorTheme}
                     onChange={(e) => setEditorTheme(e.target.value)}>
-                <option value="Follow">Follow website</option>
+                <option value={
+                    (theme === 'dark') ? defaultDarkTheme : defaultLightTheme
+                }>
+                    Follow website
+                </option>
                 <option value="github_dark">Github Dark</option>
                 <option value="chrome">Chrome</option>
                 <option value="dracula">Dracula</option>

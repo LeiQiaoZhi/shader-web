@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./ShaderAnimationControl.css"
+import {FaPlay, FaPlayCircle} from "react-icons/fa";
+import {FaPause} from "react-icons/fa6";
+import {LuListRestart} from "react-icons/lu";
+import {MdRestartAlt} from "react-icons/md";
+import {IoPlayBack} from "react-icons/io5";
 
 interface ShaderAnimationControlProps {
     pausedState: boolean,
@@ -17,14 +22,14 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
         elapsedTimeRef,
         setPausedState
     }) => {
-    
+
     const [speed, setSpeed] = useState(speedRef.current);
 
     const handlePauseToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
         pausedRef.current = !pausedRef.current;
         setPausedState(pausedRef.current);
     }
-    
+
     const handleRestart = (event: React.MouseEvent<HTMLButtonElement>) => {
         elapsedTimeRef.current = 0;
     }
@@ -36,15 +41,18 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
 
     return (
         <div className={"shader-row-control-container" + (pausedState ? " muted" : "")}>
-            <button onClick={handlePauseToggle} >
-                {pausedState ? 'Resume' : 'Pause'}
+            <button onClick={handlePauseToggle}>
+                {pausedState
+                    ? (<FaPlayCircle title="Resume"/>)
+                    : (<FaPause/>)
+                }
             </button>
             <div className="shader-animation-speed-control">
                 <label>Speed: {speed.toFixed(2)}</label>
                 <input type="range" onChange={handleSpeedChange} min={0} max={2} step={0.01} defaultValue={1}/>
             </div>
             <button onClick={handleRestart}>
-                Restart
+                <IoPlayBack/>
             </button>
         </div>
     );
