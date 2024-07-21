@@ -25,14 +25,18 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
                 onClick={() => setViewportDimension([width, height])}
             >Set Dimension
             </button>
-            <label>Width</label>
-            <input type="number" value={width} onChange={
-                e => setWidth(e.target.valueAsNumber)
-            }/>
-            <label>Height</label>
-            <input type="number" value={height} onChange={
-                e => setHeight(e.target.valueAsNumber)
-            }/>
+            <label>
+                Width
+                <input type="number" value={width} onChange={
+                    e => setWidth(e.target.valueAsNumber)
+                }/>
+            </label>
+            <label>
+                Height
+                <input type="number" value={height} onChange={
+                    e => setHeight(e.target.valueAsNumber)
+                }/>
+            </label>
             <button
                 onClick={() => setViewportDimension([VIEWPORT_WIDTH, VIEWPORT_HEIGHT])}
             >

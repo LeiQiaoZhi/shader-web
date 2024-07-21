@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
-import {Shader} from "./Shader";
+import {Shader} from "../Shader";
 
 export interface IShaderStatus {
     success: boolean;

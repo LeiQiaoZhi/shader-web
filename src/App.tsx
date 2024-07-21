@@ -3,18 +3,25 @@ import ShaderCanvas from "./components/shader_panel/ShaderCanvas";
 import UniformsPanel from "./components/uniforms/UniformsPanel";
 import './styles/App.css';
 import AppHeader from "./components/app_header/AppHeader";
-import {ShaderContextProvider} from "./utils/ShaderContext";
+import {ShaderContextProvider} from "./utils/contexts/ShaderContext";
+
+import CodeEditor from "./components/editor/CodeEditor";
+import {ThemeContextProvider} from "./utils/contexts/ThemeContext";
 
 function App() {
     return (
         <ShaderContextProvider>
-            <div className="app">
-                <AppHeader/>
-                <div className="app-body">
-                    <UniformsPanel/>
-                    <ShaderCanvas/>
+            <ThemeContextProvider>
+                <div className="app">
+                    <AppHeader/>
+                    <div className="app-body">
+                        <UniformsPanel/>
+                        <ShaderCanvas/>
+                        <CodeEditor/>
+
+                    </div>
                 </div>
-            </div>
+            </ThemeContextProvider>
         </ShaderContextProvider>
     );
 }

@@ -25,7 +25,8 @@
   - [x] fold-able component
   - [x] dropdown
   - [ ] image/texture component
-- [x] iResolution uniform
+- [ ] iResolution uniform
+- [ ] iMouse uniform
 - [x] shader compilation error message
 - [x] animation control
   - [x] pause and resume
@@ -34,5 +35,15 @@
 - [x] download config
 - [x] responsive design ui
 - [x] manually specify viewport dimension
-- [ ] **online editor**
+- [ ] **online editor (ace)**
+  - [x] glsl syntax highlighting
+  - [x] vim Mode
+    - [x] switch between different keybindings
+  - [x] themes
+  - [x] font-sizes
+  - [x] toggle line number and other editor settings
+  - [ ] load a default template
+  - [ ] pass code to shader
+- [ ] button to toggle visibility of a panel
+- [ ] icons
 - [ ] access the previous frame as a uniform (also the dimension)

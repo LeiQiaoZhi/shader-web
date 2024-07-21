@@ -6,14 +6,3 @@
     align-items: center;
     gap: var(--normal-gap);
 }
-
-.dropdown-component-container select {
-    font-family: var(--font) sans-serif;
-    font-weight: bold;
-    border: var(--normal-border) solid var(--primary-color);
-    border-radius: var(--normal-radius);
-    background: none;
-    color: var(--primary-color);
-    outline: none;
-    padding: calc(var(--small-gap)/2) var(--small-gap);
-}

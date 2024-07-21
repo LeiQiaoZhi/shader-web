@@ -1,4 +1,4 @@
-import {IShaderStatus} from "./ShaderContext";
+import {IShaderStatus} from "./contexts/ShaderContext";
 
 interface ICreateShaderReturn {
     shader: WebGLShader | null;

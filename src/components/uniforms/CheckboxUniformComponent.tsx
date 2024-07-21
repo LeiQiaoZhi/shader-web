@@ -2,7 +2,7 @@ import React, {useEffect, useId, useRef, useState} from 'react';
 import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./CheckboxUniformComponent.css"
 import TooltipLabel from "../common/TooltipLabel";
-import {useShaderContext} from "../../utils/ShaderContext";
+import {useShaderContext} from "../../utils/contexts/ShaderContext";
 
 const CheckboxUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();

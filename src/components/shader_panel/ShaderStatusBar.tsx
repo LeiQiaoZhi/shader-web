@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useShaderContext} from "../../utils/ShaderContext";
+import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import "./ShaderStatusBar.css"
 
 interface ShaderStatusBarProps {

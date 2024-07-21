@@ -1,0 +1,47 @@
+.multiselect-children {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background-color);
+    border: var(--small-border) solid var(--secondary-background-color);
+    border-radius: var(--small-radius);
+
+    width: max-content;
+    padding: var(--normal-gap);
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: var(--small-gap);
+}
+
+.multiselect-children-container {
+    position: relative;
+    z-index: 10;
+}
+
+.multiselect {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.multiselect button {
+    flex: 1;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--primary-color);
+}
+
+.multiselect-click-outside {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: var(--primary-color);
+    opacity: 0;
+}

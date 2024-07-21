@@ -2,7 +2,7 @@ import React, {useEffect, useId, useState} from 'react';
 import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./DropdownUniformComponent.css"
 import TooltipLabel from "../common/TooltipLabel";
-import {useShaderContext} from "../../utils/ShaderContext";
+import {useShaderContext} from "../../utils/contexts/ShaderContext";
 
 const DropdownUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const [selected, setSelected] = useState(0);

@@ -1,6 +1,7 @@
 @import "./Button.css";
 @import "./Slider.css";
 @import "./NumberInput.css";
+@import "./Select.css";
 
 .app {
     display: flex;
@@ -20,6 +21,7 @@
     align-items: stretch;
     min-width: min-content;
     overflow-y: hidden;
+    overflow-x: hidden;
 
     --app-gap: var(--normal-gap);
     gap: var(--app-gap);
@@ -53,6 +55,7 @@ h2 {
 
 ::-webkit-scrollbar-track {
     background-color: var(--secondary-background-color);
+    margin: var(--small-gap);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -65,7 +68,9 @@ h2 {
 }
 
 ::-webkit-scrollbar{
-    width: var(--normal-gap);
+    width: var(--small-gap);
+    height: var(--small-gap);
+    display: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

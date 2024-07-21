@@ -1,0 +1,41 @@
+.editor {
+    flex: 2;
+    width: min-content;
+    overflow: visible;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: var(--normal-gap);
+    gap: var(--normal-gap);
+
+    background-color: var(--secondary-background-color);
+}
+
+#ace-editor {
+    font-family: var(--font), sans-serif;
+    flex: 1;
+}
+
+.editor-bottom-control {
+    display: flex;
+    width: max-content;
+    flex-direction: row;
+    overflow: visible;
+    align-items: stretch;
+    gap: var(--normal-gap);
+}
+
+.editor-bottom-control select {
+    font-size: var(--small-font-size);
+}
+
+
+.editor-settings-select {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--small-font-size);
+    gap: var(--small-gap);
+    color: var(--secondary-text-color);
+}

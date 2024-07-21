@@ -4,13 +4,13 @@ import {defaultFragmentShaderSource, defaultVertexShaderSource} from "../../util
 import './ShaderCanvas.css'
 import FileSelect from "../common/FileSelect";
 import {Shader} from "../../utils/Shader";
-import {useShaderContext} from "../../utils/ShaderContext";
+import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import ShaderStatusBar from "./ShaderStatusBar";
 import ShaderAnimationControl from "./ShaderAnimationControl";
 import {ShaderDimensionControl} from "./ShaderDimensionControl";
 
-export const VIEWPORT_WIDTH: number = 600;
-export const VIEWPORT_HEIGHT: number = 600;
+export const VIEWPORT_WIDTH: number = 400;
+export const VIEWPORT_HEIGHT: number = 400;
 
 
 interface ShaderCanvasProps {
@@ -126,7 +126,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
 
 
     return (
-        <div className='shader-canvas-container'>
+        <div className='shader-canvas-container' style={{width: `${viewportDimension}`}}>
             <h2>Shader Output</h2>
             <div className='shader-canvas-file-selector-header'>
                 <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select"/>

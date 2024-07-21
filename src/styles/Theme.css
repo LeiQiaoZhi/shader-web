@@ -1,11 +1,11 @@
 :root {
     --large-gap: 1.0rem;
-    --normal-gap: 0.5rem;
-    --small-gap: 0.2rem;
+    --normal-gap: 0.6rem;
+    --small-gap: 0.4rem;
     
-    --large-font-size: 2rem;
+    --large-font-size: 1.6rem;
     --normal-font-size: 1.2rem;
-    --small-font-size: 0.8rem;
+    --small-font-size: 1.0rem;
     
     --large-radius: 24px;
     --normal-radius: 12px;
