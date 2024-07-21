@@ -38,18 +38,21 @@
 - [x] download config
 - [x] responsive design ui
 - [x] manually specify viewport dimension
-- [ ] **online editor (ace)**
+- [x] **online editor (ace)**
   - [x] glsl syntax highlighting
-  - [x] vim Mode
+  - [x] vim mode
     - [x] switch between different keybindings
   - [x] themes
   - [x] font-sizes
   - [x] toggle line number and other editor settings
   - [x] load a default template
   - [x] pass code to shader
-  - [ ] export file
-  - [ ] save file and settings on browser
-- [ ] button to toggle visibility of a panel
-- [ ] icons
+  - [x] export file
+- [ ] **save file and settings on browser**
+- [x] button to toggle visibility of a panel
+  - [ ] vertical title of hidden panels
+- [x] icons
+- [ ] animate compile status message
 - [ ] access the previous frame as a uniform (also the dimension)
 - [ ] create uniform components from ui (instead of writing the config by hand)
+- [ ] keyboard shortcuts (compile, set dimension)

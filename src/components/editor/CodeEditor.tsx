@@ -8,7 +8,10 @@ import EditorKeybindingSelect from "./EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
 import EditorSettingCheckbox from "./EditorSettingCheckbox";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
-import {FaPlay} from "react-icons/fa";
+import {FaFileDownload, FaPlay} from "react-icons/fa";
+import PanelHeader from "../common/PanelHeader";
+import IconButton from "../common/IconButton";
+import {exportStringForDownload} from "../../utils/browerUtils";
 
 const CodeEditor = () => {
     const {shaderSource, setShaderSource} = useShaderContext();
@@ -21,22 +24,31 @@ const CodeEditor = () => {
     const [wrap, setWrap] = useState(false);
     const [highlightLine, setHighlightLine] = useState(true);
     const [editorShaderSource, setEditorShaderSource] = useState("");
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         setEditorShaderSource(shaderSource);
     }, [shaderSource]);
 
+    const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
+        const fileName = "shader.frag";
+        exportStringForDownload(editorShaderSource, fileName);
+    }
+
     return (
-        <div className="editor">
-            <div className="editor-header">
-                <h2>Code</h2>
-            </div>
+        <div className="editor" data-visible={isVisible}>
+            <PanelHeader title={"Code"} isVisible={isVisible} setVisible={setIsVisible}>
+                <div onClick={handleExportCode}>
+                    <FaFileDownload/>
+                </div>
+            </PanelHeader>
+
             <AceEditor
                 value={editorShaderSource}
                 onChange={e => setEditorShaderSource(e)}
                 mode="glsl"
                 theme={editorTheme}
-                width="100%"
+                width={isVisible ? "100%" : "0"}
                 fontSize={editorFontSize}
                 editorProps={{$blockScrolling: true}}
                 setOptions={{
@@ -52,12 +64,13 @@ const CodeEditor = () => {
                 highlightActiveLine={highlightLine}
                 keyboardHandler={keybinding}
             />
-            <div className="editor-bottom-control">
-                <button
+            <div className="editor-bottom-control" data-visible={isVisible}>
+                <IconButton
                     onClick={e => setShaderSource(editorShaderSource)}
+                    size="large" padding="normal"
                 >
                     <FaPlay/>
-                </button>
+                </IconButton>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>
                 <EditorThemeSelect editorTheme={editorTheme} setEditorTheme={setEditorTheme}/>
                 <EditorKeybindingSelect keybinding={keybinding} setKeybinding={setKeybinding}/>

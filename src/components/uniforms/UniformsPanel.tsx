@@ -3,14 +3,17 @@ import "./UniformsPanel.css"
 import ConfigManager, {ConfigData} from "../../utils/ConfigManager";
 import FileSelect from "../common/FileSelect";
 import UniformComponent from "./UniformComponent";
+import PanelHeader from "../common/PanelHeader";
+import {FaFileDownload} from "react-icons/fa";
+import {exportStringForDownload} from "../../utils/browerUtils";
 
 interface UniformsPanelProps {
 }
 
 const UniformsPanel: React.FC<UniformsPanelProps> = () => {
-
     const configManagerRef = useRef<ConfigManager>(new ConfigManager());
     const [uniformsObject, setUniformsObject] = useState<ConfigData[]>([]);
+    const [isVisible, setIsVisible] = useState(true);
 
     const onConfigFileSelect = async (file: File) => {
         try {
@@ -21,21 +24,20 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
         }
     }
 
-    const handleExportConfig = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleExportConfig = (event: React.MouseEvent<any>) => {
         const configAsString = configManagerRef.current.getConfigAsString();
-        const blob = new Blob([configAsString], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = configManagerRef.current.getFileName().replace(".toml", ".json");
-        a.click();
-        URL.revokeObjectURL(url);
+        const fileName = configManagerRef.current.getFileName().replace(".toml", ".json");
+        exportStringForDownload(configAsString, fileName);
     }
 
     return (
-        <div className="uniforms-panel">
-            <h2>Uniforms</h2>
-            <FileSelect onFileSelect={onConfigFileSelect} accept=".toml, .json" id="config select"/>
+        <div className="uniforms-panel" data-visible={isVisible}>
+            <PanelHeader title="Uniforms" isVisible={isVisible} setVisible={setIsVisible}>
+                <div onClick={handleExportConfig}>
+                    <FaFileDownload/>
+                </div>
+            </PanelHeader>
+            <FileSelect onFileSelect={onConfigFileSelect} accept=".toml, .json" id="config select" title="Config"/>
             <div className="uniforms-components-container">
                 {
                     uniformsObject.map((uniformConfig: ConfigData, i: number) => {
@@ -47,9 +49,6 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
                     })
                 }
             </div>
-            <button className="muted" onClick={handleExportConfig}>
-                Export Config
-            </button>
         </div>
     )
 }

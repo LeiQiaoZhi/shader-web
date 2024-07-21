@@ -39,3 +39,11 @@
     gap: var(--small-gap);
     color: var(--secondary-text-color);
 }
+
+.editor[data-visible="false"] > *:not(.panel-header) {
+    display: none;
+}
+
+.editor[data-visible="false"] {
+    flex: 0;
+}

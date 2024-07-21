@@ -5,6 +5,7 @@ import {FaPause} from "react-icons/fa6";
 import {LuListRestart} from "react-icons/lu";
 import {MdRestartAlt} from "react-icons/md";
 import {IoPlayBack} from "react-icons/io5";
+import IconButton from "../common/IconButton";
 
 interface ShaderAnimationControlProps {
     pausedState: boolean,
@@ -41,19 +42,19 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
 
     return (
         <div className={"shader-row-control-container" + (pausedState ? " muted" : "")}>
-            <button onClick={handlePauseToggle}>
+            <IconButton onClick={handlePauseToggle}>
                 {pausedState
                     ? (<FaPlayCircle title="Resume"/>)
                     : (<FaPause/>)
                 }
-            </button>
+            </IconButton>
             <div className="shader-animation-speed-control">
                 <label>Speed: {speed.toFixed(2)}</label>
                 <input type="range" onChange={handleSpeedChange} min={0} max={2} step={0.01} defaultValue={1}/>
             </div>
-            <button onClick={handleRestart}>
+            <IconButton onClick={handleRestart}>
                 <IoPlayBack/>
-            </button>
+            </IconButton>
         </div>
     );
 }

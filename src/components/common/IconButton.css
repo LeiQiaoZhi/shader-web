@@ -1,0 +1,10 @@
+.icon-button.muted,
+.muted.icon-button,
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center !important;
+    height: min-content !important;
+    width: min-content !important;
+}

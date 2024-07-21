@@ -4,7 +4,7 @@
     flex: 1;
     max-width: 400px;
     min-width: 300px;
-    
+
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
@@ -27,4 +27,13 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+}
+
+.uniforms-panel[data-visible="false"] > *:not(.panel-header) {
+    display: none;
+}
+
+.uniforms-panel[data-visible="false"] {
+    min-width: min-content;
+    flex: 0;
 }

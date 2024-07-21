@@ -1,8 +1,9 @@
 
 button {
+    box-sizing: border-box;
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    border: none;
+    border: var(--normal-border) solid var(--primary-color);
     border-radius: var(--normal-radius);
     padding: var(--small-gap) var(--normal-gap);
     transition: var(--normal-transition);
@@ -21,7 +22,6 @@ button:hover {
     color: var(--secondary-text-color);
     border: var(--normal-border) solid var(--secondary-text-color);
     border-radius: var(--normal-radius);
-    padding: var(--small-gap) var(--normal-gap);
     transition: var(--normal-transition);
 }
 

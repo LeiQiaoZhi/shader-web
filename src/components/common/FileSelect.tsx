@@ -1,13 +1,21 @@
 import React, {useState} from "react";
 import "./FileSelect.css"
+import {FaFileUpload} from "react-icons/fa";
 
 interface FileSelectProps {
     onFileSelect: (file: File) => void;
     id: string;
     accept?: string;
+    title?: string;
 }
 
-const FileSelect: React.FC<FileSelectProps> = ({onFileSelect, id, accept = "*"}) => {
+const FileSelect: React.FC<FileSelectProps> = (
+    {
+        onFileSelect,
+        id,
+        accept = "*",
+        title = "Choose File",
+    }) => {
     const [fileName, setFileName] = useState('');
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +39,8 @@ const FileSelect: React.FC<FileSelectProps> = ({onFileSelect, id, accept = "*"})
                 onChange={handleFileChange}
             />
             <label htmlFor={"fileInput" + id} className="custom-file-input">
-                Choose File
+                <FaFileUpload/>
+                {title}
             </label>
             <span className="file-name">{fileName}</span>
         </div>

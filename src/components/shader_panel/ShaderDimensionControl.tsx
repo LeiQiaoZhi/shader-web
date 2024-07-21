@@ -3,6 +3,7 @@ import {VIEWPORT_HEIGHT, VIEWPORT_WIDTH} from "./ShaderCanvas";
 import "./ShaderDimensionControl.css"
 import {GiResize} from "react-icons/gi";
 import {GrPowerReset} from "react-icons/gr";
+import IconButton from "../common/IconButton";
 
 
 interface ShaderDimensionControlProps {
@@ -23,11 +24,11 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
 
     return (
         <div className="shader-row-control-container shader-dimension-control muted">
-            <button
+            <IconButton
                 onClick={() => setViewportDimension([width, height])}
             >
                 <GiResize/>
-            </button>
+            </IconButton>
             <label>
                 Width
                 <input type="number" value={width} onChange={
@@ -40,11 +41,11 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
                     e => setHeight(e.target.valueAsNumber)
                 }/>
             </label>
-            <button
+            <IconButton
                 onClick={() => setViewportDimension([VIEWPORT_WIDTH, VIEWPORT_HEIGHT])}
             >
                 <GrPowerReset/>
-            </button>
+            </IconButton>
         </div>
     );
 }

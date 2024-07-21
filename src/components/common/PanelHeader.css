@@ -1,0 +1,25 @@
+.panel-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    color: var(--secondary-text-color);
+}
+
+.panel-header h2 {
+    flex: 1
+}
+
+.panel-header svg {
+    width: min-content;
+    height: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-header svg:hover {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    border-radius: var(--small-radius);
+}

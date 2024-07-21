@@ -8,6 +8,7 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import ShaderStatusBar from "./ShaderStatusBar";
 import ShaderAnimationControl from "./ShaderAnimationControl";
 import {ShaderDimensionControl} from "./ShaderDimensionControl";
+import PanelHeader from "../common/PanelHeader";
 
 export const VIEWPORT_WIDTH: number = 400;
 export const VIEWPORT_HEIGHT: number = 400;
@@ -26,6 +27,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const elapsedTimeRef = useRef<number>(0);
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([VIEWPORT_WIDTH, VIEWPORT_HEIGHT]);
+    const [isVisible, setIsVisible] = useState(true);
     const {setShader, setStatus, shaderSource, setShaderSource} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
@@ -125,10 +127,10 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
 
 
     return (
-        <div className='shader-canvas-container' style={{width: `${viewportDimension}`}}>
-            <h2>Shader Output</h2>
+        <div className='shader-canvas-container' style={{width: `${viewportDimension}`}} data-visible={isVisible}>
+            <PanelHeader title="Shader" isVisible={isVisible} setVisible={setIsVisible}/>
             <div className='shader-canvas-file-selector-header'>
-                <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select"/>
+                <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select" title="Shader"/>
             </div>
             <ShaderStatusBar width={viewportDimension[0]}/>
             <canvas ref={canvasRef} width={viewportDimension[0]} height={viewportDimension[1]}/>

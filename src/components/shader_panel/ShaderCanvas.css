@@ -5,10 +5,10 @@
     justify-content: start;
     overflow-y: auto;
     overflow-x: hidden;
-    
+
     padding: var(--normal-gap);
     gap: var(--normal-gap);
-    
+
     background-color: var(--secondary-background-color);
 }
 
@@ -21,4 +21,8 @@
 
 canvas {
     border-radius: var(--small-radius);
+}
+
+.shader-canvas-container[data-visible="false"] > *:not(.panel-header) {
+    display: none;
 }

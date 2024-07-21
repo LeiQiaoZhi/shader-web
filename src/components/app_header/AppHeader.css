@@ -33,3 +33,8 @@
     font-size: var(--normal-font-size);
     padding: 0 var(--small-gap);
 }
+
+.app-header-right button:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
