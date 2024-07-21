@@ -24,10 +24,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const speedRef = useRef<number>(1.0);
     const previousFrameTime = useRef<number>(0);
     const elapsedTimeRef = useRef<number>(0);
-    const [fragmentShaderSource, setFragmentShaderSource] = useState(defaultFragmentShaderSource);
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([VIEWPORT_WIDTH, VIEWPORT_HEIGHT]);
-    const {setShader, setStatus} = useShaderContext();
+    const {setShader, setStatus, shaderSource, setShaderSource} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -38,7 +37,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         if (!gl) return;
 
         const vertexShaderResult = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+        const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, shaderSource);
         if (!vertexShaderResult || !fragmentShaderResult) return;
         const {shader: vertexShader} = vertexShaderResult;
         const {shader: fragmentShader, status: shaderStatus} = fragmentShaderResult;
@@ -105,7 +104,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             }
         };
 
-    }, [fragmentShaderSource, viewportDimension]);
+    }, [shaderSource, viewportDimension]);
 
     const loadFragShaderFromFile = (file: File) => {
         if (!file) return;
@@ -114,10 +113,10 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             const text = e.target?.result as string;
             if (text) {
                 console.log(`Set frag source from ${file.name}`);
-                if (text === fragmentShaderSource) {
-                    setFragmentShaderSource(text + "\n") // ensure difference to trigger effect
+                if (text === shaderSource) {
+                    setShaderSource(text + "\n"); // ensure difference to trigger effect
                 } else {
-                    setFragmentShaderSource(text);
+                    setShaderSource(text);
                 }
             }
         };

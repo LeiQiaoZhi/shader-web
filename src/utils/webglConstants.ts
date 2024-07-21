@@ -5,9 +5,16 @@ export const defaultVertexShaderSource = `
   }
 `;
 
-export const defaultFragmentShaderSource = `
-  precision mediump float;
-  void main() {
-      gl_FragColor = vec4(0.5, 0.5, 0.5, 1.0); // Red color
-  }
+export const defaultFragmentShaderSource = 
+`precision mediump float;
+
+// built-in uniforms
+uniform float iTime;
+uniform ivec2 iResolution;
+
+void main() {
+    float speed = 0.1;
+    vec3 color = vec3(0.5 * sin(iTime * speed) + 0.5, 0.5 * cos(iTime * speed) + 0.5, 0.5);
+    gl_FragColor = vec4(color, 1.0);
+}
 `;

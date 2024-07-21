@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AceEditor from "react-ace";
 import "./CodeEditor.css"
 import "ace-builds/src-noconflict/mode-glsl"
@@ -8,9 +8,11 @@ import EditorFontSizeSelect from "./EditorFontSizeSelect";
 import EditorKeybindingSelect from "./EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
 import EditorSettingCheckbox from "./EditorSettingCheckbox";
+import {useShaderContext} from "../../utils/contexts/ShaderContext";
 
 const CodeEditor = () => {
     const {theme} = useThemeContext();
+    const {shaderSource, setShaderSource} = useShaderContext();
     const [editorTheme, setEditorTheme] = useState("Follow");
     const [editorFontSize, setEditorFontSize] = useState("medium");
     const [keybinding, setKeybinding] = useState("vim");
@@ -19,6 +21,11 @@ const CodeEditor = () => {
     const [showFolds, setShowFolds] = useState(false);
     const [wrap, setWrap] = useState(false);
     const [highlightLine, setHighlightLine] = useState(true);
+    const [editorShaderSource, setEditorShaderSource] = useState("");
+
+    useEffect(() => {
+        setEditorShaderSource(shaderSource);
+    }, [shaderSource]);
 
     return (
         <div className="editor">
@@ -26,6 +33,8 @@ const CodeEditor = () => {
                 <h2>Code</h2>
             </div>
             <AceEditor
+                value={editorShaderSource}
+                onChange={e => setEditorShaderSource(e)}
                 mode="glsl"
                 theme={
                     editorTheme === "Follow"
@@ -49,7 +58,11 @@ const CodeEditor = () => {
                 keyboardHandler={keybinding}
             />
             <div className="editor-bottom-control">
-                <button>Compile</button>
+                <button
+                    onClick={e => setShaderSource(editorShaderSource)}
+                >
+                    Compile
+                </button>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>
                 <EditorThemeSelect editorTheme={editorTheme} setEditorTheme={setEditorTheme}/>
                 <EditorKeybindingSelect keybinding={keybinding} setKeybinding={setKeybinding}/>

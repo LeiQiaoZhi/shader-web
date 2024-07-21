@@ -1,5 +1,6 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import {Shader} from "../Shader";
+import {defaultFragmentShaderSource} from "../webglConstants";
 
 export interface IShaderStatus {
     success: boolean;
@@ -11,6 +12,8 @@ interface IShaderContext {
     setShader: (shader: Shader) => void;
     status: IShaderStatus | null;
     setStatus: (status: IShaderStatus) => void;
+    shaderSource: string;
+    setShaderSource: (shaderSource: string) => void;
 }
 
 const ShaderContext = createContext<IShaderContext | undefined>(undefined);
@@ -22,9 +25,17 @@ interface ShaderContextProps {
 const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const [shader, setShader] = useState<Shader | null>(null);
     const [shaderStatus, setShaderStatus] = useState<IShaderStatus | null>(null);
+    const [shaderSource, setShaderSource] = useState(defaultFragmentShaderSource);
 
     return (
-        <ShaderContext.Provider value={{shader, setShader, status: shaderStatus, setStatus: setShaderStatus}}>
+        <ShaderContext.Provider value={{
+            shader,
+            setShader,
+            status: shaderStatus,
+            setStatus: setShaderStatus,
+            shaderSource,
+            setShaderSource
+        }}>
             {children}
         </ShaderContext.Provider>
     );

@@ -6,9 +6,12 @@
 **Key Features:**
 
 - render frag shader output using WebGL
-- use a `.toml` or `.json` config file to specify the ui components for your uniforms
-- use the components to tweak your uniforms and see changes in real-time!
-- both light and dark themes
+- tweak your uniforms using ui widgets and see changes in real-time!
+  - use a `.toml` or `.json` config file to specify the uniform widgets 
+- edit shader source code using a modern embedded code editor, or upload your file
+  - supports vim, emacs
+  - supports a large number of themes
+- both light and dark themes for the website
 
 
 ---
@@ -25,7 +28,7 @@
   - [x] fold-able component
   - [x] dropdown
   - [ ] image/texture component
-- [ ] iResolution uniform
+- [x] iResolution uniform
 - [ ] iMouse uniform
 - [x] shader compilation error message
 - [x] animation control
@@ -42,8 +45,9 @@
   - [x] themes
   - [x] font-sizes
   - [x] toggle line number and other editor settings
-  - [ ] load a default template
-  - [ ] pass code to shader
+  - [x] load a default template
+  - [x] pass code to shader
 - [ ] button to toggle visibility of a panel
 - [ ] icons
 - [ ] access the previous frame as a uniform (also the dimension)
+- [ ] create uniform components from ui (instead of writing the config by hand)

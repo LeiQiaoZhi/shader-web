@@ -40,15 +40,13 @@ vec4 color_from_shape(in vec3 _color, in vec2 _uv) {
         bool inCircle = toCircle <= 0.0;
         float toOutline = toCircle - iOutlineThickness / 2.0;
         bool inOutline = !inCircle && (toOutline <= 0.0);
-        //        return inCircle ? color : inOutline ? iOutlineColor : iBackgroundColor;
+        // anti-alias using smoothstep
         float threshold = 0.001 * iAntiAliasAmount;
         float circleWeight = smoothstep(threshold, -threshold, toCircle);
         float outlineWeight = smoothstep(threshold, 0.0, max(0.0, abs(toOutline) - iOutlineThickness * 0.5));
         float backgroundWeight = smoothstep(-threshold, threshold, toOutline - iOutlineThickness * 0.5);
         vec3 weights = vec3(circleWeight, outlineWeight, backgroundWeight);
         weights /= weights.x + weights.y + weights.z;
-        //        return vec4(vec3(backgroundWeight), 1.0);
-        //        return vec4(weights, 1.0);
         vec4 result = weights.x * color + weights.y * iOutlineColor + weights.z * iBackgroundColor;
         return vec4(result.xyz, 1.0);
     }
