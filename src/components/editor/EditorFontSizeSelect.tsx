@@ -1,4 +1,5 @@
 import React from "react";
+import {saveDataWithKey} from "../../utils/browserUtils";
 
 interface EditorFontSizeSelectProps {
     fontSize: string,
@@ -11,7 +12,12 @@ const EditorFontSizeSelect: React.FC<EditorFontSizeSelectProps> = ({setFontSize,
             <label>
                 Font Size
             </label>
-            <select value={fontSize} onChange={e => setFontSize(e.target.value)}>
+            <select value={fontSize} onChange={
+                e => {
+                    setFontSize(e.target.value);
+                    saveDataWithKey("editorFontSize", e.target.value);
+                }
+            }>
                 <option value="xx-small">XXS</option>
                 <option value="x-small">XS</option>
                 <option value="small">S</option>

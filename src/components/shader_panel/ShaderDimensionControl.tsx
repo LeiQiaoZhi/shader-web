@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {VIEWPORT_HEIGHT, VIEWPORT_WIDTH} from "./ShaderCanvas";
 import "./ShaderDimensionControl.css"
 import {GiResize} from "react-icons/gi";
 import {GrPowerReset} from "react-icons/gr";
 import IconButton from "../common/IconButton";
+import {DEFAULT_SAVED_DATA} from "../../utils/browserUtils";
 
 
 interface ShaderDimensionControlProps {
@@ -42,7 +42,7 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
                 }/>
             </label>
             <IconButton
-                onClick={() => setViewportDimension([VIEWPORT_WIDTH, VIEWPORT_HEIGHT])}
+                onClick={() => setViewportDimension([DEFAULT_SAVED_DATA.width, DEFAULT_SAVED_DATA.height])}
             >
                 <GrPowerReset/>
             </IconButton>

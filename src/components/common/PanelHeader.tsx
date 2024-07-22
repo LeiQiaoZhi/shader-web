@@ -2,6 +2,7 @@ import React from 'react';
 import {FaExpandArrowsAlt} from "react-icons/fa";
 import "./PanelHeader.css"
 import {LuMinimize2} from "react-icons/lu";
+import {saveDataWithKey} from "../../utils/browserUtils";
 
 interface PanelHeaderProps {
     title: string,
@@ -20,9 +21,12 @@ const PanelHeader: React.FC<PanelHeaderProps> = (
 ) => {
     return (
         <div className="panel-header">
-            <div
-                onClick={e => setVisible(!isVisible)}
-            >
+            <div onClick={
+                e => {
+                    setVisible(!isVisible);
+                    saveDataWithKey(`${title.toLowerCase()}Visible`, !isVisible);
+                }
+            }>
                 {isVisible ? <LuMinimize2/> : <FaExpandArrowsAlt/>}
             </div>
             <h2>

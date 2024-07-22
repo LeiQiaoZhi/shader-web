@@ -3,6 +3,7 @@ import "ace-builds/src-noconflict/keybinding-vim"
 import "ace-builds/src-noconflict/keybinding-emacs"
 import "ace-builds/src-noconflict/keybinding-vscode"
 import "ace-builds/src-noconflict/keybinding-sublime"
+import {saveDataWithKey} from "../../utils/browserUtils";
 
 interface EditorKeybindingSelectProps {
     keybinding: string,
@@ -15,7 +16,12 @@ const EditorKeybindingSelect: React.FC<EditorKeybindingSelectProps> = ({setKeybi
             <label>
                 Keybinding
             </label>
-            <select value={keybinding} onChange={e => setKeybinding(e.target.value)}>
+            <select value={keybinding} onChange={
+                e => {
+                    setKeybinding(e.target.value);
+                    saveDataWithKey("editorKeybinding", e.target.value);
+                }
+            }>
                 <option value="vscode">VS Code</option>
                 <option value="vim">Vim</option>
                 <option value="sublime">Sublime</option>

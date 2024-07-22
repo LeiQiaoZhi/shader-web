@@ -11,20 +11,22 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import {FaFileDownload, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
-import {exportStringForDownload} from "../../utils/browerUtils";
+import {exportStringForDownload, loadData} from "../../utils/browserUtils";
 
 const CodeEditor = () => {
+    const savedData = loadData();
+    console.log(savedData);
     const {shaderSource, setShaderSource} = useShaderContext();
-    const [editorTheme, setEditorTheme] = useState("");
-    const [editorFontSize, setEditorFontSize] = useState("medium");
-    const [keybinding, setKeybinding] = useState("vim");
+    const [editorTheme, setEditorTheme] = useState(savedData.editorTheme);
+    const [editorFontSize, setEditorFontSize] = useState(savedData.editorFontSize);
+    const [keybinding, setKeybinding] = useState(savedData.editorKeybinding);
     const [showLineNumbers, setShowLineNumbers] = useState(false);
     const [showGutter, setShowGutter] = useState(false);
     const [showFolds, setShowFolds] = useState(false);
     const [wrap, setWrap] = useState(false);
     const [highlightLine, setHighlightLine] = useState(true);
     const [editorShaderSource, setEditorShaderSource] = useState("");
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(savedData.codeVisible);
 
     useEffect(() => {
         setEditorShaderSource(shaderSource);
@@ -48,6 +50,7 @@ const CodeEditor = () => {
                 onChange={e => setEditorShaderSource(e)}
                 mode="glsl"
                 theme={editorTheme}
+                focus={true}
                 width={isVisible ? "100%" : "0"}
                 fontSize={editorFontSize}
                 editorProps={{$blockScrolling: true}}

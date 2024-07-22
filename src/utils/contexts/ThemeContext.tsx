@@ -1,7 +1,8 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import {Shader} from "../Shader";
+import {loadData, saveDataWithKey} from "../browserUtils";
 
-type ThemeStringType = "light" | "dark";
+export type ThemeStringType = "light" | "dark";
 
 interface IThemeContext {
     theme: ThemeStringType;
@@ -15,10 +16,16 @@ interface ShaderContextProps {
 }
 
 const ThemeContextProvider: React.FC<ShaderContextProps> = ({children}) => {
-    const [theme, setTheme] = useState<ThemeStringType>("light");
+    const savedData = loadData();
+    const [theme, setTheme] = useState<ThemeStringType>(savedData.theme);
+
+    const setThemeWithSave = (newTheme: ThemeStringType) => {
+        setTheme(newTheme);
+        saveDataWithKey("theme", newTheme);
+    }
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
+        <ThemeContext.Provider value={{theme, setTheme: setThemeWithSave}}>
             {children}
         </ThemeContext.Provider>
     );

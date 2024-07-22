@@ -5,15 +5,16 @@ import FileSelect from "../common/FileSelect";
 import UniformComponent from "./UniformComponent";
 import PanelHeader from "../common/PanelHeader";
 import {FaFileDownload} from "react-icons/fa";
-import {exportStringForDownload} from "../../utils/browerUtils";
+import {exportStringForDownload, loadData} from "../../utils/browserUtils";
 
 interface UniformsPanelProps {
 }
 
 const UniformsPanel: React.FC<UniformsPanelProps> = () => {
+    const savedData = loadData();
     const configManagerRef = useRef<ConfigManager>(new ConfigManager());
     const [uniformsObject, setUniformsObject] = useState<ConfigData[]>([]);
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(savedData.uniformsVisible);
 
     const onConfigFileSelect = async (file: File) => {
         try {

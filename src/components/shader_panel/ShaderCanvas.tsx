@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createProgram, createShader} from "../../utils/webglUtils";
-import {defaultFragmentShaderSource, defaultVertexShaderSource} from "../../utils/webglConstants";
+import {defaultVertexShaderSource} from "../../utils/webglConstants";
 import './ShaderCanvas.css'
 import FileSelect from "../common/FileSelect";
 import {Shader} from "../../utils/Shader";
@@ -9,9 +9,7 @@ import ShaderStatusBar from "./ShaderStatusBar";
 import ShaderAnimationControl from "./ShaderAnimationControl";
 import {ShaderDimensionControl} from "./ShaderDimensionControl";
 import PanelHeader from "../common/PanelHeader";
-
-export const VIEWPORT_WIDTH: number = 400;
-export const VIEWPORT_HEIGHT: number = 400;
+import {loadData} from "../../utils/browserUtils";
 
 
 interface ShaderCanvasProps {
@@ -19,15 +17,15 @@ interface ShaderCanvasProps {
 
 
 const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
-    // create a mutable canvas object that lives for the lifetime of this component
+    const savedData = loadData();
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const pausedRef = useRef<boolean>(false);
     const speedRef = useRef<number>(1.0);
     const previousFrameTime = useRef<number>(0);
     const elapsedTimeRef = useRef<number>(0);
     const [pausedState, setPausedState] = useState(pausedRef.current);
-    const [viewportDimension, setViewportDimension] = useState([VIEWPORT_WIDTH, VIEWPORT_HEIGHT]);
-    const [isVisible, setIsVisible] = useState(true);
+    const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
+    const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
     const {setShader, setStatus, shaderSource, setShaderSource} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
