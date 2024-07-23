@@ -19,8 +19,8 @@ interface ShaderCanvasProps {
 const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const savedData = loadData();
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const pausedRef = useRef<boolean>(false);
-    const speedRef = useRef<number>(1.0);
+    const pausedRef = useRef<boolean>(savedData.isPaused);
+    const speedRef = useRef<number>(savedData.speed);
     const previousFrameTime = useRef<number>(0);
     const elapsedTimeRef = useRef<number>(0);
     const [pausedState, setPausedState] = useState(pausedRef.current);

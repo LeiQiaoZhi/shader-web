@@ -6,6 +6,7 @@ import {LuListRestart} from "react-icons/lu";
 import {MdRestartAlt} from "react-icons/md";
 import {IoPlayBack} from "react-icons/io5";
 import IconButton from "../common/IconButton";
+import {saveDataWithKey} from "../../utils/browserUtils";
 
 interface ShaderAnimationControlProps {
     pausedState: boolean,
@@ -29,6 +30,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
     const handlePauseToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
         pausedRef.current = !pausedRef.current;
         setPausedState(pausedRef.current);
+        saveDataWithKey("isPaused", pausedRef.current);
     }
 
     const handleRestart = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,6 +40,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
     const handleSpeedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         speedRef.current = Math.pow(event.target.valueAsNumber, 2);
         setSpeed(speedRef.current);
+        saveDataWithKey("speed", speedRef.current);
     }
 
     return (
@@ -50,7 +53,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
             </IconButton>
             <div className="shader-animation-speed-control">
                 <label>Speed: {speed.toFixed(2)}</label>
-                <input type="range" onChange={handleSpeedChange} min={0} max={2} step={0.01} defaultValue={1}/>
+                <input type="range" onChange={handleSpeedChange} min={0} max={2} step={0.01} defaultValue={speed}/>
             </div>
             <IconButton onClick={handleRestart}>
                 <IoPlayBack/>

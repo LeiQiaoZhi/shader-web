@@ -3,7 +3,7 @@ import "./ShaderDimensionControl.css"
 import {GiResize} from "react-icons/gi";
 import {GrPowerReset} from "react-icons/gr";
 import IconButton from "../common/IconButton";
-import {DEFAULT_SAVED_DATA} from "../../utils/browserUtils";
+import {DEFAULT_SAVED_DATA, loadData, saveDataWithKey} from "../../utils/browserUtils";
 
 
 interface ShaderDimensionControlProps {
@@ -25,7 +25,11 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
     return (
         <div className="shader-row-control-container shader-dimension-control muted">
             <IconButton
-                onClick={() => setViewportDimension([width, height])}
+                onClick={() => {
+                    setViewportDimension([width, height]);
+                    saveDataWithKey("width", width);
+                    saveDataWithKey("height", height);
+                }}
             >
                 <GiResize/>
             </IconButton>
@@ -42,7 +46,11 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
                 }/>
             </label>
             <IconButton
-                onClick={() => setViewportDimension([DEFAULT_SAVED_DATA.width, DEFAULT_SAVED_DATA.height])}
+                onClick={() => {
+                    setViewportDimension([DEFAULT_SAVED_DATA.width, DEFAULT_SAVED_DATA.height]);
+                    saveDataWithKey("width", DEFAULT_SAVED_DATA.width);
+                    saveDataWithKey("height", DEFAULT_SAVED_DATA.height);
+                }}
             >
                 <GrPowerReset/>
             </IconButton>

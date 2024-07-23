@@ -48,7 +48,9 @@
   - [x] load a default template
   - [x] pass code to shader
   - [x] export file
-- [ ] **save file and settings on browser**
+- [x] save file and settings on browser
+  - [ ] save both shader source and editor shader source
+  - [ ] reset editor settings only, reset shader source, reset config
 - [x] button to toggle visibility of a panel
   - [ ] vertical title of hidden panels
 - [x] icons
