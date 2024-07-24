@@ -30,7 +30,8 @@
 }
 
 .panel-header svg:hover {
-    color: var(--primary-color);
-    background-color: var(--background-color);
-    border-radius: var(--small-radius);
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border-radius: 0;
+    cursor: pointer;
 }

@@ -1,0 +1,25 @@
+.uniform-component {
+    position: relative;
+}
+
+.uniform-component:not(.folder):hover {
+    background: var(--background-color);
+}
+
+.uniform-component .uniform-edit-button {
+    color: var(--secondary-text-color);
+    position: absolute;
+    left: var(--normal-border);
+    top: var(--normal-border);
+    z-index: 100;
+}
+
+.uniform-component.folder > .uniform-edit-button {
+    top: var(--normal-gap);
+    left: var(--normal-gap);
+}
+
+.uniform-component .uniform-edit-button:hover {
+    color: var(--text-color);
+    cursor: pointer;
+}

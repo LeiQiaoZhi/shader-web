@@ -68,13 +68,39 @@ vec3 color_pattern_vertical_stripe(in vec2 _uv) {
     return (mod(float(stripe_id), 2.0) > 0.0) ? iStripeColor1 : iStripeColor2;
 }
 
+// positive on left
+float distance_to_line(vec2 _a, vec2 _b, vec2 _p) {
+    vec2 ap = _p - _a;
+    return cross(vec3(normalize(_b),0), vec3(ap, 0)).z;
+}
+
+float distance_to_rect(vec2 _center, vec2 _size, float _rot_deg, vec2 _p) {
+    vec2 horizontal = vec2(cos(radians(_rot_deg)), sin(radians(_rot_deg)));
+    vec2 vertical = vec2(-sin(radians(_rot_deg)), cos(radians(_rot_deg)));
+    float dist_top = distance_to_line(_center+0.5*_size.y*vertical,horizontal, _p);
+    float dist_bot = distance_to_line(_center-0.5*_size.y*vertical,-horizontal, _p);
+    float dist_right = distance_to_line(_center+0.5*_size.x*horizontal,-vertical, _p);
+    float dist_left = distance_to_line(_center-0.5*_size.x*horizontal, vertical, _p);
+    
+    return max(max(dist_top, dist_bot), max(dist_right, dist_left));
+}
+
 void main() {
     // 1. unify coords
+    vec2 uv_res = vec2(iResolution) / min(float(iResolution.x), float(iResolution.y));
     vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
-    uv = (uv - vec2(0.5)) * (1.0 + 0.02 * sin(iTime)) + vec2(0.5);
+    uv = (uv - 0.5 * uv_res) * (2.0 + 0.0 * sin(iTime));
 
     vec3 pattern_color = color_pattern_checker(uv);
     vec3 stripe_color = color_pattern_vertical_stripe(uv);
     vec3 color = (uv.x < 0.5) ? pattern_color : stripe_color;
-    gl_FragColor = color_from_shape(color, uv);
-}
+
+    float dist = distance_to_rect(vec2(0.0,0.0), vec2(0.6,0.4), 10.0 * iTime, uv);
+    float threshold = 0.001 * iAntiAliasAmount;
+    float weight = smoothstep(threshold, -threshold, dist); 
+    gl_FragColor = vec4(vec3(weight),1);
+    // gl_FragColor = distance_to_rect(vec2(0.0,0.0), vec2(0.4,0.2), 10.0 * iTime, uv) < 0.0 ? vec4(1) : vec4(vec3(0),1);
+}       
+
+
+                                                            

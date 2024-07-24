@@ -48,11 +48,9 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
                     saveDataWithKey("configData", configManagerRef.current.getConfigData())
             }>
                 {
-                    uniformsObject.map((uniformConfig: ConfigData, i: number) => {
+                    uniformsObject.map((uniformConfig: ConfigData, _: number) => {
                         return (
-                            <div key={i}>
-                                <UniformComponent uniformConfig={uniformConfig}/>
-                            </div>
+                            <UniformComponent uniformConfig={uniformConfig}/>
                         );
                     })
                 }

@@ -3,6 +3,8 @@ import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./SliderUniformComponent.css"
 import TooltipLabel from "../common/TooltipLabel";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
+import IconButton from "../common/IconButton";
+import {FaEdit} from "react-icons/fa";
 
 const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();
@@ -15,7 +17,7 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
         shader?.setUniform(config);
         setValue(config.ui.value);
     }, [config, shader]);
-    
+
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.valueAsNumber;
         setValue(config.ui.value);
@@ -27,6 +29,7 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
             <div className="slider-label-and-input-field">
                 <input type="number" value={value} onChange={handleValueChange}/>
                 <TooltipLabel label={config.name} tooltip={config.gl.name}/>
+
             </div>
             <input type="range" id={uniqueId} className="uniform-slider"
                    min={config.ui.min} max={config.ui.max} step={config.ui.step}

@@ -30,7 +30,6 @@ const PanelHeader: React.FC<PanelHeaderProps> = (
                 {isVisible ? <LuMinimize2/> : <FaExpandArrowsAlt/>}
             </div>
             <h2>
-                {/*{isVisible ? title : ""}*/}
                 {title}
             </h2>
             {isVisible && children}
