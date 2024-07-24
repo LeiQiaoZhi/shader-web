@@ -20,7 +20,7 @@ const PanelHeader: React.FC<PanelHeaderProps> = (
     }
 ) => {
     return (
-        <div className="panel-header">
+        <div className="panel-header" data-visible={isVisible}>
             <div onClick={
                 e => {
                     setVisible(!isVisible);
@@ -30,7 +30,8 @@ const PanelHeader: React.FC<PanelHeaderProps> = (
                 {isVisible ? <LuMinimize2/> : <FaExpandArrowsAlt/>}
             </div>
             <h2>
-                {isVisible ? title : ""}
+                {/*{isVisible ? title : ""}*/}
+                {title}
             </h2>
             {isVisible && children}
         </div>

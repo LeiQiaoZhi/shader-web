@@ -1,9 +1,20 @@
+
 .panel-header {
-    display: flex;
+    color: var(--secondary-text-color);
+}
+
+.panel-header[data-visible="false"] h2{
+    position: absolute;
+    transform: rotate(90deg);
+    transform-origin: calc(var(--small-font-size)/2) center;
+    margin-top: var(--small-font-size);
+}
+
+.panel-header[data-visible="true"] {
     flex-direction: row;
+    display: flex;
     align-items: center;
     align-self: stretch;
-    color: var(--secondary-text-color);
 }
 
 .panel-header h2 {

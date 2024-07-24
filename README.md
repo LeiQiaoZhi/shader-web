@@ -49,12 +49,12 @@
   - [x] pass code to shader
   - [x] export file
 - [x] save file and settings on browser
-  - [ ] save both shader source and editor shader source
+  - [ ] save both shader source and editor shader source separately
   - [ ] reset editor settings only, reset shader source, reset config
 - [x] button to toggle visibility of a panel
-  - [ ] vertical title of hidden panels
+  - [x] vertical title of hidden panels
 - [x] icons
-- [ ] animate compile status message
+- [x] animate compile status message
 - [ ] access the previous frame as a uniform (also the dimension)
 - [ ] create uniform components from ui (instead of writing the config by hand)
 - [ ] keyboard shortcuts (compile, set dimension)

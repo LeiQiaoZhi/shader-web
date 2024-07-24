@@ -7,9 +7,9 @@
     --normal-font-size: 1.2rem;
     --small-font-size: 0.9rem;
     
-    --large-radius: 24px;
-    --normal-radius: 12px;
-    --small-radius: 6px;
+    --large-radius: 2rem;
+    --normal-radius: 0.8rem;
+    --small-radius: 0.4rem;
     
     --large-border: 4px;
     --normal-border: 2px;
@@ -34,8 +34,8 @@
 
 
 [data-theme="dark"] {
-    --primary-color: #47a4e2;
-    --secondary-color: #d7fdff;
+    --primary-color: #1f4373;
+    --secondary-color: #639eab;
     --background-color: #404040;
     --secondary-background-color: #2d2d2d;
     --text-color: #eaeaea;

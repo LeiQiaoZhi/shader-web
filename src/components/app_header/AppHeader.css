@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: var(--small-gap);
+    padding: var(--small-gap) var(--normal-gap);
     position: sticky;
     top: 0;
     left: 0;
@@ -16,13 +16,14 @@
     color: var(--primary-color);
 }
 
-.app-header-center h1 {
+.app-header h1 {
     text-align: center;
     font-weight: bolder;
     background: var(--secondary-color);
     padding: 0 var(--small-gap);
-    border-radius: var(--normal-radius);
+    border-radius: var(--small-radius);
     font-size: var(--normal-font-size);
+    font-style: oblique;
 }
 
 .app-header-right {

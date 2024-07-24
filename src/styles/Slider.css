@@ -1,12 +1,12 @@
 input[type="range"] {
     align-self: stretch;
-    accent-color: var(--primary-color);
     background-color: var(--secondary-background-color);
-    border: var(--normal-border) solid var(--primary-color);
+    border: var(--normal-border) solid var(--secondary-text-color);
     border-radius: var(--normal-radius);
     cursor: pointer;
     height: var(--normal-font-size);
     transition: all var(--normal-transition);
+    outline: none;
 }
 
 input[type="range"]:hover {
@@ -18,7 +18,7 @@ input[type="range"]::-webkit-slider-thumb {
     /*height: calc(var(--normal-font-size) + var(--small-border));*/
     height: var(--normal-font-size);
     aspect-ratio: 1;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-text-color);
     border-radius: var(--normal-radius);
     transition: all var(--normal-transition);
 }

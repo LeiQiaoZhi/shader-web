@@ -37,6 +37,7 @@ html, body, #root {
     color: var(--text-color);
     font-family: var(--font), sans-serif;
     font-size: 14px;
+    /*font-size: 1vw;*/
     border: none;
 }
 

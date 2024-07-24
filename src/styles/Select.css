@@ -1,11 +1,11 @@
 select {
     font-family: var(--font) sans-serif;
     font-weight: bold;
-    font-size: var(--normal-font-size);
+    font-size: var(--small-font-size);
     border: var(--normal-border) solid var(--primary-color);
     border-radius: var(--normal-radius);
-    background: none;
-    color: var(--primary-color);
+    color: var(--secondary-color);
+    background: var(--primary-color);
     outline: none;
     padding: calc(var(--small-gap)/2) var(--small-gap);
 }

@@ -76,7 +76,6 @@ export const loadData = (): SavedData => {
 }
 
 export const saveDataWithKey = (key: string, value: any) => {
-    console.log("saveDataWithKey", key, value);
     const data = loadData();
     data[key] = value;
     saveData(data);

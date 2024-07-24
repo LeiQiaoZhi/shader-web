@@ -30,8 +30,12 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const [shaderSource, setShaderSource] = useState(savedData.shaderSource);
 
     const setShaderSourceWithSave = (newSource: string) => {
-        setShaderSource(newSource);
+        setShaderSource(newSource+' '); // force update
         saveDataWithKey("shaderSource", newSource);
+    }
+
+    const setShaderStatusForceUpdate = (status: IShaderStatus) => {
+        setShaderStatus({...status});
     }
 
     return (
@@ -39,7 +43,7 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
             shader,
             setShader,
             status: shaderStatus,
-            setStatus: setShaderStatus,
+            setStatus: setShaderStatusForceUpdate,
             shaderSource,
             setShaderSource: setShaderSourceWithSave,
         }}>
