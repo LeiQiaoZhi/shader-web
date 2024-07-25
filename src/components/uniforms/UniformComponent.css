@@ -7,7 +7,9 @@
 }
 
 .uniform-component .uniform-edit-button {
+    display: inline-block;
     color: var(--secondary-text-color);
+    background-color: var(--background-color);
     position: absolute;
     left: var(--normal-border);
     top: var(--normal-border);

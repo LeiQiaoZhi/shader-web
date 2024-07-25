@@ -25,6 +25,7 @@ const DropdownUniformComponent: React.FC<IUniformComponentProps> = ({config}) =>
         <div className="dropdown-component-container">
             <select onChange={handleDropdownChange} value={selected}>
                 {
+                    Array.isArray(config.ui.options) &&
                     config.ui.options.map(
                         (option: string, i: number) => {
                             return <option key={i} value={i}>{option}</option>;
