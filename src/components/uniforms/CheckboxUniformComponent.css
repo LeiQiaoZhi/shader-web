@@ -12,15 +12,15 @@
     box-sizing: border-box;
     aspect-ratio: 1;
     background-color: var(--secondary-background-color);
-    border: var(--normal-border) solid var(--primary-color);
+    border: var(--normal-border) solid var(--secondary-text-color);
     border-radius: var(--normal-radius);
     transition: all var(--normal-transition); 
 }
 
 .uniform-checkbox:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--background-color);
 }
 
 .uniform-checkbox-hidden:checked + .uniform-checkbox {
-   background-color: var(--primary-color); 
+   background-color: var(--secondary-text-color); 
 }

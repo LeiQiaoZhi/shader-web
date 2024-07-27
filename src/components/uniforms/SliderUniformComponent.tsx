@@ -3,8 +3,6 @@ import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./SliderUniformComponent.css"
 import TooltipLabel from "../common/TooltipLabel";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
-import IconButton from "../common/IconButton";
-import {FaEdit} from "react-icons/fa";
 
 const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();

@@ -1,5 +1,6 @@
-input[type="number"] {
-    width: calc(var(--small-font-size) * 5);
+input[type="number"],
+input[type="search"],
+input[type="text"] {
     font-family: "CaskaydiaCove Nerd Font", sans-serif;
     font-size: var(--small-font-size);
     border: var(--small-border) solid var(--secondary-text-color);
@@ -7,6 +8,14 @@ input[type="number"] {
     background-color: var(--secondary-background-color);
     color: var(--text-color);
     outline: none;
+}
+
+input[type="number"] {
+    width: calc(var(--small-font-size) * 5);
+}
+
+input[type="text"] {
+    width: calc(var(--small-font-size) * 10);
 }
 
 .muted input[type="number"],

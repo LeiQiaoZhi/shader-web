@@ -57,4 +57,8 @@
 - [x] animate compile status message
 - [ ] access the previous frame as a uniform (also the dimension)
 - [ ] create uniform components from ui (instead of writing the config by hand)
+  - [x] modify
+  - [ ] delete
+  - [ ] create
+  - [ ] reorder
 - [ ] keyboard shortcuts (compile, set dimension)

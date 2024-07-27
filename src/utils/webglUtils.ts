@@ -40,6 +40,10 @@ export const createProgram = (gl: WebGLRenderingContext, vertexShader: WebGLShad
 };
 
 export const hexToRgba = (hex: string, alpha: number = 1): [number, number, number, number] => {
+    if (typeof hex !== 'string') {
+        console.warn(`${hex} isn't a string`);
+        return [0, 0, 0, 0];
+    }
     // Remove the hash at the start if it's there
     hex = hex.replace(/^#/, '');
 

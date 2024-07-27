@@ -24,7 +24,7 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
             <div className="folder-children-container"
                  data-expanded={value}
             >
-                {
+                {config.children &&
                     config.children.map((uniformConfig: ConfigData, i: number) => {
                         return (
                             <div key={i}>

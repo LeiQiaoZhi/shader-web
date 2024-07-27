@@ -74,7 +74,7 @@ export class Shader {
                 this.setUniformColor3(name, value);
                 break;
             default:
-                throw new Error(`Unsupported type ${config.gl.type}`);
+                console.warn(`Unsupported type ${config.gl.type}`);
         }
     }
 }

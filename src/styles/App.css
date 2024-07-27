@@ -23,7 +23,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
 
-    --app-gap: var(--normal-gap);
+    --app-gap: var(--small-gap);
     gap: var(--app-gap);
     box-sizing: border-box;
 

@@ -1,35 +1,29 @@
 import React, {useId} from "react";
 import {ConfigData} from "../../utils/ConfigManager";
-import CheckboxUniformComponent from "./CheckboxUniformComponent";
-import SliderUniformComponent from "./SliderUniformComponent";
-import ColorUniformComponent from "./ColorUniformComponent";
 import TooltipLabel from "../common/TooltipLabel";
-import FolderUniformComponent from "./FolderUniformComponent";
-import DropdownUniformComponent from "./DropdownUniformComponent";
 import {FaEdit} from "react-icons/fa";
 import "./UniformComponent.css"
-import EditUniformModalWindow from "./EditUniformModalWindow";
+import EditUniformModalWindow from "./edito_modal/EditUniformModalWindow";
+import {UNIFORMS_UI_TYPE_TO_COMPONENT_MAP} from "./UniformsSpecification";
+
 
 interface UniformsComponentProps {
     uniformConfig: ConfigData;
 }
 
 const UniformComponent: React.FC<UniformsComponentProps> = ({uniformConfig}) => {
-    const type = uniformConfig.ui.type;
+    const type: string = uniformConfig.ui.type;
     const id = useId();
     const [onHover, setHover] = React.useState(false);
     const [showModal, setShowModal] = React.useState(false);
     // console.log("create uniform component of type: " + type);
 
     const getUniformCoreComponent = () => {
-        return (
-            type === "checkbox" ? (<CheckboxUniformComponent config={uniformConfig}/>) :
-                type === "slider" ? (<SliderUniformComponent config={uniformConfig}/>) :
-                    type === "color" ? (<ColorUniformComponent config={uniformConfig}/>) :
-                        type === "folder" ? (<FolderUniformComponent config={uniformConfig}/>) :
-                            type === "dropdown" ? (<DropdownUniformComponent config={uniformConfig}/>) :
-                                (<TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl.name}/>)
-        );
+        if (type in UNIFORMS_UI_TYPE_TO_COMPONENT_MAP) {
+            const Component = UNIFORMS_UI_TYPE_TO_COMPONENT_MAP[type];
+            return <Component config={uniformConfig}/>;
+        }
+        return <TooltipLabel label={uniformConfig.name} tooltip={uniformConfig.gl?.name}/>;
     }
 
     return (
@@ -52,7 +46,7 @@ const UniformComponent: React.FC<UniformsComponentProps> = ({uniformConfig}) => 
             }
             {
                 showModal &&
-                <EditUniformModalWindow uniformConfig={uniformConfig} setShowModal={setShowModal} setHover={setHover} />
+                <EditUniformModalWindow uniformConfig={uniformConfig} setShowModal={setShowModal} setHover={setHover}/>
             }
         </div>
     );

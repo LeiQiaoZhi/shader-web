@@ -12,6 +12,22 @@ import "ace-builds/src-noconflict/theme-chrome"
 import "ace-builds/src-noconflict/theme-solarized_light"
 import {useThemeContext} from "../../utils/contexts/ThemeContext";
 import {saveDataWithKey} from "../../utils/browserUtils";
+import Select from "../common/Select";
+
+const EDITOR_THEMES = [
+    ["", "Follow website"],
+    ["github_dark", "Github Dark"],
+    ["chrome", "Chrome"],
+    ["dracula", "Dracula"],
+    ["clouds", "Clouds"],
+    ["nord_dark", "Nord Dark"],
+    ["dawn", "Dawn"],
+    ["solarized_light", "Solarized Light"],
+    ["monokai", "Monokai"],
+    ["ambiance", "Ambiance"],
+    ["chaos", "Chaos"],
+    ["github", "Github"],
+];
 
 interface EditorThemeSelectProps {
     editorTheme: string,
@@ -40,7 +56,9 @@ const EditorThemeSelect: React.FC<EditorThemeSelectProps> = ({setEditorTheme, ed
             <label>
                 Theme
             </label>
-            <select value={selectedTheme}
+            <Select value={selectedTheme}
+                    values={EDITOR_THEMES.map((pair, _) => pair[0])}
+                    optionNames={EDITOR_THEMES.map((pair, _) => pair[1])}
                     onChange={
                         (e) => {
                             setSelectedTheme(e.target.value);
@@ -48,20 +66,7 @@ const EditorThemeSelect: React.FC<EditorThemeSelectProps> = ({setEditorTheme, ed
                             saveDataWithKey("editorTheme", e.target.value);
                             console.log(editorTheme);
                         }
-                    }>
-                <option value={""}>Follow website</option>
-                <option value="github_dark">Github Dark</option>
-                <option value="chrome">Chrome</option>
-                <option value="dracula">Dracula</option>
-                <option value="clouds">Clouds</option>
-                <option value="nord_dark">Nord Dark</option>
-                <option value="dawn">Dawn</option>
-                <option value="solarized_light">Solarized Light</option>
-                <option value="monokai">Monokai</option>
-                <option value="ambiance">Ambiance</option>
-                <option value="chaos">Chaos</option>
-                <option value="github">Github</option>
-            </select>
+                    }/>
         </div>
     );
 };

@@ -3,6 +3,7 @@ import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./DropdownUniformComponent.css"
 import TooltipLabel from "../common/TooltipLabel";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
+import Select from "../common/Select";
 
 const DropdownUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const [selected, setSelected] = useState(0);
@@ -23,16 +24,11 @@ const DropdownUniformComponent: React.FC<IUniformComponentProps> = ({config}) =>
 
     return (
         <div className="dropdown-component-container">
-            <select onChange={handleDropdownChange} value={selected}>
-                {
-                    Array.isArray(config.ui.options) &&
-                    config.ui.options.map(
-                        (option: string, i: number) => {
-                            return <option key={i} value={i}>{option}</option>;
-                        }
-                    )
-                }
-            </select>
+            {config.ui.options &&
+                <Select value={selected} optionNames={config.ui.options}
+                        values={config.ui.options.map((_: string, i: number) => i)}
+                        onChange={handleDropdownChange}/>
+            }
             <TooltipLabel label={config.name} tooltip={config.gl.name}/>
         </div>
     );
