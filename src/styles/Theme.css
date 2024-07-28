@@ -25,8 +25,8 @@
 [data-theme="light"] {
     --primary-color: #3498db;
     --secondary-color: #d7fdff;
-    --background-color: #f8f8f8;
-    --secondary-background-color: #e5eaee;
+    --background-color: #e4ebec;
+    --secondary-background-color: #f6f6f6;
     --text-color: #1e1e1e;
     --secondary-text-color: #7f766f;
     --contrast-color: #f46e3e;
@@ -35,7 +35,7 @@
 
 [data-theme="dark"] {
     --primary-color: #1f4373;
-    --secondary-color: #639eab;
+    --secondary-color: #69b2c2;
     --background-color: #404040;
     --secondary-background-color: #2d2d2d;
     --text-color: #eaeaea;

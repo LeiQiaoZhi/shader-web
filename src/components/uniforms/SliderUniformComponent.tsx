@@ -26,8 +26,7 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
         <div className="slider-component-container">
             <div className="slider-label-and-input-field">
                 <input type="number" value={value} onChange={handleValueChange}/>
-                <TooltipLabel label={config.name} tooltip={config.gl.name}/>
-
+                <TooltipLabel label={config.name} tooltip={config.gl?.name  ?? "Undefined Name"}/>
             </div>
             <input type="range" id={uniqueId} className="uniform-slider"
                    min={config.ui.min} max={config.ui.max} step={config.ui.step}

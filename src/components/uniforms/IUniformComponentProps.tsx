@@ -1,7 +1,5 @@
-import {ConfigData} from "../../utils/ConfigManager";
-import React from "react";
-import {Shader} from "../../utils/Shader";
+import {UniformConfigData} from "./UniformsSpecification";
 
 export interface IUniformComponentProps {
-    config: ConfigData,
+    config: UniformConfigData,
 }

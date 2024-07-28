@@ -1,15 +1,13 @@
 import * as TOML from "toml";
 import {saveDataWithKey} from "./browserUtils";
+import {TopLevelConfigData, UniformConfigData} from "../components/uniforms/UniformsSpecification";
 
-export interface ConfigData {
-    [key: string]: any; // This allows for dynamic keys
-}
 
 class ConfigManager {
-    private configData: ConfigData;
+    private configData: TopLevelConfigData;
     private fileName: string;
 
-    constructor(configData: ConfigData) {
+    constructor(configData: TopLevelConfigData) {
         this.configData = configData;
         this.fileName = "unknown";
     }
@@ -48,6 +46,10 @@ class ConfigManager {
 
     get(key: string): any {
         return this.configData[key];
+    }
+   
+    getUniforms(): UniformConfigData[] {
+        return this.configData["uniforms"];
     }
 
     set(key: string, value: any): void {

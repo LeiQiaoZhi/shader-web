@@ -26,10 +26,10 @@ const DropdownUniformComponent: React.FC<IUniformComponentProps> = ({config}) =>
         <div className="dropdown-component-container">
             {config.ui.options &&
                 <Select value={selected} optionNames={config.ui.options}
-                        values={config.ui.options.map((_: string, i: number) => i)}
+                        values={config.ui.options.map((_: string, i: number) => i.toString())}
                         onChange={handleDropdownChange}/>
             }
-            <TooltipLabel label={config.name} tooltip={config.gl.name}/>
+            <TooltipLabel label={config.name} tooltip={config.gl?.name ?? "Undefined Name"}/>
         </div>
     );
 }

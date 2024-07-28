@@ -1,3 +1,24 @@
+.uniform-component-outer-container {
+    display: flex;   
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+}
+
+.uniform-component-edit-add-button {
+    font-size: var(--small-font-size);
+    color: var(--secondary-text-color);
+    border: var(--small-border) solid var(--background-color);
+    border-radius: var(--small-radius);
+}
+
+.uniform-component-edit-add-button:hover {
+    color: var(--secondary-text-color);
+    background: var(--background-color);
+    border: var(--small-border) solid var(--secondary-text-color);
+}
+
 .uniform-component {
     position: relative;
 }
@@ -24,4 +45,29 @@
 .uniform-component .uniform-edit-button:hover {
     color: var(--text-color);
     cursor: pointer;
+}
+
+.uniform-component .uniform-delete-button {
+    display: inline-block;
+    color: var(--secondary-text-color);
+    background-color: var(--background-color);
+    position: absolute;
+    right: var(--normal-border);
+    top: var(--normal-border);
+    z-index: 100;
+}
+
+.uniform-component.folder > .uniform-delete-button {
+    top: var(--normal-gap);
+    right: var(--normal-gap);
+}
+
+.uniform-component .uniform-delete-button:hover {
+    color: var(--contrast-color);
+    cursor: pointer;
+}
+
+.uniform-component svg {
+    width: var(--normal-font-size);
+    height: var(--normal-font-size);
 }

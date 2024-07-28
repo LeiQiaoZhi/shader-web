@@ -27,7 +27,7 @@ const CheckboxUniformComponent: React.FC<IUniformComponentProps> = ({config}) =>
                    onChange={handleCheckboxChange} checked={checked}
             />
             <label htmlFor={uniqueId} className="uniform-checkbox"></label>
-            <TooltipLabel label={config.name} tooltip={config.gl.name}/>
+            <TooltipLabel label={config.name} tooltip={config.gl?.name ?? "Undefined Name"}/>
         </div>
     );
 }

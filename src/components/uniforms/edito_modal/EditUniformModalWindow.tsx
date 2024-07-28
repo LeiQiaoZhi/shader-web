@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {ConfigData} from "../../../utils/ConfigManager";
 import IconButton from "../../common/IconButton";
 import "./EditUniformModalWindow.css"
 import {GrPowerReset} from "react-icons/gr";
 import {GiConfirmed} from "react-icons/gi";
 import Select from "../../common/Select";
 import {
+    UniformConfigData,
     UNIFORMS_FIELDS_TO_DEFAULT_VALUES,
     UNIFORMS_UI_TYPE_TO_COMPONENT_MAP,
     UNIFORMS_UI_TYPES_TO_FIELDS_MAP, UNIFORMS_UI_TYPES_TO_GL_TYPES_MAP
@@ -48,7 +48,7 @@ const EditUniformModalInputField: React.FC<EditUniformModalInputFieldProps> = (
 }
 
 interface EditUniformModalWindowProps {
-    uniformConfig: ConfigData,
+    uniformConfig: UniformConfigData,
     setShowModal: (value: (((prevState: boolean) => boolean) | boolean)) => void,
     setHover: (value: (((prevState: boolean) => boolean) | boolean)) => void
 }
@@ -64,6 +64,7 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
         const suitableGlTypes = UNIFORMS_UI_TYPES_TO_GL_TYPES_MAP[type];
         if (suitableGlTypes.length > 0 && !suitableGlTypes.includes(glType ?? "")) {
             console.log("Setting GL type", suitableGlTypes[0]);
+            uniformConfig.gl = uniformConfig.gl || {};
             uniformConfig.gl.type = suitableGlTypes[0];
             setGLType(suitableGlTypes[0]);
         }
@@ -121,7 +122,7 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
                     {UNIFORMS_UI_TYPES_TO_FIELDS_MAP[type].includes("options") && (
                         <EditUniformModalInputField
                             label="Options: "
-                            defaultValue={uniformConfig.ui?.options.join(',') ?? UNIFORMS_FIELDS_TO_DEFAULT_VALUES["options"]}
+                            defaultValue={uniformConfig.ui?.options ? uniformConfig.ui?.options.join(',') : UNIFORMS_FIELDS_TO_DEFAULT_VALUES["options"]}
                             width={20}
                             onChange={e => {
                                 console.log("Options target value", e.target.value);
@@ -132,14 +133,21 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
                         <Select value={glType} values={UNIFORMS_UI_TYPES_TO_GL_TYPES_MAP[type]}
                                 onChange={e => {
                                     console.log("Setting GL type", e.target.value);
+                                    uniformConfig.gl = uniformConfig.gl || {};
                                     uniformConfig.gl.type = e.target.value;
                                     setGLType(e.target.value);
                                 }}/>
                     </div>}
-                    <EditUniformModalInputField
-                        label="Uniform Name: " defaultValue={uniformConfig.gl?.name} width={15}
-                        onChange={e => uniformConfig.gl.name = e.target.value}
-                    />
+                    {uniformConfig.gl &&
+                        <EditUniformModalInputField
+                            label="Uniform Name: " defaultValue={uniformConfig.gl?.name} width={15}
+                            onChange={e => {
+                                if (uniformConfig.gl) {
+                                    uniformConfig.gl.name = e.target.value
+                                }
+                            }}
+                        />
+                    }
                 </div>
             </div>
         </div>

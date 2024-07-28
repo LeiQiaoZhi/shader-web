@@ -30,7 +30,7 @@ const ColorUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
             <input type="color" id={uniqueId}  className="uniform-color-picker"
                    onChange={handleColorChange} value={color}
             />
-            <TooltipLabel label={config.name} tooltip={config.gl.name}/>
+            <TooltipLabel label={config.name} tooltip={config.gl?.name ?? "Undefined Name"}/>
         </div>
     );
 }

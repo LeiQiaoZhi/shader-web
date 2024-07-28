@@ -1,6 +1,6 @@
 import {defaultFragmentShaderSource} from "./webglConstants";
 import {ThemeStringType} from "./contexts/ThemeContext";
-import {ConfigData} from "./ConfigManager";
+import {TopLevelConfigData} from "../components/uniforms/UniformsSpecification";
 
 export const exportStringForDownload = (content: string, fileName: string) => {
     const blob = new Blob([content]);
@@ -20,7 +20,7 @@ export interface SavedData {
     editorKeybinding: string,
     // source
     shaderSource: string,
-    configData: ConfigData,
+    configData: TopLevelConfigData,
     // panel visibilities
     uniformsVisible: boolean,
     shaderVisible: boolean,

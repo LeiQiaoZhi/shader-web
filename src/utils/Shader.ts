@@ -1,5 +1,5 @@
 import {hexToRgba} from "./webglUtils";
-import {ConfigData} from "./ConfigManager";
+import {UniformConfigData} from "../components/uniforms/UniformsSpecification";
 
 export class Shader {
     private gl: WebGLRenderingContext;
@@ -54,10 +54,10 @@ export class Shader {
         this.gl.uniform2i(uniformLocation, value1, value2);
     }
 
-    public setUniform(config: ConfigData) {
-        const name = config.gl.name;
-        const value = config.ui.value;
-        switch (config.gl.type) {
+    public setUniform(config: UniformConfigData) {
+        const name = config.gl?.name  ?? "Undefined Name";
+        const value = config.ui?.value;
+        switch (config.gl?.type) {
             case "float":
                 this.setUniformFloat(name, value);
                 break;
@@ -74,7 +74,7 @@ export class Shader {
                 this.setUniformColor3(name, value);
                 break;
             default:
-                console.warn(`Unsupported type ${config.gl.type}`);
+                console.warn(`Unsupported type ${config.gl?.type}`);
         }
     }
 }

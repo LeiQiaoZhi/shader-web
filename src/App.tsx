@@ -7,20 +7,23 @@ import {ShaderContextProvider} from "./utils/contexts/ShaderContext";
 
 import CodeEditor from "./components/editor/CodeEditor";
 import {ThemeContextProvider} from "./utils/contexts/ThemeContext";
+import {UniformContextProvider} from "./utils/contexts/UniformsContext";
 
 function App() {
     return (
         <ShaderContextProvider>
             <ThemeContextProvider>
-                <div className="app">
-                    <AppHeader/>
-                    <div className="app-body">
-                        <UniformsPanel/>
-                        <ShaderCanvas/>
-                        <CodeEditor/>
+                <UniformContextProvider>
+                    <div className="app">
+                        <AppHeader/>
+                        <div className="app-body">
+                            <UniformsPanel/>
+                            <ShaderCanvas/>
+                            <CodeEditor/>
 
+                        </div>
                     </div>
-                </div>
+                </UniformContextProvider>
             </ThemeContextProvider>
         </ShaderContextProvider>
     );

@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./UniformsPanel.css"
-import ConfigManager, {ConfigData} from "../../utils/ConfigManager";
+import ConfigManager from "../../utils/ConfigManager";
 import FileSelect from "../common/FileSelect";
 import UniformComponent from "./UniformComponent";
 import PanelHeader from "../common/PanelHeader";
-import {FaFileDownload} from "react-icons/fa";
+import {FaEdit, FaFileDownload} from "react-icons/fa";
 import {exportStringForDownload, loadData, saveDataWithKey} from "../../utils/browserUtils";
+import {UniformPanelMode, useUniformContext} from "../../utils/contexts/UniformsContext";
+import {UniformConfigData} from "./UniformsSpecification";
 
 interface UniformsPanelProps {
 }
@@ -13,8 +15,9 @@ interface UniformsPanelProps {
 const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     const savedData = loadData();
     const configManagerRef = useRef<ConfigManager>(new ConfigManager(savedData.configData));
-    const [uniformsObject, setUniformsObject] = useState<ConfigData[]>(configManagerRef.current.get("uniforms"));
+    const [uniformsObject, setUniformsObject] = useState<UniformConfigData[]>(configManagerRef.current.getUniforms());
     const [isVisible, setIsVisible] = useState(savedData.uniformsVisible);
+    const {mode, setMode} = useUniformContext();
 
     useEffect(() => {
         console.log("Config Changed");
@@ -23,7 +26,7 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     const onConfigFileSelect = async (file: File) => {
         try {
             await configManagerRef.current.loadFile(file);
-            setUniformsObject(configManagerRef.current.get("uniforms"));
+            setUniformsObject(configManagerRef.current.getUniforms());
         } catch (error) {
             console.error('Error loading config file:', error);
         }
@@ -37,7 +40,13 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
 
     return (
         <div className="uniforms-panel" data-visible={isVisible}>
-            <PanelHeader title="Uniforms" isVisible={isVisible} setVisible={setIsVisible}>
+            <PanelHeader title={mode === UniformPanelMode.Normal ? "Uniforms" : "Uniforms (Edit)"}
+                         isVisible={isVisible} setVisible={setIsVisible}>
+                <div onClick={e => setMode(
+                    mode === UniformPanelMode.Normal ? UniformPanelMode.Edit : UniformPanelMode.Normal
+                )}>
+                    <FaEdit/>
+                </div>
                 <div onClick={handleExportConfig}>
                     <FaFileDownload/>
                 </div>
@@ -48,7 +57,7 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
                     saveDataWithKey("configData", configManagerRef.current.getConfigData())
             }>
                 {
-                    uniformsObject.map((uniformConfig: ConfigData, _: number) => {
+                    uniformsObject.map((uniformConfig: UniformConfigData, _: number) => {
                         return (
                             <UniformComponent uniformConfig={uniformConfig}/>
                         );

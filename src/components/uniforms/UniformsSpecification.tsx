@@ -6,6 +6,35 @@ import ColorUniformComponent from "./ColorUniformComponent";
 import FolderUniformComponent from "./FolderUniformComponent";
 import DropdownUniformComponent from "./DropdownUniformComponent";
 
+export interface TopLevelConfigData{
+    title?: string;
+    uniforms: UniformConfigData[];
+    [key: string]: any; // This allows for dynamic keys
+}
+
+interface UIConfigData {
+    type: string;
+    value: any;
+    min?: number;
+    max?: number;
+    step?: number;
+    options?: string[];
+    // [key: string]: any; // This allows for dynamic keys
+}
+
+interface GLConfigData {
+    name?: string;
+    type?: string;
+    // [key: string]: any; // This allows for dynamic keys
+}
+
+export interface UniformConfigData {
+    ui: UIConfigData;
+    gl?: GLConfigData;
+
+    [key: string]: any; // This allows for dynamic keys
+}
+
 export const UNIFORMS_UI_TYPE_TO_COMPONENT_MAP: { [key: string]: React.FC<IUniformComponentProps>; } = {
     checkbox: CheckboxUniformComponent,
     slider: SliderUniformComponent,

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./FolderUniformComponent.css"
-import {ConfigData} from "../../utils/ConfigManager";
 import UniformComponent from "./UniformComponent";
+import {UniformConfigData} from "./UniformsSpecification";
 
 const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const [value, setValue] = useState(false);
@@ -25,7 +25,7 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
                  data-expanded={value}
             >
                 {config.children &&
-                    config.children.map((uniformConfig: ConfigData, i: number) => {
+                    config.children.map((uniformConfig: UniformConfigData, i: number) => {
                         return (
                             <div key={i}>
                                 <UniformComponent uniformConfig={uniformConfig}/>
