@@ -27,9 +27,9 @@
   - [x] checkbox for bool
   - [x] fold-able component
   - [x] dropdown
-  - [ ] image/texture component
+  - [ ] **image/texture component**
 - [x] iResolution uniform
-- [ ] iMouse uniform
+- [ ] **iMouse uniform**
 - [x] shader compilation error message
 - [x] animation control
   - [x] pause and resume
@@ -38,7 +38,7 @@
 - [x] download config
 - [x] responsive design ui
 - [x] manually specify viewport dimension
-- [x] **online editor (ace)**
+- [x] online editor (ace)
   - [x] glsl syntax highlighting
   - [x] vim mode
     - [x] switch between different keybindings
@@ -49,16 +49,22 @@
   - [x] pass code to shader
   - [x] export file
 - [x] save file and settings on browser
-  - [ ] save both shader source and editor shader source separately
   - [ ] reset editor settings only, reset shader source, reset config
 - [x] button to toggle visibility of a panel
   - [x] vertical title of hidden panels
 - [x] icons
 - [x] animate compile status message
 - [ ] access the previous frame as a uniform (also the dimension)
-- [ ] create uniform components from ui (instead of writing the config by hand)
+- [x] create uniform components from ui (instead of writing the config by hand)
   - [x] modify
-  - [ ] delete
-  - [ ] create
+  - [x] delete
+  - [x] create
   - [ ] reorder
-- [ ] keyboard shortcuts (compile, set dimension)
+- [ ] tabs in editors
+  - [x] scrolling tab bar
+  - [x] delete
+  - [ ] add (empty, template)
+  - [x] edit (rename)
+  - [ ] reorder
+- [ ] **#import preprocessor directive**
+- [ ] **keyboard shortcuts (compile, set dimension)**

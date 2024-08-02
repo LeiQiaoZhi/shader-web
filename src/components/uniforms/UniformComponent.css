@@ -25,6 +25,7 @@
 
 .uniform-component:not(.folder):hover {
     background: var(--background-color);
+    border-radius: var(--small-radius);
 }
 
 .uniform-component .uniform-edit-button {

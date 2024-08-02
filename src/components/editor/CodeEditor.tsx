@@ -8,15 +8,28 @@ import EditorKeybindingSelect from "./EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
 import EditorSettingCheckbox from "./EditorSettingCheckbox";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
-import {FaFileDownload, FaPlay} from "react-icons/fa";
+import {FaEdit, FaFileDownload, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
-import {exportStringForDownload, loadData} from "../../utils/browserUtils";
+import {EditorSources, exportStringForDownload, loadData, saveDataWithKey} from "../../utils/browserUtils";
+import {GrAddCircle} from "react-icons/gr";
+import EditorAddTabModal from "./EditorAddTabModal";
+import EditorEditTabModal from "./EditorEditTabModal";
+import {useEditorContext} from "../../utils/contexts/EditorContext";
+
 
 const CodeEditor = () => {
     const savedData = loadData();
-    console.log(savedData);
     const {shaderSource, setShaderSource} = useShaderContext();
+    const {
+        editorSources, setEditorSources,
+        activeTab, setActiveTab,
+        showAddModal, setShowAddModal,
+        showEditModal, setShowEditModal,
+        tabNameToEdit, setTabNameToEdit,
+    } = useEditorContext();
+
+    // editor settings
     const [editorTheme, setEditorTheme] = useState(savedData.editorTheme);
     const [editorFontSize, setEditorFontSize] = useState(savedData.editorFontSize);
     const [keybinding, setKeybinding] = useState(savedData.editorKeybinding);
@@ -25,16 +38,18 @@ const CodeEditor = () => {
     const [showFolds, setShowFolds] = useState(false);
     const [wrap, setWrap] = useState(false);
     const [highlightLine, setHighlightLine] = useState(true);
-    const [editorShaderSource, setEditorShaderSource] = useState("");
+
     const [isVisible, setIsVisible] = useState(savedData.codeVisible);
 
     useEffect(() => {
-        setEditorShaderSource(shaderSource);
+        console.log("Shader source changed");
+        // TODO: remove upload shader button from shader panel
     }, [shaderSource]);
 
     const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
         const fileName = "shader.frag";
-        exportStringForDownload(editorShaderSource, fileName);
+        // TODO: consider #include
+        exportStringForDownload(editorSources.main, fileName);
     }
 
     return (
@@ -45,9 +60,33 @@ const CodeEditor = () => {
                 </div>
             </PanelHeader>
 
+            <div className="editor-tabs-outer-container">
+                <GrAddCircle onClick={e => setShowAddModal(true)}/>
+                <div className="editor-tabs-container">
+                    {
+                        Object.keys(editorSources).map((tabName, i: number) =>
+                            <div key={tabName} className={`editor-tab ${tabName === activeTab ? "active" : ""}`}
+                                 onClick={() => setActiveTab(tabName)}
+                            >
+
+                                <label>{tabName}</label>
+                                {tabName !== "main" && (
+                                    <FaEdit onClick={e => {
+                                        setShowEditModal(true);
+                                        setTabNameToEdit(tabName);
+                                    }}/>
+                                )}
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+            {showAddModal && <EditorAddTabModal/>}
+            {showEditModal && <EditorEditTabModal/>}
+
             <AceEditor
-                value={editorShaderSource}
-                onChange={e => setEditorShaderSource(e)}
+                value={editorSources[activeTab] ?? editorSources.main}
+                onChange={newSource => setEditorSources({...editorSources, [activeTab]: newSource})}
                 mode="glsl"
                 theme={editorTheme}
                 focus={true}
@@ -67,9 +106,11 @@ const CodeEditor = () => {
                 highlightActiveLine={highlightLine}
                 keyboardHandler={keybinding}
             />
+
             <div className="editor-bottom-control" data-visible={isVisible}>
                 <IconButton
-                    onClick={e => setShaderSource(editorShaderSource)}
+                    // TODO: consider #includes
+                    onClick={e => setShaderSource(editorSources[activeTab] ?? editorSources.main)}
                     size="large" padding="normal"
                 >
                     <FaPlay/>

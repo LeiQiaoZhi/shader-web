@@ -3,9 +3,12 @@ import {IUniformComponentProps} from "./IUniformComponentProps";
 import "./FolderUniformComponent.css"
 import UniformComponent from "./UniformComponent";
 import {UniformConfigData} from "./UniformsSpecification";
+import UniformEditAddButton from "./UniformEditAddButton";
+import {UniformPanelMode, useUniformContext} from "../../utils/contexts/UniformsContext";
 
-const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
+const FolderUniformComponent: React.FC<IUniformComponentProps> = ({index, config}) => {
     const [value, setValue] = useState(false);
+    const {mode} = useUniformContext();
 
     // initialize
     useEffect(() => {
@@ -23,16 +26,19 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
             </div>
             <div className="folder-children-container"
                  data-expanded={value}
+                 style={mode === UniformPanelMode.Edit ? {gap: 0} : {}}
             >
                 {config.children &&
                     config.children.map((uniformConfig: UniformConfigData, i: number) => {
                         return (
                             <div key={i}>
-                                <UniformComponent uniformConfig={uniformConfig}/>
+                                <UniformEditAddButton index={[...index, i]}/>
+                                <UniformComponent index={[...index, i]} uniformConfig={uniformConfig}/>
                             </div>
                         );
                     })
                 }
+                <UniformEditAddButton index={[...index, config.children.length]}/>
             </div>
         </div>
     );

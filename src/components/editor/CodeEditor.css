@@ -1,16 +1,76 @@
 .editor {
-    flex: 2;
-    width: min-content;
-    overflow: visible;
+    flex: 2 auto;
+    width: 500px;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
-    align-items: stretch;
 
     padding: var(--normal-gap);
-    gap: var(--normal-gap);
+    gap: var(--small-gap);
 
     background-color: var(--secondary-background-color);
+}
+
+.editor-tabs-outer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.editor-tabs-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    overflow: auto;
+}
+
+.editor-tabs-outer-container > svg {
+    color: var(--secondary-text-color);
+    background: var(--background-color);
+    padding: 0 var(--normal-gap);
+    height: 100%;
+    border-radius: var(--normal-radius);
+    margin-right: var(--small-gap);
+}
+
+.editor-tabs-outer-container > svg:hover {
+    cursor: pointer;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.editor-tab {
+    color: var(--secondary-text-color);
+    background: var(--background-color);
+    padding: var(--small-gap) var(--normal-gap);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--normal-gap);
+    border-bottom: var(--normal-border) solid var(--background-color);
+}
+
+.editor-tab svg {
+    opacity: 0.4;
+}
+
+.editor-tab svg:hover {
+    color: var(--text-color);
+    opacity: 1;
+    cursor: pointer;
+}
+
+.editor-tab:hover label {
+    color: var(--text-color);
+}
+
+.editor-tab.active {
+    color: var(--secondary-color);
+    background: var(--primary-color);
+    border-bottom: var(--normal-border) solid var(--text-color);
 }
 
 #ace-editor {
@@ -46,4 +106,6 @@
 
 .editor[data-visible="false"] {
     flex: 0;
+    min-width: min-content;
+    align-items: center;
 }

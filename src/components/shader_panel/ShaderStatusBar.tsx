@@ -25,7 +25,7 @@ const ShaderStatusBar: React.FC<ShaderStatusBarProps> = ({width}) => {
 
     const getStyle = () => {
         return {
-            'background-color': status?.success
+            'backgroundColor': status?.success
                 ? inSuccessAnimation ? `var(--primary-color)` : `var(--background-color)`
                 : `var(--contrast-color)`,
             'color': status?.success

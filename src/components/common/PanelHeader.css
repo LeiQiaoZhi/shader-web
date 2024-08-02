@@ -19,6 +19,10 @@
     position: relative;
 }
 
+.panel-header[data-visible="false"] {
+    width: fit-content;
+}
+
 .panel-header h2 {
     flex: 1;
 }

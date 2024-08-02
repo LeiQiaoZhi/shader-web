@@ -30,6 +30,10 @@
     background-color: var(--background-color);
 }
 
+* {
+    transition: all var(--short-transition);
+}
+
 html, body, #root {
     min-width: 100%;
     overflow-x: auto;
@@ -68,7 +72,7 @@ h2 {
     background-color: var(--primary-color);
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: var(--small-gap);
     height: var(--small-gap);
     display: none;

@@ -16,7 +16,7 @@ const Select: React.FC<SelectProps> = (
                 values.length > 0 &&
                 values.map(
                     (v, i) => (
-                        <option value={v}>
+                        <option value={v} key={v}>
                             {optionNames ? optionNames[i] : v}
                         </option>
                     )

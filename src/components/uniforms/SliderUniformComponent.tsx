@@ -11,7 +11,6 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
 
     // initialize
     useEffect(() => {
-        console.log("Init Slider Uniform Component");
         shader?.setUniform(config);
         setValue(config.ui.value);
     }, [config, shader]);

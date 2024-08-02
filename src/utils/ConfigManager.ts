@@ -5,11 +5,13 @@ import {TopLevelConfigData, UniformConfigData} from "../components/uniforms/Unif
 
 class ConfigManager {
     private configData: TopLevelConfigData;
+    private setConfigData: (config: TopLevelConfigData) => void;
     private fileName: string;
 
-    constructor(configData: TopLevelConfigData) {
+    constructor(configData: TopLevelConfigData, setConfigData: (value: TopLevelConfigData) => void) {
         this.configData = configData;
         this.fileName = "unknown";
+        this.setConfigData = setConfigData;
     }
 
     async loadFile(file: File): Promise<void> {
@@ -24,6 +26,7 @@ class ConfigManager {
 
         this.fileName = file.name;
         console.log(this.configData);
+        this.setConfigData(this.configData);
         saveDataWithKey("configData", this.configData);
     }
 
@@ -47,9 +50,9 @@ class ConfigManager {
     get(key: string): any {
         return this.configData[key];
     }
-   
+
     getUniforms(): UniformConfigData[] {
-        return this.configData["uniforms"];
+        return this.configData.uniforms;
     }
 
     set(key: string, value: any): void {
@@ -66,6 +69,35 @@ class ConfigManager {
 
     getFileName() {
         return this.fileName;
+    }
+
+    insertSingleUniform(index: number[]): void {
+        let currentLevelConfig: any[] = this.configData.uniforms;
+        console.log("Before add", currentLevelConfig);
+        for (const i of index.slice(0, -1)) {
+            currentLevelConfig = currentLevelConfig[i].children;
+        }
+        const indexToInsert = index.slice(-1)[0];
+        const objToInsert: UniformConfigData = {
+            name: "New Uniform",
+            ui: {type: "checkbox", value: false},
+            gl: {type: "bool", name: "iUniformName"}
+        };
+        console.log("Current level before add", currentLevelConfig);
+        currentLevelConfig.splice(indexToInsert, 0, objToInsert);
+        console.log(this.getUniforms());
+        this.setConfigData({...this.configData});
+    }
+
+    deleteAtPosition(index: number[]) {
+        let currentLevelConfig: any[] = this.configData.uniforms;
+        console.log("Before add", currentLevelConfig);
+        for (const i of index.slice(0, -1)) {
+            currentLevelConfig = currentLevelConfig[i].children;
+        }
+        const indexToDelete = index.slice(-1)[0];
+        currentLevelConfig.splice(indexToDelete, 1);
+        this.setConfigData({...this.configData});
     }
 }
 

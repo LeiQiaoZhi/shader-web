@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./UniformsPanel.css"
-import ConfigManager from "../../utils/ConfigManager";
 import FileSelect from "../common/FileSelect";
 import UniformComponent from "./UniformComponent";
 import PanelHeader from "../common/PanelHeader";
@@ -8,38 +7,36 @@ import {FaEdit, FaFileDownload} from "react-icons/fa";
 import {exportStringForDownload, loadData, saveDataWithKey} from "../../utils/browserUtils";
 import {UniformPanelMode, useUniformContext} from "../../utils/contexts/UniformsContext";
 import {UniformConfigData} from "./UniformsSpecification";
+import UniformEditAddButton from "./UniformEditAddButton";
 
 interface UniformsPanelProps {
 }
 
 const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     const savedData = loadData();
-    const configManagerRef = useRef<ConfigManager>(new ConfigManager(savedData.configData));
-    const [uniformsObject, setUniformsObject] = useState<UniformConfigData[]>(configManagerRef.current.getUniforms());
     const [isVisible, setIsVisible] = useState(savedData.uniformsVisible);
-    const {mode, setMode} = useUniformContext();
+    const {mode, setMode, configManager, configDataState} = useUniformContext();
 
     useEffect(() => {
-        console.log("Config Changed");
-    }, [uniformsObject]);
+        console.log("Config Changed, from manager:", configDataState);
+    }, [configDataState])
 
     const onConfigFileSelect = async (file: File) => {
         try {
-            await configManagerRef.current.loadFile(file);
-            setUniformsObject(configManagerRef.current.getUniforms());
+            await configManager.loadFile(file);
         } catch (error) {
             console.error('Error loading config file:', error);
         }
     }
 
     const handleExportConfig = (event: React.MouseEvent<any>) => {
-        const configAsString = configManagerRef.current.getConfigAsString();
-        const fileName = configManagerRef.current.getFileName().replace(".toml", ".json");
+        const configAsString = configManager.getConfigAsString();
+        const fileName = configManager.getFileName().replace(".toml", ".json");
         exportStringForDownload(configAsString, fileName);
     }
 
     return (
-        <div className="uniforms-panel" data-visible={isVisible}>
+        <div className="uniforms-panel" data-visible={isVisible} >
             <PanelHeader title={mode === UniformPanelMode.Normal ? "Uniforms" : "Uniforms (Edit)"}
                          isVisible={isVisible} setVisible={setIsVisible}>
                 <div onClick={e => setMode(
@@ -51,18 +48,25 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
                     <FaFileDownload/>
                 </div>
             </PanelHeader>
+
             <FileSelect onFileSelect={onConfigFileSelect} accept=".toml, .json" id="config select" title="Config"/>
-            <div className="uniforms-components-container" onChange={
-                e =>
-                    saveDataWithKey("configData", configManagerRef.current.getConfigData())
-            }>
+
+            <div className="uniforms-components-container" style={mode === UniformPanelMode.Edit ? {gap: 0} : {}}
+                 onChange={e => {
+                     console.log("Uniform modified, data to save to storage:", configManager.getConfigData());
+                     saveDataWithKey("configData", configManager.getConfigData())
+                 }}>
                 {
-                    uniformsObject.map((uniformConfig: UniformConfigData, _: number) => {
+                    configDataState.uniforms.map((uniformConfig: UniformConfigData, i: number) => {
                         return (
-                            <UniformComponent uniformConfig={uniformConfig}/>
+                            <div>
+                                <UniformEditAddButton index={[i]}/>
+                                <UniformComponent key={uniformConfig.name} index={[i]} uniformConfig={uniformConfig}/>
+                            </div>
                         );
                     })
                 }
+                <UniformEditAddButton index={[configDataState.uniforms.length]}/>
             </div>
         </div>
     )

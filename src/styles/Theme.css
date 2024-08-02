@@ -15,9 +15,9 @@
     --normal-border: 2px;
     --small-border: 1px;
     
-    --long-transition: 400ms;
-    --normal-transition: 200ms;
-    --short-transition: 100ms;
+    --long-transition: 300ms;
+    --normal-transition: 100ms;
+    --short-transition: 50ms;
     
     --font: 'CaskaydiaCove Nerd Font';
 }

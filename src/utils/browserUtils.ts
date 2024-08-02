@@ -12,6 +12,12 @@ export const exportStringForDownload = (content: string, fileName: string) => {
     URL.revokeObjectURL(url);
 }
 
+
+export interface EditorSources {
+    main: string;
+    [key: string]: string;
+}
+
 export interface SavedData {
     theme: ThemeStringType,
     // editor settings
@@ -21,6 +27,8 @@ export interface SavedData {
     // source
     shaderSource: string,
     configData: TopLevelConfigData,
+    editorSources: EditorSources,
+    activeTab: string;
     // panel visibilities
     uniformsVisible: boolean,
     shaderVisible: boolean,
@@ -31,8 +39,6 @@ export interface SavedData {
     // animation
     speed: number,
     isPaused: boolean,
-
-    [key: string]: any
 }
 
 const isSavedData = (obj: any): boolean => {
@@ -52,6 +58,8 @@ export const DEFAULT_SAVED_DATA: SavedData = {
     editorFontSize: "medium",
     editorKeybinding: "vim",
     shaderSource: defaultFragmentShaderSource,
+    editorSources: {main: defaultFragmentShaderSource},
+    activeTab: "main",
     configData: {"uniforms": []},
     uniformsVisible: true,
     shaderVisible: true,
@@ -76,8 +84,11 @@ export const loadData = (): SavedData => {
 }
 
 export const saveDataWithKey = (key: string, value: any) => {
+    if (!(key in DEFAULT_SAVED_DATA)) {
+        return;
+    }
     const data = loadData();
-    data[key] = value;
+    (data as any)[key] = value;
     saveData(data);
 }
 

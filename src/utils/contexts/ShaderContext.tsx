@@ -30,7 +30,7 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const [shaderSource, setShaderSource] = useState(savedData.shaderSource);
 
     const setShaderSourceWithSave = (newSource: string) => {
-        setShaderSource(newSource+' '); // force update
+        setShaderSource(`${newSource}\n//${Math.random()}`); // force update
         saveDataWithKey("shaderSource", newSource);
     }
 

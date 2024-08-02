@@ -21,7 +21,7 @@ const PanelHeader: React.FC<PanelHeaderProps> = (
 ) => {
     return (
         <div className="panel-header" data-visible={isVisible}>
-            <div style={{"flex": 1}} onClick={
+            <div style={{"flex": "1 auto", width: "min-content"}} onClick={
                 e => {
                     setVisible(!isVisible);
                     saveDataWithKey(`${title.toLowerCase()}Visible`, !isVisible);
