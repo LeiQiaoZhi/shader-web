@@ -6,6 +6,8 @@ interface IconButtonProps {
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     size?: "small" | "normal" | "large";
     padding?: '0' | "small" | "normal" | "large";
+    color?: string;
+    background?: string;
     className?: string;
 }
 
@@ -15,6 +17,8 @@ const IconButton: React.FC<IconButtonProps> = (
         onClick,
         size = "normal",
         padding = "normal",
+        color,
+        background,
         className,
     }
 ) => {
@@ -24,6 +28,12 @@ const IconButton: React.FC<IconButtonProps> = (
     }
     if (padding) {
         style.padding = (padding === '0') ? 0 : `var(--${padding}-gap)`;
+    }
+    if (color){
+        style.color = color;
+    }
+    if (background){
+        style.background = background;
     }
     return (
         <button onClick={onClick} className={`icon-button ${className}`} style={style}>

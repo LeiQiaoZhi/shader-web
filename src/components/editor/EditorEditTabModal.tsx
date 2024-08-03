@@ -74,7 +74,8 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                         warning !== "" &&
                         <WarningText warningText={warning}/>
                     }
-                    <IconButton size="small" onClick={e => {
+                    <IconButton size="small" background="var(--contrast-color)" color="var(--background-color)"
+                                onClick={e => {
                         const {[tabNameToEdit]: source, main: mainSource, ...rest} = editorSources;
                         setEditorSources({main: mainSource, ...rest});
                         setActiveTab("main");

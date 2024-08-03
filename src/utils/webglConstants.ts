@@ -1,3 +1,5 @@
+import {COLORS_TEMPLATE} from "./colorsTemplate";
+
 export const defaultVertexShaderSource = `
   attribute vec4 a_position;
   void main() {
@@ -5,8 +7,8 @@ export const defaultVertexShaderSource = `
   }
 `;
 
-export const defaultFragmentShaderSource = 
-`precision mediump float;
+export const defaultFragmentShaderSource =
+    `precision mediump float;
 
 // built-in uniforms
 uniform float iTime;
@@ -18,3 +20,9 @@ void main() {
     gl_FragColor = vec4(color, 1.0);
 }
 `;
+
+export const SHADER_SOURCE_TEMPLATE_MAP: { [key: string]: string } = {
+    "Empty": "",
+    "Template": defaultFragmentShaderSource,
+    "Colors": COLORS_TEMPLATE
+}

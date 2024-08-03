@@ -1,6 +1,7 @@
 
 .panel-header {
     color: var(--secondary-text-color);
+    position: relative;
 }
 
 .panel-header[data-visible="false"] h2{

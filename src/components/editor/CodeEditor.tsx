@@ -16,6 +16,7 @@ import {GrAddCircle} from "react-icons/gr";
 import EditorAddTabModal from "./EditorAddTabModal";
 import EditorEditTabModal from "./EditorEditTabModal";
 import {useEditorContext} from "../../utils/contexts/EditorContext";
+import {preprocessShaderSource} from "../../utils/webglUtils";
 
 
 const CodeEditor = () => {
@@ -47,9 +48,8 @@ const CodeEditor = () => {
     }, [shaderSource]);
 
     const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
-        const fileName = "shader.frag";
-        // TODO: consider #include
-        exportStringForDownload(editorSources.main, fileName);
+        // TODO: more options, download in a zip, in a single file...
+        exportStringForDownload(editorSources[activeTab], activeTab + ".frag");
     }
 
     return (
@@ -109,10 +109,8 @@ const CodeEditor = () => {
 
             <div className="editor-bottom-control" data-visible={isVisible}>
                 <IconButton
-                    // TODO: consider #includes
-                    onClick={e => setShaderSource(editorSources[activeTab] ?? editorSources.main)}
                     size="large" padding="normal"
-                >
+                    onClick={e => setShaderSource(preprocessShaderSource(editorSources))}>
                     <FaPlay/>
                 </IconButton>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>

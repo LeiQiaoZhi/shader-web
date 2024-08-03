@@ -1,4 +1,5 @@
 import {IShaderStatus} from "./contexts/ShaderContext";
+import {EditorSources} from "./browserUtils";
 
 interface ICreateShaderReturn {
     shader: WebGLShader | null;
@@ -54,4 +55,31 @@ export const hexToRgba = (hex: string, alpha: number = 1): [number, number, numb
     let b = bigint & 255;
 
     return [r / 255, g / 255, b / 255, alpha];
+}
+
+export const preprocessShaderSource = (editorSources: EditorSources) => {
+    const main = editorSources.main;
+    const preprocessed = preprocessSingleShaderSource(main, new Set<string>(["main"]), editorSources);
+    console.log(preprocessed);
+    return preprocessed;
+}
+
+export const preprocessSingleShaderSource = (source: string, included: Set<string>, editorSources: EditorSources) => {
+    console.log(included);
+    const regex = /^#include\s+["]([\w.\-]+)["].*$/gm;
+    let match;
+    let preprocessed = source;
+    while ((match = regex.exec(source)) !== null) {
+        const fileToInclude: string = match[1];
+        console.log(`preprocessing ${fileToInclude}`);
+        if (!included.has(fileToInclude) && fileToInclude in editorSources) {
+            included.add(fileToInclude);
+            const sourceToInclude = preprocessSingleShaderSource(editorSources[fileToInclude], included, editorSources);
+            preprocessed = preprocessed.replace(match[0], sourceToInclude);
+        } else {
+            console.log(fileToInclude + " already included or not an existing file name");
+            preprocessed = preprocessed.replace(match[0], "");
+        }
+    }
+    return preprocessed;
 }

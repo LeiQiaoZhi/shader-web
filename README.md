@@ -60,11 +60,14 @@
   - [x] delete
   - [x] create
   - [ ] reorder
-- [ ] tabs in editors
+- [x] tabs in editors
   - [x] scrolling tab bar
   - [x] delete
-  - [ ] add (empty, template)
+  - [x] add (empty, template)
   - [x] edit (rename)
-  - [ ] reorder
-- [ ] **#import preprocessor directive**
+  - [x] reorder
+- [x] import preprocessor directive
 - [ ] **keyboard shortcuts (compile, set dimension)**
+- [ ] more templates
+  - [ ] noises
+  - [ ] sdfs

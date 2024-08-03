@@ -1,7 +1,7 @@
 .editor {
     flex: 2 auto;
     width: 500px;
-    overflow: hidden;
+    overflow: auto;
 
     display: flex;
     flex-direction: column;
@@ -76,6 +76,7 @@
 #ace-editor {
     font-family: var(--font), sans-serif;
     flex: 1;
+    min-height: 300px;
 }
 
 .editor-bottom-control {
