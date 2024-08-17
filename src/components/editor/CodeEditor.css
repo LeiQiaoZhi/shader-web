@@ -25,8 +25,10 @@
     align-items: center;
     width: 100%;
     overflow: auto;
+    gap: calc(var(--small-gap) / 2);
 }
 
+/* add tab button */
 .editor-tabs-outer-container > svg {
     color: var(--secondary-text-color);
     background: var(--background-color);
@@ -49,22 +51,25 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--normal-gap);
+    gap: var(--small-gap);
     border-bottom: var(--normal-border) solid var(--background-color);
 }
 
-.editor-tab svg {
-    opacity: 0.4;
+.editor-tab-edit-button {
+    opacity: 0.0;
 }
 
-.editor-tab svg:hover {
-    color: var(--text-color);
+.editor-tab:hover > .editor-tab-edit-button {
+    opacity: 0.5;
+}
+
+.editor-tab:hover > .editor-tab-edit-button:hover {
     opacity: 1;
     cursor: pointer;
 }
 
 .editor-tab:hover label {
-    color: var(--text-color);
+    font-weight: bold;
 }
 
 .editor-tab.active {

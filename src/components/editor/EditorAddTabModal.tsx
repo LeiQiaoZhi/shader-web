@@ -5,7 +5,7 @@ import {MdCancel} from "react-icons/md";
 import {useEditorContext} from "../../utils/contexts/EditorContext";
 import WarningText from "../common/WarningText";
 import Select from "../common/Select";
-import {SHADER_SOURCE_TEMPLATE_MAP} from "../../utils/webglConstants";
+import {SHADER_SOURCE_TEMPLATE_MAP, ShaderFileType} from "../../utils/webglConstants";
 
 interface EditorAddTabModalProps {
 }
@@ -13,6 +13,7 @@ interface EditorAddTabModalProps {
 const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
     const [tabName, setTabName] = React.useState<string>("newTab");
     const [template, setTemplate] = React.useState<string>("Empty");
+    const [fileType, setFileType] = React.useState<ShaderFileType>(ShaderFileType.Common);
     const [warning, setWarning] = React.useState<string>("");
     const {editorSources, setShowAddModal, setEditorSources, setActiveTab} = useEditorContext();
 
@@ -31,7 +32,14 @@ const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
                             } else {
                                 setWarning("")
                             }
-                            setEditorSources({...editorSources, [tabName]: SHADER_SOURCE_TEMPLATE_MAP[template]});
+
+                            if (fileType === ShaderFileType.Buffer) {
+                                // TODO: create buffer in ShaderCanvas
+                            }
+                            setEditorSources({
+                                ...editorSources,
+                                [tabName]: {source: SHADER_SOURCE_TEMPLATE_MAP[template], type: fileType}
+                            });
                             setActiveTab(tabName);
                             setShowAddModal(false);
                         }}
@@ -52,6 +60,14 @@ const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
                         warning !== "" &&
                         <WarningText warningText={warning}/>
                     }
+                    <div>
+                        <span>Type: </span>
+                        <Select value={fileType}
+                                values={Object.keys(ShaderFileType)}
+                                onChange={e => {
+                                    setFileType(e.target.value as ShaderFileType);
+                                }}/>
+                    </div>
                     <div>
                         <span>Template: </span>
                         <Select value={template}

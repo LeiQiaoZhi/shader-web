@@ -8,13 +8,19 @@ export interface IShaderStatus {
     message: string | null;
 }
 
+export interface ShaderSources {
+    main: string;
+    posts: Record<string, string>[];
+    buffers: Record<string, string>[];
+}
+
 interface IShaderContext {
     shader: Shader | null;
     setShader: (shader: Shader) => void;
     status: IShaderStatus | null;
     setStatus: (status: IShaderStatus) => void;
-    shaderSource: string;
-    setShaderSource: (shaderSource: string) => void;
+    shaderSources: ShaderSources;
+    setShaderSources: (shaderSources: ShaderSources) => void;
 }
 
 const ShaderContext = createContext<IShaderContext | undefined>(undefined);
@@ -27,11 +33,11 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const savedData = loadData();
     const [shader, setShader] = useState<Shader | null>(null);
     const [shaderStatus, setShaderStatus] = useState<IShaderStatus | null>(null);
-    const [shaderSource, setShaderSource] = useState(savedData.shaderSource);
+    const [shaderSources, setShaderSources] = useState<ShaderSources>(savedData.shaderSources);
 
-    const setShaderSourceWithSave = (newSource: string) => {
-        setShaderSource(`${newSource}\n//${Math.random()}`); // force update
-        saveDataWithKey("shaderSource", newSource);
+    const setShaderSourceWithSave = (newSources: ShaderSources) => {
+        setShaderSources({...newSources});
+        saveDataWithKey("shaderSource", newSources);
     }
 
     const setShaderStatusForceUpdate = (status: IShaderStatus) => {
@@ -44,8 +50,8 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
             setShader,
             status: shaderStatus,
             setStatus: setShaderStatusForceUpdate,
-            shaderSource,
-            setShaderSource: setShaderSourceWithSave,
+            shaderSources: shaderSources,
+            setShaderSources: setShaderSourceWithSave,
         }}>
             {children}
         </ShaderContext.Provider>

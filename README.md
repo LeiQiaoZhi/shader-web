@@ -77,5 +77,6 @@
 - [ ] export from shadertoy
 - [ ] embed
 - [ ] **create buffer type file** 
+  - [x] frontend to create buffer shader file
   - [ ] abstract fbo and texture
   - [ ] save and pass previous frame of buffer

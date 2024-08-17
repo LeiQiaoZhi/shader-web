@@ -27,7 +27,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
-    const {setShader, setStatus, shaderSource, setShaderSource} = useShaderContext();
+    const {setShader, setStatus, shaderSources} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -38,7 +38,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         if (!gl) return;
 
         const vertexShaderResult = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, shaderSource);
+        const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, shaderSources.main);
         if (!vertexShaderResult || !fragmentShaderResult) return;
         const {shader: vertexShader} = vertexShaderResult;
         const {shader: fragmentShader, status: shaderStatus} = fragmentShaderResult;
@@ -111,32 +111,11 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             }
         };
 
-    }, [shaderSource, viewportDimension]);
-
-    const loadFragShaderFromFile = (file: File) => {
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const text = e.target?.result as string;
-            if (text) {
-                console.log(`Set frag source from ${file.name}`);
-                if (text === shaderSource) {
-                    setShaderSource(text + "\n"); // ensure difference to trigger effect
-                } else {
-                    setShaderSource(text);
-                }
-            }
-        };
-        reader.readAsText(file);
-    }
-
+    }, [shaderSources, viewportDimension]);
 
     return (
         <div className='shader-canvas-container' style={{width: `${viewportDimension}`}} data-visible={isVisible}>
             <PanelHeader title="Shader" isVisible={isVisible} setVisible={setIsVisible}/>
-            <div className='shader-canvas-file-selector-header'>
-                <FileSelect onFileSelect={loadFragShaderFromFile} accept=".frag" id="shader select" title="Shader"/>
-            </div>
             <ShaderStatusBar width={viewportDimension[0]}/>
             <canvas ref={canvasRef} width={viewportDimension[0]} height={viewportDimension[1]}/>
             <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef}

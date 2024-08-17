@@ -11,17 +11,20 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import {FaEdit, FaFileDownload, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
-import {EditorSources, exportStringForDownload, loadData, saveDataWithKey} from "../../utils/browserUtils";
+import {exportStringForDownload, loadData} from "../../utils/browserUtils";
 import {GrAddCircle} from "react-icons/gr";
 import EditorAddTabModal from "./EditorAddTabModal";
 import EditorEditTabModal from "./EditorEditTabModal";
 import {useEditorContext} from "../../utils/contexts/EditorContext";
 import {preprocessShaderSource} from "../../utils/webglUtils";
+import {ShaderFileType} from "../../utils/webglConstants";
+import {FaBuffer, FaFileCode} from "react-icons/fa6";
+import {IoColorFilter} from "react-icons/io5";
 
 
 const CodeEditor = () => {
     const savedData = loadData();
-    const {shaderSource, setShaderSource} = useShaderContext();
+    const {shaderSources, setShaderSources} = useShaderContext();
     const {
         editorSources, setEditorSources,
         activeTab, setActiveTab,
@@ -45,11 +48,11 @@ const CodeEditor = () => {
     useEffect(() => {
         console.log("Shader source changed");
         // TODO: remove upload shader button from shader panel
-    }, [shaderSource]);
+    }, [shaderSources]);
 
     const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
         // TODO: more options, download in a zip, in a single file...
-        exportStringForDownload(editorSources[activeTab], activeTab + ".frag");
+        exportStringForDownload(editorSources[activeTab].source, activeTab + ".frag");
     }
 
     return (
@@ -69,12 +72,20 @@ const CodeEditor = () => {
                                  onClick={() => setActiveTab(tabName)}
                             >
 
+                                {
+                                    editorSources[tabName].type === ShaderFileType.Buffer || tabName === "main"
+                                        ? <FaBuffer/>
+                                        : editorSources[tabName].type === ShaderFileType.Post
+                                            ? <IoColorFilter/>
+                                            : <FaFileCode/>
+                                }
                                 <label>{tabName}</label>
                                 {tabName !== "main" && (
-                                    <FaEdit onClick={e => {
-                                        setShowEditModal(true);
-                                        setTabNameToEdit(tabName);
-                                    }}/>
+                                    <FaEdit className="editor-tab-edit-button"
+                                            onClick={e => {
+                                                setShowEditModal(true);
+                                                setTabNameToEdit(tabName);
+                                            }}/>
                                 )}
                             </div>
                         )
@@ -85,8 +96,11 @@ const CodeEditor = () => {
             {showEditModal && <EditorEditTabModal/>}
 
             <AceEditor
-                value={editorSources[activeTab] ?? editorSources.main}
-                onChange={newSource => setEditorSources({...editorSources, [activeTab]: newSource})}
+                value={editorSources[activeTab].source}
+                onChange={newSource => setEditorSources({
+                    ...editorSources,
+                    [activeTab]: {source: newSource, type: editorSources[activeTab].type}
+                })}
                 mode="glsl"
                 theme={editorTheme}
                 focus={true}
@@ -110,7 +124,8 @@ const CodeEditor = () => {
             <div className="editor-bottom-control" data-visible={isVisible}>
                 <IconButton
                     size="large" padding="normal"
-                    onClick={e => setShaderSource(preprocessShaderSource(editorSources))}>
+                    onClick={e =>
+                        setShaderSources(preprocessShaderSource(editorSources))}>
                     <FaPlay/>
                 </IconButton>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>

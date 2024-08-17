@@ -12,13 +12,6 @@
     background-color: var(--secondary-background-color);
 }
 
-.shader-canvas-file-selector-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
 canvas {
     border-radius: var(--small-radius);
 }

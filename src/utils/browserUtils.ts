@@ -1,6 +1,7 @@
-import {defaultFragmentShaderSource} from "./webglConstants";
+import {defaultFragmentShaderSource, ShaderFileType} from "./webglConstants";
 import {ThemeStringType} from "./contexts/ThemeContext";
 import {TopLevelConfigData} from "../components/uniforms/UniformsSpecification";
+import {ShaderSources} from "./contexts/ShaderContext";
 
 export const exportStringForDownload = (content: string, fileName: string) => {
     const blob = new Blob([content]);
@@ -14,8 +15,9 @@ export const exportStringForDownload = (content: string, fileName: string) => {
 
 
 export interface EditorSources {
-    main: string;
-    [key: string]: string;
+    main: { source: string, type: ShaderFileType };
+
+    [key: string]: { source: string, type: ShaderFileType };
 }
 
 export interface SavedData {
@@ -25,7 +27,7 @@ export interface SavedData {
     editorFontSize: string,
     editorKeybinding: string,
     // source
-    shaderSource: string,
+    shaderSources: ShaderSources,
     configData: TopLevelConfigData,
     editorSources: EditorSources,
     activeTab: string;
@@ -57,8 +59,8 @@ export const DEFAULT_SAVED_DATA: SavedData = {
     editorTheme: "",
     editorFontSize: "medium",
     editorKeybinding: "vim",
-    shaderSource: defaultFragmentShaderSource,
-    editorSources: {main: defaultFragmentShaderSource},
+    shaderSources: {main: defaultFragmentShaderSource, buffers: [], posts: []},
+    editorSources: {main: {source: defaultFragmentShaderSource, type: ShaderFileType.Common},},
     activeTab: "main",
     configData: {"uniforms": []},
     uniformsVisible: true,

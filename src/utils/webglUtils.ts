@@ -1,5 +1,6 @@
-import {IShaderStatus} from "./contexts/ShaderContext";
+import {IShaderStatus, ShaderSources} from "./contexts/ShaderContext";
 import {EditorSources} from "./browserUtils";
+import {ShaderFileType} from "./webglConstants";
 
 interface ICreateShaderReturn {
     shader: WebGLShader | null;
@@ -57,11 +58,34 @@ export const hexToRgba = (hex: string, alpha: number = 1): [number, number, numb
     return [r / 255, g / 255, b / 255, alpha];
 }
 
-export const preprocessShaderSource = (editorSources: EditorSources) => {
-    const main = editorSources.main;
-    const preprocessed = preprocessSingleShaderSource(main, new Set<string>(["main"]), editorSources);
-    console.log(preprocessed);
-    return preprocessed;
+export const preprocessShaderSource = (editorSources: EditorSources): ShaderSources => {
+    const preprocessedMain = preprocessSingleShaderSource(editorSources.main.source, new Set<string>(["main"]), editorSources);
+
+    const postNames = Object.keys(editorSources).filter(fileName => editorSources[fileName].type === ShaderFileType.Post);
+    const preprocessedPosts = postNames.map(postName => {
+            return {
+                [postName]:
+                    preprocessSingleShaderSource(editorSources[postName].source, new Set<string>(postName), editorSources)
+            } as Record<string, string>;
+        }
+    )
+
+    const bufferNames = Object.keys(editorSources).filter(fileName => editorSources[fileName].type === ShaderFileType.Buffer);
+    const preprocessedBuffers = bufferNames.map(postName => {
+            return {
+                [postName]:
+                    preprocessSingleShaderSource(editorSources[postName].source, new Set<string>(postName), editorSources)
+            } as Record<string, string>;
+        }
+    )
+
+    const sources: ShaderSources = {
+        main: preprocessedMain,
+        posts: preprocessedPosts,
+        buffers: preprocessedBuffers,
+    };
+    console.log(sources);
+    return sources;
 }
 
 export const preprocessSingleShaderSource = (source: string, included: Set<string>, editorSources: EditorSources) => {
@@ -74,7 +98,7 @@ export const preprocessSingleShaderSource = (source: string, included: Set<strin
         console.log(`preprocessing ${fileToInclude}`);
         if (!included.has(fileToInclude) && fileToInclude in editorSources) {
             included.add(fileToInclude);
-            const sourceToInclude = preprocessSingleShaderSource(editorSources[fileToInclude], included, editorSources);
+            const sourceToInclude = preprocessSingleShaderSource(editorSources[fileToInclude].source, included, editorSources);
             preprocessed = preprocessed.replace(match[0], sourceToInclude);
         } else {
             console.log(fileToInclude + " already included or not an existing file name");

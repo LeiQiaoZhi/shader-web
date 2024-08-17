@@ -26,3 +26,9 @@ export const SHADER_SOURCE_TEMPLATE_MAP: { [key: string]: string } = {
     "Template": defaultFragmentShaderSource,
     "Colors": COLORS_TEMPLATE
 }
+
+export enum ShaderFileType {
+    Common = "Common",
+    Buffer = "Buffer",
+    Post = "Post",
+}
