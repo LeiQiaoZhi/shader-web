@@ -73,9 +73,9 @@ const CodeEditor = () => {
                             >
 
                                 {
-                                    editorSources[tabName].type === ShaderFileType.Buffer || tabName === "main"
+                                    (editorSources[tabName].type === ShaderFileType.Buffer && tabName === "main")
                                         ? <FaBuffer/>
-                                        : editorSources[tabName].type === ShaderFileType.Post
+                                        : editorSources[tabName].type === ShaderFileType.Buffer && tabName === "post"
                                             ? <IoColorFilter/>
                                             : <FaFileCode/>
                                 }

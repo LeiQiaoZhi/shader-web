@@ -7,18 +7,18 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();
     const [value, setValue] = useState(0);
-    const {shader} = useShaderContext();
+    const {mainShader} = useShaderContext();
 
     // initialize
     useEffect(() => {
-        shader?.setUniform(config);
+        mainShader?.setUniformFromConfig(config);
         setValue(config.ui.value);
-    }, [config, shader]);
+    }, [config, mainShader]);
 
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.valueAsNumber;
         setValue(config.ui.value);
-        shader?.setUniform(config);
+        mainShader?.setUniformFromConfig(config);
     }
 
     return (

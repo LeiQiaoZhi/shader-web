@@ -38,6 +38,9 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                             } else if (tabNameToEdit === "main") {
                                 setWarning("The main file cannot be renamed")
                                 return;
+                            } else if (tabNameToEdit === "post") {
+                                setWarning("The post file cannot be renamed")
+                                return;
                             } else {
                                 setWarning("")
                             }
@@ -46,7 +49,7 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                                 setActiveTab(newTabName);
                             }
 
-                            const newSources: EditorSources = {main: editorSources.main};
+                            const newSources: EditorSources = {main: editorSources.main, post: editorSources.post};
                             Object.keys(editorSources).forEach((key) => {
                                 if (key === tabNameToEdit) {
                                     newSources[newTabName] = editorSources[key];
@@ -64,6 +67,7 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                     ><MdCancel/></IconButton>
                 </div>
                 <div className="modal-body">
+                    <label>Type: {editorSources[tabNameToEdit].type}</label>
                     <div><label>Name: </label>
                         <input type="text" placeholder="New tab name" value={newTabName}
                                onChange={e => {
@@ -76,11 +80,16 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                     }
                     <IconButton size="small" background="var(--contrast-color)" color="var(--background-color)"
                                 onClick={e => {
-                        const {[tabNameToEdit]: source, main: mainSource, ...rest} = editorSources;
-                        setEditorSources({main: mainSource, ...rest});
-                        setActiveTab("main");
-                        setShowEditModal(false);
-                    }}>
+                                    const {
+                                        [tabNameToEdit]: source,
+                                        main: mainSource,
+                                        post: postSource,
+                                        ...rest
+                                    } = editorSources;
+                                    setEditorSources({main: mainSource, post: postSource, ...rest});
+                                    setActiveTab("main");
+                                    setShowEditModal(false);
+                                }}>
                         <MdDelete/>
                         Delete
                     </IconButton>

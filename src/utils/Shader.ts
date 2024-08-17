@@ -1,17 +1,32 @@
-import {hexToRgba} from "./webglUtils";
+import {createProgram, hexToRgba} from "./webglUtils";
 import {UniformConfigData} from "../components/uniforms/UniformsSpecification";
 
 export class Shader {
     private gl: WebGLRenderingContext;
-    private program: WebGLProgram;
+    program: WebGLProgram;
+    positionAttributeLocation: number;
+    private vertexShader: WebGLShader;
+    private fragShader: WebGLShader;
 
-    constructor(gl: WebGLRenderingContext, program: WebGLProgram) {
+    constructor(gl: WebGLRenderingContext, vertex: WebGLShader, fragment: WebGLShader) {
         this.gl = gl;
-        this.program = program;
+        this.program = createProgram(gl, vertex, fragment);
+        this.vertexShader = vertex;
+        this.fragShader = fragment;
+
+        this.positionAttributeLocation = gl.getAttribLocation(this.program, 'a_position');
     }
 
     public activate(): void {
         this.gl.useProgram(this.program);
+    }
+
+    public setUpScreenQuad(positionBuffer: WebGLBuffer | null): void {
+        // set up the screen quad
+        this.gl.enableVertexAttribArray(this.positionAttributeLocation);
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.vertexAttribPointer(this.positionAttributeLocation, 2, this.gl.FLOAT, false, 0, 0);
+
     }
 
     public setUniformBool(name: string, value: boolean): void {
@@ -44,20 +59,24 @@ export class Shader {
         this.gl.uniform1f(uniformLocation, value);
     }
 
-    public setUniformVec2(name: string, value1: number, value2: number) {
+    public setUniformVec2(name: string, values: [number, number]) {
         const uniformLocation = this.gl.getUniformLocation(this.program, name);
-        this.gl.uniform2f(uniformLocation, value1, value2);
+        this.gl.uniform2f(uniformLocation, values[0], values[1]);
     }
 
-    public setUniformVec2I(name: string, value1: number, value2: number) {
+    public setUniformVec2I(name: string, values: [number, number]) {
         const uniformLocation = this.gl.getUniformLocation(this.program, name);
-        this.gl.uniform2i(uniformLocation, value1, value2);
+        this.gl.uniform2i(uniformLocation, values[0], values[1]);
     }
 
-    public setUniform(config: UniformConfigData) {
-        const name = config.gl?.name  ?? "Undefined Name";
+    public setUniformFromConfig(config: UniformConfigData) {
+        const name = config.gl?.name ?? "Undefined Name";
         const value = config.ui?.value;
-        switch (config.gl?.type) {
+        this.setUniform(name, value, config.gl?.type);
+    }
+
+    public setUniform(name: string, type: string, value: any): void {
+        switch (type) {
             case "float":
                 this.setUniformFloat(name, value);
                 break;
@@ -73,8 +92,17 @@ export class Shader {
             case "color3":
                 this.setUniformColor3(name, value);
                 break;
+            case "vec2":
+                this.setUniformVec2(name, value);
+                break;
             default:
-                console.warn(`Unsupported type ${config.gl?.type}`);
+                console.warn(`Unsupported type ${type}`);
         }
+    }
+
+    public delete() {
+        this.gl.deleteProgram(this.program);
+        this.gl.deleteShader(this.vertexShader);
+        this.gl.deleteShader(this.fragShader);
     }
 }

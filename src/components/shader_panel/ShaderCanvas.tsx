@@ -1,6 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {createProgram, createShader} from "../../utils/webglUtils";
-import {defaultVertexShaderSource} from "../../utils/webglConstants";
+import {createGl, createProgram, createScreenQuadBuffer, createShader} from "../../utils/webglUtils";
+import {
+    defaultFragmentShaderSource,
+    defaultPostFragmentShaderSource,
+    defaultVertexShaderSource
+} from "../../utils/webglConstants";
 import './ShaderCanvas.css'
 import FileSelect from "../common/FileSelect";
 import {Shader} from "../../utils/Shader";
@@ -10,7 +14,8 @@ import ShaderAnimationControl from "./ShaderAnimationControl";
 import {ShaderDimensionControl} from "./ShaderDimensionControl";
 import PanelHeader from "../common/PanelHeader";
 import {loadData} from "../../utils/browserUtils";
-import {Texture} from "../../utils/Texture";
+import {MainRenderPass} from "../../utils/MainRenderPass";
+import {PostRenderPass} from "../../utils/PostRenderPass";
 
 
 interface ShaderCanvasProps {
@@ -27,74 +32,50 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
-    const {setShader, setStatus, shaderSources} = useShaderContext();
+    const {setMainShader, status, setStatus, shaderSources} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
         console.log("Starting WebGL")
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const gl = canvas.getContext('webgl', {'antialias': true});
-        if (!gl) return;
+        const gl = createGl(canvas);
 
-        const vertexShaderResult = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const fragmentShaderResult = createShader(gl, gl.FRAGMENT_SHADER, shaderSources.main);
-        if (!vertexShaderResult || !fragmentShaderResult) return;
-        const {shader: vertexShader} = vertexShaderResult;
-        const {shader: fragmentShader, status: shaderStatus} = fragmentShaderResult;
-        setStatus(shaderStatus);
+        console.log(shaderSources);
+        const mainRenderPass = new MainRenderPass(gl, shaderSources.main, setStatus);
+        const postRenderPass = new PostRenderPass(gl, shaderSources.post, setStatus);
 
-        if (!vertexShader || !fragmentShader) return;
-        const program = createProgram(gl, vertexShader, fragmentShader);
-        if (!program) return;
-        const shader = new Shader(gl, program);
         let firstRenderLoop = true;
-
-        const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
-        const positionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-        const positions = [
-            -1, -1,
-            1, -1,
-            -1, 1,
-            -1, 1,
-            1, -1,
-            1, 1,
-        ];
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
-        const previousFrameTexture = new Texture(gl);
-
-        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        const vertexBuffer = createScreenQuadBuffer(gl);
         gl.clearColor(0, 0, 0, 0);
 
         const render = (time: number) => {
             if (firstRenderLoop) {
                 console.log("Setting new shader")
-                setShader(shader);
+                if (mainRenderPass.shader) {
+                    setMainShader(mainRenderPass.shader);
+                }
                 firstRenderLoop = false;
                 elapsedTimeRef.current = 0;
             }
-            gl.clear(gl.COLOR_BUFFER_BIT);
-            shader.activate();
 
-            gl.enableVertexAttribArray(positionAttributeLocation);
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-            gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
-
-            // animation and resolution uniforms
+            // pass uniforms
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
-                shader.setUniformFloat("iTime", elapsedTimeRef.current * 0.01);
             }
-            shader.setUniformVec2I("iResolution", gl.canvas.width, gl.canvas.height);
-            previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
 
-            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            mainRenderPass.draw(
+                postRenderPass.previousFrameTexture,
+                vertexBuffer, [
+                    ["iTime", "float", elapsedTimeRef.current * 0.01],
+                ]);
 
-            previousFrameTexture.bind();
-            gl.copyTexSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 0, 0, gl.canvas.width, gl.canvas.height);
+            postRenderPass.draw(
+                mainRenderPass.colorTexture,
+                vertexBuffer, [
+                    ["iTime", "float", elapsedTimeRef.current * 0.01],
+                ]);
 
             previousFrameTime.current = time;
             requestAnimationFrame(render);
@@ -102,12 +83,13 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
 
         requestAnimationFrame(render);
 
+
         // Cleanup on unmount
         return () => {
             if (gl) {
-                gl.deleteShader(vertexShader);
-                gl.deleteShader(fragmentShader);
-                gl.deleteProgram(program);
+                mainRenderPass.delete();
+                postRenderPass.delete();
+                gl.deleteBuffer(vertexBuffer);
             }
         };
 

@@ -10,13 +10,13 @@ export interface IShaderStatus {
 
 export interface ShaderSources {
     main: string;
-    posts: Record<string, string>[];
+    post: string;
     buffers: Record<string, string>[];
 }
 
 interface IShaderContext {
-    shader: Shader | null;
-    setShader: (shader: Shader) => void;
+    mainShader: Shader | null;
+    setMainShader: (shader: Shader) => void;
     status: IShaderStatus | null;
     setStatus: (status: IShaderStatus) => void;
     shaderSources: ShaderSources;
@@ -31,7 +31,7 @@ interface ShaderContextProps {
 
 const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const savedData = loadData();
-    const [shader, setShader] = useState<Shader | null>(null);
+    const [mainShader, setMainShader] = useState<Shader | null>(null);
     const [shaderStatus, setShaderStatus] = useState<IShaderStatus | null>(null);
     const [shaderSources, setShaderSources] = useState<ShaderSources>(savedData.shaderSources);
 
@@ -46,8 +46,8 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
 
     return (
         <ShaderContext.Provider value={{
-            shader,
-            setShader,
+            mainShader: mainShader,
+            setMainShader: setMainShader,
             status: shaderStatus,
             setStatus: setShaderStatusForceUpdate,
             shaderSources: shaderSources,

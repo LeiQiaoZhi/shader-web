@@ -1,4 +1,4 @@
-import {defaultFragmentShaderSource, ShaderFileType} from "./webglConstants";
+import {defaultFragmentShaderSource, defaultPostFragmentShaderSource, ShaderFileType} from "./webglConstants";
 import {ThemeStringType} from "./contexts/ThemeContext";
 import {TopLevelConfigData} from "../components/uniforms/UniformsSpecification";
 import {ShaderSources} from "./contexts/ShaderContext";
@@ -13,9 +13,9 @@ export const exportStringForDownload = (content: string, fileName: string) => {
     URL.revokeObjectURL(url);
 }
 
-
 export interface EditorSources {
-    main: { source: string, type: ShaderFileType };
+    main: { source: string, type: ShaderFileType.Buffer };
+    post: { source: string, type: ShaderFileType.Buffer };
 
     [key: string]: { source: string, type: ShaderFileType };
 }
@@ -45,7 +45,7 @@ export interface SavedData {
 
 const isSavedData = (obj: any): boolean => {
     return "theme" in obj && "editorTheme" in obj && "editorFontSize" in obj
-        && "editorKeybinding" in obj && "shaderSource" in obj && "configData" in obj
+        && "editorKeybinding" in obj && "shaderSources" in obj && "configData" in obj
         && "uniformsVisible" in obj && "shaderVisible" in obj && "codeVisible" in obj
         && "width" in obj && "height" in obj
         && "speed" in obj && "isPaused" in obj
@@ -59,8 +59,11 @@ export const DEFAULT_SAVED_DATA: SavedData = {
     editorTheme: "",
     editorFontSize: "medium",
     editorKeybinding: "vim",
-    shaderSources: {main: defaultFragmentShaderSource, buffers: [], posts: []},
-    editorSources: {main: {source: defaultFragmentShaderSource, type: ShaderFileType.Common},},
+    shaderSources: {main: defaultFragmentShaderSource, buffers: [], post: defaultPostFragmentShaderSource},
+    editorSources: {
+        main: {source: defaultFragmentShaderSource, type: ShaderFileType.Buffer},
+        post: {source: defaultPostFragmentShaderSource, type: ShaderFileType.Buffer},
+    },
     activeTab: "main",
     configData: {"uniforms": []},
     uniformsVisible: true,

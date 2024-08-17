@@ -7,19 +7,19 @@ import Select from "../common/Select";
 
 const DropdownUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const [selected, setSelected] = useState(0);
-    const {shader} = useShaderContext();
+    const {mainShader} = useShaderContext();
 
     // initialize
     useEffect(() => {
-        shader?.setUniform(config);
+        mainShader?.setUniformFromConfig(config);
         setSelected(config.ui.value);
-    }, [config, shader]);
+    }, [config, mainShader]);
 
 
     const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         config.ui.value = Number(event.target.value);
         setSelected(config.ui.value);
-        shader?.setUniform(config);
+        mainShader?.setUniformFromConfig(config);
     }
 
     return (
