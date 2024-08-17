@@ -10,6 +10,7 @@ import ShaderAnimationControl from "./ShaderAnimationControl";
 import {ShaderDimensionControl} from "./ShaderDimensionControl";
 import PanelHeader from "../common/PanelHeader";
 import {loadData} from "../../utils/browserUtils";
+import {Texture} from "../../utils/Texture";
 
 
 interface ShaderCanvasProps {
@@ -62,6 +63,8 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
+        const previousFrameTexture = new Texture(gl);
+
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         gl.clearColor(0, 0, 0, 0);
 
@@ -86,8 +89,12 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 shader.setUniformFloat("iTime", elapsedTimeRef.current * 0.01);
             }
             shader.setUniformVec2I("iResolution", gl.canvas.width, gl.canvas.height);
+            previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
 
             gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+            previousFrameTexture.bind();
+            gl.copyTexSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 0, 0, gl.canvas.width, gl.canvas.height);
 
             previousFrameTime.current = time;
             requestAnimationFrame(render);

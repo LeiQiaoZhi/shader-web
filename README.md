@@ -68,6 +68,14 @@
   - [x] reorder
 - [x] import preprocessor directive
 - [ ] **keyboard shortcuts (compile, set dimension)**
-- [ ] more templates
+- [ ] more templates/libraries
+  - [ ] state store and read from framebuffer (vec3 <=> other types)
   - [ ] noises
   - [ ] sdfs
+- [ ] screenshot
+- [ ] performance
+- [ ] export from shadertoy
+- [ ] embed
+- [ ] **create buffer type file** 
+  - [ ] abstract fbo and texture
+  - [ ] save and pass previous frame of buffer
