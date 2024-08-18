@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AceEditor from "react-ace";
 import "./CodeEditor.css"
 import "ace-builds/src-noconflict/mode-glsl"
+import "ace-builds/src-noconflict/ext-searchbox"
 import EditorThemeSelect from "./EditorThemeSelect";
 import EditorFontSizeSelect from "./EditorFontSizeSelect";
 import EditorKeybindingSelect from "./EditorKeybindingSelect";
@@ -20,6 +21,7 @@ import {preprocessShaderSource} from "../../utils/webglUtils";
 import {ShaderFileType} from "../../utils/webglConstants";
 import {FaBuffer, FaFileCode} from "react-icons/fa6";
 import {IoColorFilter} from "react-icons/io5";
+import {useKeyboardShortcut} from "../../utils/keyboard";
 
 
 const CodeEditor = () => {
@@ -45,6 +47,10 @@ const CodeEditor = () => {
 
     const [isVisible, setIsVisible] = useState(savedData.codeVisible);
 
+    useKeyboardShortcut('Enter', {ctrl: true}, () => {
+        compileShader("event not needed");
+    });
+
     useEffect(() => {
         console.log("Shader source changed");
         // TODO: remove upload shader button from shader panel
@@ -53,6 +59,10 @@ const CodeEditor = () => {
     const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
         // TODO: more options, download in a zip, in a single file...
         exportStringForDownload(editorSources[activeTab].source, activeTab + ".frag");
+    }
+
+    const compileShader = (e: any) => {
+        setShaderSources(preprocessShaderSource(editorSources))
     }
 
     return (
@@ -73,14 +83,14 @@ const CodeEditor = () => {
                             >
 
                                 {
-                                    (editorSources[tabName].type === ShaderFileType.Buffer && tabName === "main")
-                                        ? <FaBuffer/>
-                                        : editorSources[tabName].type === ShaderFileType.Buffer && tabName === "post"
-                                            ? <IoColorFilter/>
+                                    editorSources[tabName].type === ShaderFileType.Buffer && tabName === "post"
+                                        ? <IoColorFilter/>
+                                        : (editorSources[tabName].type === ShaderFileType.Buffer || tabName === "main")
+                                            ? <FaBuffer/>
                                             : <FaFileCode/>
                                 }
                                 <label>{tabName}</label>
-                                {tabName !== "main" && (
+                                {(tabName !== "main" && tabName !== "post") && (
                                     <FaEdit className="editor-tab-edit-button"
                                             onClick={e => {
                                                 setShowEditModal(true);
@@ -124,8 +134,7 @@ const CodeEditor = () => {
             <div className="editor-bottom-control" data-visible={isVisible}>
                 <IconButton
                     size="large" padding="normal"
-                    onClick={e =>
-                        setShaderSources(preprocessShaderSource(editorSources))}>
+                    onClick={compileShader}>
                     <FaPlay/>
                 </IconButton>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>
@@ -147,7 +156,8 @@ const CodeEditor = () => {
                 </MultiSelect>
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default CodeEditor;

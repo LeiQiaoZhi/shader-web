@@ -54,7 +54,7 @@
   - [x] vertical title of hidden panels
 - [x] icons
 - [x] animate compile status message
-- [ ] access the previous frame as a uniform (also the dimension)
+- [x] access the previous frame as a uniform (also the dimension)
 - [x] create uniform components from ui (instead of writing the config by hand)
   - [x] modify
   - [x] delete
@@ -67,7 +67,17 @@
   - [x] edit (rename)
   - [x] reorder
 - [x] import preprocessor directive
-- [ ] **keyboard shortcuts (compile, set dimension)**
+- [x] **keyboard shortcuts (compile, set dimension)**
+  - [x] compile shortcut
+  - [x] editor shortcut -- find
+  - [ ] help -- list all shortcuts
+- [ ] **create buffer type file** 
+  - [x] frontend to create buffer shader file
+  - [x] abstract render pass and texture
+  - [x] save and pass previous frame of buffer
+  - [x] post render pass
+  - [x] improve shader status for multiple passes
+  - [ ] generic buffers
 - [ ] more templates/libraries
   - [ ] state store and read from framebuffer (vec3 <=> other types)
   - [ ] noises
@@ -76,10 +86,4 @@
 - [ ] performance
 - [ ] export from shadertoy
 - [ ] embed
-- [ ] **create buffer type file** 
-  - [x] frontend to create buffer shader file
-  - [x] abstract render pass and texture
-  - [x] save and pass previous frame of buffer
-  - [x] post render pass
-  - [x] improve shader status for multiple passes
-  - [ ] generic buffers
+- [ ] true pause (stop rendering the next frame)

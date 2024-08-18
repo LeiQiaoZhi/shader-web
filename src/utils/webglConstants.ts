@@ -17,8 +17,8 @@ uniform ivec2 iResolution;
 uniform sampler2D iPreviousFrame;
 
 void main() {
-    float speed = 0.1;
-    vec3 color = vec3(0.5 * sin(iTime * speed) + 0.5, 0.5 * cos(iTime * speed) + 0.5, 0.5);
+    vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
+    vec3 color = vec3(uv, 0.5 * sin(iTime) + 0.5);
     gl_FragColor = vec4(color, 1.0);
 }
 `;
@@ -34,7 +34,8 @@ uniform sampler2D iColorTexture;
 uniform sampler2D iPreviousFrame;
 
 void main() {
-    gl_FragColor = texture2D(iColorTexture, vec2(0.0));
+    vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
+    gl_FragColor = texture2D(iColorTexture, uv);
 }
 `;
 
