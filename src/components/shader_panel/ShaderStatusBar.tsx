@@ -7,28 +7,42 @@ interface ShaderStatusBarProps {
 }
 
 const ShaderStatusBar: React.FC<ShaderStatusBarProps> = ({width}) => {
-    const {status} = useShaderContext();
+    const {statuses} = useShaderContext();
     const [inSuccessAnimation, setInSuccessAnimation] = useState(false);
 
     useEffect(() => {
-        console.log(status);
+        console.log("Shader Status:", statuses);
         setInSuccessAnimation(true);
         const timer = setTimeout(() => setInSuccessAnimation(false), 1200);
         return () => clearTimeout(timer);
-    }, [status]);
+    }, [statuses]);
 
     const statusSymbol = () => {
         const successSymbol: string = "\u2713";
         const failSymbol: string = "\u2717";
-        return (status?.success) ? successSymbol : failSymbol;
+        return isSuccess() ? successSymbol : failSymbol;
+    }
+
+    const isSuccess = () => {
+        if (statuses === null) return false;
+        return Object.keys(statuses).every(key => statuses[key]?.success === true);
+    }
+
+    const getMessage = () => {
+        if (statuses === null) return "Null Status";
+        return isSuccess()
+            ?  `${statusSymbol()} Compile Success`
+            : Object.keys(statuses).filter(key => statuses[key]?.success === false)
+                .map(key => `${statusSymbol()} (${key}): ${statuses[key]?.message}`)
+                .join("\n");
     }
 
     const getStyle = () => {
         return {
-            'backgroundColor': status?.success
+            'backgroundColor': isSuccess()
                 ? inSuccessAnimation ? `var(--primary-color)` : `var(--background-color)`
                 : `var(--contrast-color)`,
-            'color': status?.success
+            'color': isSuccess()
                 ? inSuccessAnimation ? `var(--secondary-color)` : `var(--secondary-text-color)`
                 : `var(--background-color)`,
             '--status-width': `${width}px`,
@@ -38,10 +52,11 @@ const ShaderStatusBar: React.FC<ShaderStatusBarProps> = ({width}) => {
 
     return (
         <div className="shader-status-bar"
-            // data-success={status?.success}
              style={getStyle() as React.CSSProperties}
         >
-            <label>{statusSymbol() + " " + status?.message}</label>
+            <label style={{whiteSpace: 'pre-line'}}>
+                { getMessage()}
+            </label>
         </div>
     );
 }

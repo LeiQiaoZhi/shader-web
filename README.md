@@ -78,5 +78,8 @@
 - [ ] embed
 - [ ] **create buffer type file** 
   - [x] frontend to create buffer shader file
-  - [ ] abstract fbo and texture
-  - [ ] save and pass previous frame of buffer
+  - [x] abstract render pass and texture
+  - [x] save and pass previous frame of buffer
+  - [x] post render pass
+  - [x] improve shader status for multiple passes
+  - [ ] generic buffers

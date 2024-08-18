@@ -32,7 +32,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
-    const {setMainShader, status, setStatus, shaderSources} = useShaderContext();
+    const {setMainShader, statuses, setStatus, shaderSources} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {

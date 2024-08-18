@@ -14,7 +14,7 @@ export class PostRenderPass {
     constructor(
         gl: WebGLRenderingContext,
         fragSource: string,
-        setStatus: (status: IShaderStatus) => void
+        setStatus: (key: string, status: IShaderStatus | undefined) => void
     ) {
         this.gl = gl;
         this.width = gl.canvas.width;
@@ -26,7 +26,7 @@ export class PostRenderPass {
         // init shader
         const {shader: vertexShader} = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
         const {shader: fragShader, status: shaderStatus} = createShader(gl, gl.FRAGMENT_SHADER, fragSource);
-        setStatus(shaderStatus);
+        setStatus("post", shaderStatus);
         if (!fragShader || !vertexShader) {
             console.error("Post shader is null", shaderStatus);
             return;

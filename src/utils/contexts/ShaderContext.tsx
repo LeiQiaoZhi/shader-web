@@ -1,7 +1,13 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import {Shader} from "../Shader";
-import {defaultFragmentShaderSource} from "../webglConstants";
 import {loadData, saveDataWithKey} from "../browserUtils";
+
+export interface IShaderStatuses {
+    main?: IShaderStatus | undefined;
+    post?: IShaderStatus | undefined;
+
+    [key: string]: IShaderStatus | undefined;
+}
 
 export interface IShaderStatus {
     success: boolean;
@@ -17,8 +23,8 @@ export interface ShaderSources {
 interface IShaderContext {
     mainShader: Shader | null;
     setMainShader: (shader: Shader) => void;
-    status: IShaderStatus | null;
-    setStatus: (status: IShaderStatus) => void;
+    statuses: IShaderStatuses | null;
+    setStatus: (key: string, status: IShaderStatus | undefined) => void;
     shaderSources: ShaderSources;
     setShaderSources: (shaderSources: ShaderSources) => void;
 }
@@ -32,7 +38,7 @@ interface ShaderContextProps {
 const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const savedData = loadData();
     const [mainShader, setMainShader] = useState<Shader | null>(null);
-    const [shaderStatus, setShaderStatus] = useState<IShaderStatus | null>(null);
+    const [shaderStatuses, setShaderStatuses] = useState<IShaderStatuses>({});
     const [shaderSources, setShaderSources] = useState<ShaderSources>(savedData.shaderSources);
 
     const setShaderSourceWithSave = (newSources: ShaderSources) => {
@@ -40,15 +46,16 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
         saveDataWithKey("shaderSource", newSources);
     }
 
-    const setShaderStatusForceUpdate = (status: IShaderStatus) => {
-        setShaderStatus({...status});
+    const setShaderStatusForceUpdate = (key: string, status: IShaderStatus | undefined) => {
+        shaderStatuses[key] = status;
+        setShaderStatuses({...shaderStatuses});
     }
 
     return (
         <ShaderContext.Provider value={{
             mainShader: mainShader,
             setMainShader: setMainShader,
-            status: shaderStatus,
+            statuses: shaderStatuses,
             setStatus: setShaderStatusForceUpdate,
             shaderSources: shaderSources,
             setShaderSources: setShaderSourceWithSave,

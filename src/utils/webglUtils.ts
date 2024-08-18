@@ -54,7 +54,7 @@ export const createShader = (gl: WebGLRenderingContext, type: number, source: st
             shader: null,
             status: {
                 success: false,
-                message: errorMessage
+                message: errorMessage?.replace(/[\n\u0000]+$/g, '') ?? null
             }
         };
     }
