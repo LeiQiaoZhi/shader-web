@@ -1,12 +1,12 @@
 import React from 'react';
-import IconButton from "../common/IconButton";
+import IconButton from "../../common/IconButton";
 import {GiConfirmed} from "react-icons/gi";
-import {GrPowerReset} from "react-icons/gr";
-import {EditorSources} from "../../utils/browserUtils";
-import {tab} from "@testing-library/user-event/dist/tab";
+import {EditorSources} from "../../../utils/browserUtils";
 import {MdCancel, MdDelete} from "react-icons/md";
-import {useEditorContext} from "../../utils/contexts/EditorContext";
-import WarningText from "../common/WarningText";
+import {useEditorContext} from "../../../utils/contexts/EditorContext";
+import WarningText from "../../common/WarningText";
+import {ShaderFileType} from "../../../utils/webglConstants";
+import EditorTabModalBufferDimensionInput from "./EditorTabModalBufferDimensionInput";
 
 interface EditorEditTabModalProps {
 }
@@ -22,6 +22,8 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
     } = useEditorContext();
     const [newTabName, setNewTabName] = React.useState<string>(tabNameToEdit);
     const [warning, setWarning] = React.useState<string>("");
+    const [width, setWidth] = React.useState<number | undefined>(editorSources[tabNameToEdit].width);
+    const [height, setHeight] = React.useState<number | undefined>(editorSources[tabNameToEdit].height);
 
     return (
         <div className="modal-overlay">
@@ -77,6 +79,11 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                     {
                         warning !== "" &&
                         <WarningText warningText={warning}/>
+                    }
+                    {
+                        editorSources[tabNameToEdit].type === ShaderFileType.Buffer &&
+                        <EditorTabModalBufferDimensionInput width={width} setWidth={setWidth}
+                                                            setHeight={setHeight} height={height}/>
                     }
                     <IconButton size="small" background="var(--contrast-color)" color="var(--background-color)"
                                 onClick={e => {

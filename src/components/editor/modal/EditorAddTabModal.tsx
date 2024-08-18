@@ -1,17 +1,20 @@
 import React from 'react';
-import IconButton from "../common/IconButton";
+import IconButton from "../../common/IconButton";
 import {GiConfirmed} from "react-icons/gi";
 import {MdCancel} from "react-icons/md";
-import {useEditorContext} from "../../utils/contexts/EditorContext";
-import WarningText from "../common/WarningText";
-import Select from "../common/Select";
-import {SHADER_SOURCE_TEMPLATE_MAP, ShaderFileType} from "../../utils/webglConstants";
+import {useEditorContext} from "../../../utils/contexts/EditorContext";
+import WarningText from "../../common/WarningText";
+import Select from "../../common/Select";
+import {SHADER_SOURCE_TEMPLATE_MAP, ShaderFileType} from "../../../utils/webglConstants";
+import EditorTabModalBufferDimensionInput from "./EditorTabModalBufferDimensionInput";
 
 interface EditorAddTabModalProps {
 }
 
 const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
     const [tabName, setTabName] = React.useState<string>("newTab");
+    const [width, setWidth] = React.useState<number | undefined>(32);
+    const [height, setHeight] = React.useState<number | undefined>(32);
     const [template, setTemplate] = React.useState<string>("Empty");
     const [fileType, setFileType] = React.useState<ShaderFileType>(ShaderFileType.Common);
     const [warning, setWarning] = React.useState<string>("");
@@ -32,13 +35,14 @@ const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
                             } else {
                                 setWarning("")
                             }
-
-                            if (fileType === ShaderFileType.Buffer) {
-                                // TODO: create buffer in ShaderCanvas
-                            }
                             setEditorSources({
                                 ...editorSources,
-                                [tabName]: {source: SHADER_SOURCE_TEMPLATE_MAP[template], type: fileType}
+                                [tabName]: {
+                                    source: SHADER_SOURCE_TEMPLATE_MAP[template],
+                                    type: fileType,
+                                    width: fileType === ShaderFileType.Buffer ? width : undefined,
+                                    height: fileType === ShaderFileType.Buffer ? height : undefined,
+                                }
                             });
                             setActiveTab(tabName);
                             setShowAddModal(false);
@@ -56,6 +60,7 @@ const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
                                    setTabName(e.target.value);
                                }}/>
                     </div>
+
                     {
                         warning !== "" &&
                         <WarningText warningText={warning}/>
@@ -76,6 +81,13 @@ const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
                                     setTemplate(e.target.value);
                                 }}/>
                     </div>
+                    {
+                        fileType === ShaderFileType.Buffer &&
+                        <EditorTabModalBufferDimensionInput
+                            width={width} setWidth={setWidth}
+                            height={height} setHeight={setHeight}
+                        />
+                    }
                 </div>
             </div>
         </div>

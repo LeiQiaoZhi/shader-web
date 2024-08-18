@@ -14,10 +14,16 @@ export interface IShaderStatus {
     message: string | null;
 }
 
+export interface BufferSource {
+    source: string,
+    width?: number,
+    height?: number
+}
+
 export interface ShaderSources {
     main: string;
     post: string;
-    buffers: Record<string, string>[];
+    buffers: { [name: string]: BufferSource; };
 }
 
 interface IShaderContext {

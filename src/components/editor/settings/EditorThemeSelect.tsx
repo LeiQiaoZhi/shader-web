@@ -10,9 +10,9 @@ import "ace-builds/src-noconflict/theme-chaos"
 import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-noconflict/theme-chrome"
 import "ace-builds/src-noconflict/theme-solarized_light"
-import {useThemeContext} from "../../utils/contexts/ThemeContext";
-import {saveDataWithKey} from "../../utils/browserUtils";
-import Select from "../common/Select";
+import {useThemeContext} from "../../../utils/contexts/ThemeContext";
+import {saveDataWithKey} from "../../../utils/browserUtils";
+import Select from "../../common/Select";
 
 const EDITOR_THEMES = [
     ["", "Follow website"],

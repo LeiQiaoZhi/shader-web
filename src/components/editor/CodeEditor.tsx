@@ -3,25 +3,25 @@ import AceEditor from "react-ace";
 import "./CodeEditor.css"
 import "ace-builds/src-noconflict/mode-glsl"
 import "ace-builds/src-noconflict/ext-searchbox"
-import EditorThemeSelect from "./EditorThemeSelect";
-import EditorFontSizeSelect from "./EditorFontSizeSelect";
-import EditorKeybindingSelect from "./EditorKeybindingSelect";
+import EditorThemeSelect from "./settings/EditorThemeSelect";
+import EditorFontSizeSelect from "./settings/EditorFontSizeSelect";
+import EditorKeybindingSelect from "./settings/EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
-import EditorSettingCheckbox from "./EditorSettingCheckbox";
+import EditorSettingCheckbox from "./settings/EditorSettingCheckbox";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import {FaEdit, FaFileDownload, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
 import {exportStringForDownload, loadData} from "../../utils/browserUtils";
 import {GrAddCircle} from "react-icons/gr";
-import EditorAddTabModal from "./EditorAddTabModal";
-import EditorEditTabModal from "./EditorEditTabModal";
+import EditorAddTabModal from "./modal/EditorAddTabModal";
+import EditorEditTabModal from "./modal/EditorEditTabModal";
 import {useEditorContext} from "../../utils/contexts/EditorContext";
-import {preprocessShaderSource} from "../../utils/webglUtils";
 import {ShaderFileType} from "../../utils/webglConstants";
 import {FaBuffer, FaFileCode} from "react-icons/fa6";
 import {IoColorFilter} from "react-icons/io5";
 import {useKeyboardShortcut} from "../../utils/keyboard";
+import {preprocessShaderSource} from "../../utils/shaderPreprocessor";
 
 
 const CodeEditor = () => {

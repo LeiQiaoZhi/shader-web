@@ -1,26 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {createGl, createProgram, createScreenQuadBuffer, createShader} from "../../utils/webglUtils";
-import {
-    defaultFragmentShaderSource,
-    defaultPostFragmentShaderSource,
-    defaultVertexShaderSource
-} from "../../utils/webglConstants";
+import {createGl, createScreenQuadBuffer} from "../../utils/webglUtils";
 import './ShaderCanvas.css'
-import FileSelect from "../common/FileSelect";
-import {Shader} from "../../utils/Shader";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import ShaderStatusBar from "./ShaderStatusBar";
 import ShaderAnimationControl from "./ShaderAnimationControl";
 import {ShaderDimensionControl} from "./ShaderDimensionControl";
 import PanelHeader from "../common/PanelHeader";
 import {loadData} from "../../utils/browserUtils";
-import {MainRenderPass} from "../../utils/MainRenderPass";
-import {PostRenderPass} from "../../utils/PostRenderPass";
-
+import {MainRenderPass} from "../../utils/render_pass/MainRenderPass";
+import {PostRenderPass} from "../../utils/render_pass/PostRenderPass";
 
 interface ShaderCanvasProps {
 }
-
 
 const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const savedData = loadData();
@@ -32,7 +23,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
-    const {setMainShader, statuses, setStatus, shaderSources} = useShaderContext();
+    const {setMainShader, setStatus, shaderSources} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -41,7 +32,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         if (!canvas) return;
         const gl = createGl(canvas);
 
-        console.log(shaderSources);
+        console.log("Shader Sources", shaderSources);
         const mainRenderPass = new MainRenderPass(gl, shaderSources.main, setStatus);
         const postRenderPass = new PostRenderPass(gl, shaderSources.post, setStatus);
 
@@ -59,7 +50,6 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 elapsedTimeRef.current = 0;
             }
 
-            // pass uniforms
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
@@ -82,7 +72,6 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         }
 
         requestAnimationFrame(render);
-
 
         // Cleanup on unmount
         return () => {

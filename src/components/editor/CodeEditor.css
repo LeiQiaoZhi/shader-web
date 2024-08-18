@@ -52,7 +52,7 @@
     flex-direction: row;
     align-items: center;
     gap: var(--small-gap);
-    border-bottom: var(--normal-border) solid var(--background-color);
+    /*border-bottom: var(--normal-border) solid var(--background-color);*/
 }
 
 .editor-tab-edit-button {
@@ -68,6 +68,10 @@
     cursor: pointer;
 }
 
+.editor-tab label {
+    white-space: nowrap;
+}
+
 .editor-tab:hover label {
     font-weight: bold;
 }
@@ -75,7 +79,7 @@
 .editor-tab.active {
     color: var(--secondary-color);
     background: var(--primary-color);
-    border-bottom: var(--normal-border) solid var(--text-color);
+    /*border-bottom: var(--normal-border) solid var(--secondary-color);*/
 }
 
 #ace-editor {

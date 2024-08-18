@@ -17,7 +17,7 @@ export interface EditorSources {
     main: { source: string, type: ShaderFileType.Buffer };
     post: { source: string, type: ShaderFileType.Buffer };
 
-    [key: string]: { source: string, type: ShaderFileType };
+    [key: string]: { source: string, type: ShaderFileType, width?: number, height?: number };
 }
 
 export interface SavedData {
@@ -59,7 +59,7 @@ export const DEFAULT_SAVED_DATA: SavedData = {
     editorTheme: "",
     editorFontSize: "medium",
     editorKeybinding: "vim",
-    shaderSources: {main: defaultFragmentShaderSource, buffers: [], post: defaultPostFragmentShaderSource},
+    shaderSources: {main: defaultFragmentShaderSource, buffers: {}, post: defaultPostFragmentShaderSource},
     editorSources: {
         main: {source: defaultFragmentShaderSource, type: ShaderFileType.Buffer},
         post: {source: defaultPostFragmentShaderSource, type: ShaderFileType.Buffer},

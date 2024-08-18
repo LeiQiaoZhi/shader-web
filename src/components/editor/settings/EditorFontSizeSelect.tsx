@@ -1,5 +1,5 @@
 import React from "react";
-import {saveDataWithKey} from "../../utils/browserUtils";
+import {saveDataWithKey} from "../../../utils/browserUtils";
 
 interface EditorFontSizeSelectProps {
     fontSize: string,

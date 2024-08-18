@@ -1,14 +1,13 @@
-import {Shader} from "./Shader";
-import {IShaderStatus} from "./contexts/ShaderContext";
-import {createShader} from "./webglUtils";
-import {defaultVertexShaderSource} from "./webglConstants";
-import {Texture} from "./Texture";
+import {Shader} from "../Shader";
+import {IShaderStatus} from "../contexts/ShaderContext";
+import {createShader} from "../webglUtils";
+import {defaultVertexShaderSource} from "../webglConstants";
+import {Texture} from "../Texture";
 
-export class MainRenderPass {
+export class PostRenderPass {
     shader?: Shader;
-    colorTexture: Texture;
+    previousFrameTexture: Texture;
     private readonly gl: WebGLRenderingContext;
-    private readonly frameBuffer: WebGLFramebuffer;
     private readonly width: number;
     private readonly height: number;
 
@@ -21,38 +20,28 @@ export class MainRenderPass {
         this.width = gl.canvas.width;
         this.height = gl.canvas.height;
         
-        // init framebuffer
-        const frameBuffer = gl.createFramebuffer();
-        if (!frameBuffer) throw new Error("Framebuffer is null");
-        this.frameBuffer = frameBuffer;
-        gl.bindFramebuffer(gl.FRAMEBUFFER, frameBuffer);
-        this.colorTexture = new Texture(gl, this.width, this.height);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.colorTexture.texture, 0);
-        this.colorTexture.unbind();
-        if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
-            throw new Error('Framebuffer not complete');
-        }
+        this.previousFrameTexture = new Texture(gl, this.width, this.height);
+        this.previousFrameTexture.unbind();
 
         // init shader
         const {shader: vertexShader} = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
         const {shader: fragShader, status: shaderStatus} = createShader(gl, gl.FRAGMENT_SHADER, fragSource);
-        setStatus("main", shaderStatus);
+        setStatus("post", shaderStatus);
         if (!fragShader || !vertexShader) {
-            console.error("Main shader is null", shaderStatus);
+            console.error("Post shader is null", shaderStatus);
             return;
         }
         this.shader = new Shader(gl, vertexShader, fragShader);
-
     }
 
     public draw(
-        previousFrameTexture: Texture | undefined,
+        initialColorTexture: Texture,
         vertexBuffer: WebGLBuffer | null,
         uniforms: [string, string, any][],
     ): void {
         const gl = this.gl;
         const shader = this.shader;
-        if (!shader || !previousFrameTexture) return;
+        if (!shader) return;
 
         shader.activate();
         shader.setUpScreenQuad(vertexBuffer);
@@ -62,15 +51,19 @@ export class MainRenderPass {
             shader.setUniform(name, type, value);
         });
         shader.setUniformVec2I("iResolution", [this.width, this.height]);
-        previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
+        this.previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
+        initialColorTexture.passToShader(shader, "iColorTexture", 1);
 
         // render
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frameBuffer);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.viewport(0, 0, this.width, this.height);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        // copy 
+        this.previousFrameTexture.bind();
+        gl.copyTexSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 0, 0, gl.canvas.width, gl.canvas.height);
+        this.previousFrameTexture.unbind();
     }
 
     public delete() {
