@@ -1,4 +1,5 @@
 import React from 'react';
+import "./EditorTabModalBufferDimensionInput.css"
 
 interface EditorTabModalBufferDimensionInputProps {
     width: number | undefined,
@@ -11,7 +12,7 @@ const EditorTabModalBufferDimensionInput: React.FC<EditorTabModalBufferDimension
     {width, setWidth, setHeight, height}
 ) => {
     return (
-        <div>
+        <div className="buffer-dimension-input-container">
             <div><label>Width: </label>
                 <input type="number" value={width}
                        onChange={e => {

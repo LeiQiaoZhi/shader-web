@@ -29,7 +29,9 @@
   - [x] dropdown
   - [ ] **image/texture component**
 - [x] iResolution uniform
-- [ ] **iMouse uniform**
+- [ ] **I/O**
+  - [ ] iMouse uniform
+  - [ ] keyboard texture input
 - [x] shader compilation error message
 - [x] animation control
   - [x] pause and resume
@@ -71,19 +73,19 @@
   - [x] compile shortcut
   - [x] editor shortcut -- find
   - [ ] help -- list all shortcuts
-- [ ] **create buffer type file** 
+- [x] **create buffer type file** 
   - [x] frontend to create buffer shader file
   - [x] abstract render pass and texture
   - [x] save and pass previous frame of buffer
   - [x] post render pass
   - [x] improve shader status for multiple passes
-  - [ ] generic buffers
+  - [x] generic buffers pass
 - [ ] more templates/libraries
   - [ ] state store and read from framebuffer (vec3 <=> other types)
-  - [ ] noises
-  - [ ] sdfs
+  - [ ] noises 
+  - [ ] sdfs 
 - [ ] screenshot
-- [ ] performance
+- [ ] performance -- show fps
 - [ ] export from shadertoy
-- [ ] embed
 - [ ] true pause (stop rendering the next frame)
+- [ ] embed

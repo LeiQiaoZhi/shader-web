@@ -3,6 +3,7 @@ import {IShaderStatus} from "../contexts/ShaderContext";
 import {createShader} from "../webglUtils";
 import {defaultVertexShaderSource} from "../webglConstants";
 import {Texture} from "../Texture";
+import {BufferRenderPass} from "./BufferRenderPass";
 
 export class PostRenderPass {
     shader?: Shader;
@@ -19,7 +20,7 @@ export class PostRenderPass {
         this.gl = gl;
         this.width = gl.canvas.width;
         this.height = gl.canvas.height;
-        
+
         this.previousFrameTexture = new Texture(gl, this.width, this.height);
         this.previousFrameTexture.unbind();
 
@@ -35,6 +36,7 @@ export class PostRenderPass {
     }
 
     public draw(
+        buffersRenderPasses: BufferRenderPass[],
         initialColorTexture: Texture,
         vertexBuffer: WebGLBuffer | null,
         uniforms: [string, string, any][],
@@ -53,6 +55,9 @@ export class PostRenderPass {
         shader.setUniformVec2I("iResolution", [this.width, this.height]);
         this.previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
         initialColorTexture.passToShader(shader, "iColorTexture", 1);
+        buffersRenderPasses.forEach((bufferRenderPass, index) => {
+            bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index + 2);
+        });
 
         // render
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);

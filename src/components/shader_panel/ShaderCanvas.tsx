@@ -9,6 +9,7 @@ import PanelHeader from "../common/PanelHeader";
 import {loadData} from "../../utils/browserUtils";
 import {MainRenderPass} from "../../utils/render_pass/MainRenderPass";
 import {PostRenderPass} from "../../utils/render_pass/PostRenderPass";
+import {BufferRenderPass} from "../../utils/render_pass/BufferRenderPass";
 
 interface ShaderCanvasProps {
 }
@@ -35,6 +36,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         console.log("Shader Sources", shaderSources);
         const mainRenderPass = new MainRenderPass(gl, shaderSources.main, setStatus);
         const postRenderPass = new PostRenderPass(gl, shaderSources.post, setStatus);
+        const bufferRenderPasses = Object.keys(shaderSources.buffers).map((bufferName, index) =>
+            new BufferRenderPass(gl, bufferName, shaderSources.buffers[bufferName], setStatus)
+        );
 
         let firstRenderLoop = true;
         const vertexBuffer = createScreenQuadBuffer(gl);
@@ -55,13 +59,21 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
             }
 
+            bufferRenderPasses.forEach((bufferRenderPass) => {
+                bufferRenderPass.draw(bufferRenderPasses, vertexBuffer, [
+                    ["iTime", "float", elapsedTimeRef.current * 0.01],
+                ]);
+            });
+
             mainRenderPass.draw(
+                bufferRenderPasses,
                 postRenderPass.previousFrameTexture,
                 vertexBuffer, [
                     ["iTime", "float", elapsedTimeRef.current * 0.01],
                 ]);
 
             postRenderPass.draw(
+                bufferRenderPasses,
                 mainRenderPass.colorTexture,
                 vertexBuffer, [
                     ["iTime", "float", elapsedTimeRef.current * 0.01],

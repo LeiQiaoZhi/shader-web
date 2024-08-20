@@ -3,6 +3,22 @@ import {ThemeStringType} from "./contexts/ThemeContext";
 import {TopLevelConfigData} from "../components/uniforms/UniformsSpecification";
 import {ShaderSources} from "./contexts/ShaderContext";
 
+export const toCamelCase = (str: string): string => {
+    return str
+        .split(' ')
+        .map((word, index) =>
+            index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+        )
+        .join('');
+}
+
+export const toPascalCase = (str: string): string => {
+    return str
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join('');
+}
+
 export const exportStringForDownload = (content: string, fileName: string) => {
     const blob = new Blob([content]);
     const url = URL.createObjectURL(blob);

@@ -14,7 +14,7 @@ export const preprocessShaderSource = (editorSources: EditorSources): ShaderSour
     const preprocessedBuffers: { [name: string]: BufferSource } = {};
     bufferNames.forEach(postName => {
         preprocessedBuffers[postName] = {
-            source: preprocessSingleShaderSource(editorSources[postName].source, new Set<string>(postName), editorSources),
+            source: preprocessSingleShaderSource(editorSources[postName].source, new Set<string>([postName]), editorSources),
             width: editorSources[postName].width,
             height: editorSources[postName].height,
         }

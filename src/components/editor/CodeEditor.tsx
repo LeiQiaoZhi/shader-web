@@ -62,6 +62,7 @@ const CodeEditor = () => {
     }
 
     const compileShader = (e: any) => {
+        console.log("Editor sources", editorSources);
         setShaderSources(preprocessShaderSource(editorSources))
     }
 
@@ -107,10 +108,11 @@ const CodeEditor = () => {
 
             <AceEditor
                 value={editorSources[activeTab].source}
-                onChange={newSource => setEditorSources({
-                    ...editorSources,
-                    [activeTab]: {source: newSource, type: editorSources[activeTab].type}
-                })}
+                onChange={newSource => {
+                    let sources = editorSources;
+                    sources[activeTab].source = newSource;
+                    setEditorSources({...sources});
+                }}
                 mode="glsl"
                 theme={editorTheme}
                 focus={true}

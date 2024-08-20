@@ -1,12 +1,13 @@
 import React from 'react';
 import IconButton from "../../common/IconButton";
 import {GiConfirmed} from "react-icons/gi";
-import {EditorSources} from "../../../utils/browserUtils";
+import {EditorSources, toPascalCase} from "../../../utils/browserUtils";
 import {MdCancel, MdDelete} from "react-icons/md";
 import {useEditorContext} from "../../../utils/contexts/EditorContext";
 import WarningText from "../../common/WarningText";
 import {ShaderFileType} from "../../../utils/webglConstants";
 import EditorTabModalBufferDimensionInput from "./EditorTabModalBufferDimensionInput";
+import {tab} from "@testing-library/user-event/dist/tab";
 
 interface EditorEditTabModalProps {
 }
@@ -34,7 +35,7 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                             if (newTabName === "") {
                                 setWarning("File name cannot be empty")
                                 return;
-                            } else if (newTabName in editorSources) {
+                            } else if (newTabName in editorSources && newTabName !== tabNameToEdit) {
                                 setWarning("File name already exists")
                                 return;
                             } else if (tabNameToEdit === "main") {
@@ -55,6 +56,8 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                             Object.keys(editorSources).forEach((key) => {
                                 if (key === tabNameToEdit) {
                                     newSources[newTabName] = editorSources[key];
+                                    newSources[newTabName].width = width;
+                                    newSources[newTabName].height = height;
                                 } else {
                                     newSources[key] = editorSources[key];
                                 }
@@ -70,6 +73,10 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                 </div>
                 <div className="modal-body">
                     <label>Type: {editorSources[tabNameToEdit].type}</label>
+                    {
+                        editorSources[tabNameToEdit].type === ShaderFileType.Buffer &&
+                        <label>Uniform: {"i" + toPascalCase(tabNameToEdit)}</label>
+                    }
                     <div><label>Name: </label>
                         <input type="text" placeholder="New tab name" value={newTabName}
                                onChange={e => {
