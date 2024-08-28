@@ -3,6 +3,8 @@
 > A static web app that makes writing GLSL shaders more enjoyable!
 > - think _ShaderToy_ with a better shader editing experience, but without the online features
 
+<!-- TODO: live demo -->
+
 **Key Features:**
 
 - Render GLSL frag shader onto a canvas using WebGL, supports **multi-pass rendering**
@@ -30,9 +32,15 @@
 | Website dark/light theme                    | ✅                |           |
 | Keyboard Input as Texture                   | ⌚                | ✅         |
 | Fullscreen Canvas                           | ⌚                | ✅         |
+| Screenshot and recordings                   | ⌚                | ✅         |
 | Sound Input                                 |                  | ✅         |
 | Online Features (Comment, Explore, ...)     |                  | ✅         |
 
+<!-- TODO: Screenshots -->
+
+---
+
+## Running the App Locally
 
 ---
 
@@ -49,11 +57,11 @@ Detailed list, for the dev's reference
   - [x] checkbox for bool
   - [x] fold-able component
   - [x] dropdown
-  - [ ] **image/texture component**
+  - [ ] image/texture component
 - [x] iResolution uniform
 - [ ] **I/O**
-  - [ ] iMouse uniform
-  - [ ] keyboard texture input
+  - [ ] **iMouse uniform**
+  - [ ] **keyboard texture input**
 - [x] shader compilation error message
 - [x] animation control
   - [x] pause and resume
@@ -91,11 +99,12 @@ Detailed list, for the dev's reference
   - [x] edit (rename)
   - [x] reorder
 - [x] import preprocessor directive
-- [x] **keyboard shortcuts (compile, set dimension)**
+- [x] keyboard shortcuts (compile, set dimension)
   - [x] compile shortcut
   - [x] editor shortcut -- find
-  - [ ] help -- list all shortcuts
-- [x] **multi-pass rendering** 
+  - [ ] **help -- list all shortcuts**
+  - [ ] **tooltips**
+- [x] multi-pass rendering
   - [x] frontend to create buffer shader file
   - [x] abstract render pass and texture
   - [x] save and pass previous frame of buffer
@@ -109,7 +118,16 @@ Detailed list, for the dev's reference
   - [ ] keycodes
 - [ ] screenshot
 - [ ] performance -- show fps
-- [ ] export from shadertoy
+- [ ] **export and import shaders**
+  - [ ] import 
+  - [ ] export with options (files in a zip, preprocessed file)
+  - [ ] import from shadertoy
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
 - [ ] pass uniforms not only to the main shader
+- [ ] **more compatible with shadertoy**
+  - [ ] main function
+  - [ ] iResolution use vec2
+
+Bugs and Issues:
+- [ ] pause button border size inconsistent

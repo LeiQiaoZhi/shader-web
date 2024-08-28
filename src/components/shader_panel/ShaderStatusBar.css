@@ -6,6 +6,7 @@
     border-radius: var(--normal-radius);
     width: var(--status-width);
     box-sizing: border-box;
+    text-align: left;
 }
 
 .shader-status-bar[data-success="false"]{

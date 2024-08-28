@@ -1,4 +1,5 @@
 import {COLORS_TEMPLATE} from "./colorsTemplate";
+import { KEYCODES_MACROS } from "./keycodesMacros";
 
 export const defaultVertexShaderSource = `
   attribute vec4 a_position;
@@ -15,6 +16,7 @@ precision mediump float;
 uniform float iTime;
 uniform ivec2 iResolution;
 uniform sampler2D iPreviousFrame;
+uniform sampler2D iKeyboard;
 
 void main() {
     vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
@@ -32,6 +34,7 @@ uniform float iTime;
 uniform ivec2 iResolution;
 uniform sampler2D iColorTexture;
 uniform sampler2D iPreviousFrame;
+uniform sampler2D iKeyboard;
 
 void main() {
     vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
@@ -41,8 +44,9 @@ void main() {
 
 export const SHADER_SOURCE_TEMPLATE_MAP: { [key: string]: string } = {
     "Empty": "",
-    "Template": defaultFragmentShaderSource,
-    "Colors": COLORS_TEMPLATE
+    "Default Shader": defaultFragmentShaderSource,
+    "Colors": COLORS_TEMPLATE,
+    "Keycodes": KEYCODES_MACROS,
 }
 
 export enum ShaderFileType {

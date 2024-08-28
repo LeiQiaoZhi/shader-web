@@ -1,9 +1,9 @@
-import {Shader} from "../Shader";
-import {BufferSource, IShaderStatus} from "../contexts/ShaderContext";
-import {createShader} from "../webglUtils";
-import {defaultVertexShaderSource} from "../webglConstants";
-import {Texture} from "../Texture";
-import {toCamelCase, toPascalCase} from "../browserUtils";
+import { Shader } from "../Shader";
+import { BufferSource, IShaderStatus } from "../contexts/ShaderContext";
+import { createShader } from "../webglUtils";
+import { defaultVertexShaderSource } from "../webglConstants";
+import { Texture } from "../Texture";
+import { toPascalCase } from "../browserUtils";
 
 export class BufferRenderPass {
     shader?: Shader;
@@ -40,8 +40,8 @@ export class BufferRenderPass {
         }
 
         // init shader
-        const {shader: vertexShader} = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const {shader: fragShader, status: shaderStatus} = createShader(gl, gl.FRAGMENT_SHADER, bufferSource.source);
+        const { shader: vertexShader } = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
+        const { shader: fragShader, status: shaderStatus } = createShader(gl, gl.FRAGMENT_SHADER, bufferSource.source);
         setStatus(name, shaderStatus);
         if (!fragShader || !vertexShader) {
             console.error(`Buffer ${name} shader is null`, shaderStatus);
@@ -52,6 +52,7 @@ export class BufferRenderPass {
 
     public draw(
         buffersRenderPasses: BufferRenderPass[],
+        keyboardEventsTexture: Texture | null,
         vertexBuffer: WebGLBuffer | null,
         uniforms: [string, string, any][],
     ): void {
@@ -67,8 +68,9 @@ export class BufferRenderPass {
             shader.setUniform(name, type, value);
         });
         shader.setUniformVec2I("iResolution", [this.width, this.height]);
+        keyboardEventsTexture?.passToShader(shader, "iKeyboard", 0);
         buffersRenderPasses.forEach((bufferRenderPass, index) => {
-            bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index);
+            bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index + 1);
         });
 
         // render

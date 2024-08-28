@@ -1,4 +1,4 @@
-import {Shader} from "./Shader";
+import { Shader } from "./Shader";
 
 export class Texture {
     get texture(): WebGLTexture {
@@ -6,9 +6,15 @@ export class Texture {
     }
     private gl: WebGLRenderingContext;
     private _texture: WebGLTexture;
+    private type: number;
+    private width: number;
+    private height: number;
 
-    constructor(gl: WebGLRenderingContext, width?: number, height?: number, pixels?: Uint8Array) {
+    constructor(gl: WebGLRenderingContext, width?: number, height?: number, type?: number, pixels?: Uint8Array) {
         this.gl = gl;
+        this.width = width ?? gl.canvas.width;
+        this.height = height ?? gl.canvas.height;
+        this.type = type ?? gl.RGBA;
         const texture = gl.createTexture();
         if (texture === null) {
             throw new Error("Create texture failed");
@@ -16,7 +22,9 @@ export class Texture {
         this._texture = texture;
         this.bind();
         gl.texImage2D(
-            gl.TEXTURE_2D, 0, gl.RGBA, width ?? gl.canvas.width, height ?? gl.canvas.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels ?? null);
+            gl.TEXTURE_2D, 0, this.type,
+            this.width, this.height, 0,
+            this.type, gl.UNSIGNED_BYTE, pixels ?? null);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         // Tiling -- clamp when uv is beyond edge (default is repeat)
@@ -47,5 +55,13 @@ export class Texture {
             colorArray[i + 3] = a; // A
         }
         return colorArray;
+    }
+
+    public changePixels(pixels: Uint8Array): void {
+        this.bind();
+        this.gl.texSubImage2D(
+            this.gl.TEXTURE_2D, 0, 0, 0,
+            this.width, this.height,
+            this.type, this.gl.UNSIGNED_BYTE, pixels);
     }
 }

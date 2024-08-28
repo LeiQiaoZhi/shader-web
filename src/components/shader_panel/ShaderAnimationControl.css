@@ -23,3 +23,10 @@
     gap: var(--small-gap);
     align-items: stretch;
 }
+
+.shader-keyboard-events {
+    flex-direction: column !important;
+    gap: var(--small-gap);
+    align-items: start;
+    color: var(--secondary-text-color);
+}

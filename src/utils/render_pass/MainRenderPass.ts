@@ -1,9 +1,9 @@
-import {Shader} from "../Shader";
-import {IShaderStatus} from "../contexts/ShaderContext";
-import {createShader} from "../webglUtils";
-import {defaultVertexShaderSource} from "../webglConstants";
-import {Texture} from "../Texture";
-import {BufferRenderPass} from "./BufferRenderPass";
+import { Shader } from "../Shader";
+import { IShaderStatus } from "../contexts/ShaderContext";
+import { createShader } from "../webglUtils";
+import { defaultVertexShaderSource } from "../webglConstants";
+import { Texture } from "../Texture";
+import { BufferRenderPass } from "./BufferRenderPass";
 
 export class MainRenderPass {
     shader?: Shader;
@@ -21,7 +21,7 @@ export class MainRenderPass {
         this.gl = gl;
         this.width = gl.canvas.width;
         this.height = gl.canvas.height;
-        
+
         // init framebuffer
         const frameBuffer = gl.createFramebuffer();
         if (!frameBuffer) throw new Error("Framebuffer is null");
@@ -35,8 +35,8 @@ export class MainRenderPass {
         }
 
         // init shader
-        const {shader: vertexShader} = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const {shader: fragShader, status: shaderStatus} = createShader(gl, gl.FRAGMENT_SHADER, fragSource);
+        const { shader: vertexShader } = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
+        const { shader: fragShader, status: shaderStatus } = createShader(gl, gl.FRAGMENT_SHADER, fragSource);
         setStatus("main", shaderStatus);
         if (!fragShader || !vertexShader) {
             console.error("Main shader is null", shaderStatus);
@@ -49,6 +49,7 @@ export class MainRenderPass {
     public draw(
         buffersRenderPasses: BufferRenderPass[],
         previousFrameTexture: Texture | undefined,
+        keyboardEventsTexture: Texture | null,
         vertexBuffer: WebGLBuffer | null,
         uniforms: [string, string, any][],
     ): void {
@@ -65,8 +66,13 @@ export class MainRenderPass {
         });
         shader.setUniformVec2I("iResolution", [this.width, this.height]);
         previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
+        if (!keyboardEventsTexture) {
+            console.error("Keyboard texture is null");
+        } else {
+            keyboardEventsTexture.passToShader(shader, "iKeyboard", 1);
+        }
         buffersRenderPasses.forEach((bufferRenderPass, index) => {
-            bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index+1);
+            bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index + 2);
         });
 
         // render
