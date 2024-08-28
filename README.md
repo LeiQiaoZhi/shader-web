@@ -5,13 +5,13 @@
 
 **Key Features:**
 
-- render frag shader output using WebGL, supports **multi-pass rendering**
-- tweak your uniforms using ui widgets and see changes in real-time!
-  - use a `.toml` or `.json` config file to specify the uniform widgets 
-- edit shader source code using a modern embedded code editor, or upload your file
-  - supports **vim**, emacs, vscode, sublime keybindings
-  - supports a large number of themes
-- both light and dark themes for the website
+- Render GLSL frag shader onto a canvas using WebGL, supports **multi-pass rendering**
+- Tweak your uniforms using ui widgets and see changes in real-time!
+  - Use a `.toml` or `.json` config file to specify the uniform widgets 
+- Edit shader source code using a modern embedded code editor, or upload your file
+  - Support **vim**, emacs, vscode, sublime keybindings
+  - Support a large number of themes
+- Switch between light and dark themes for the website
 
 | Feature                                     | ***Shader Web*** | ShaderToy |
 | ------------------------------------------- | ---------------- | --------- |
