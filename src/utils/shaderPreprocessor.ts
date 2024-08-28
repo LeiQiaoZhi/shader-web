@@ -3,7 +3,12 @@ import {BufferSource, ShaderSources} from "./contexts/ShaderContext";
 import {ShaderFileType} from "./webglConstants";
 
 export const preprocessShaderSource = (editorSources: EditorSources): ShaderSources => {
-    const preprocessedMain = preprocessSingleShaderSource(editorSources.main.source, new Set<string>(["main"]), editorSources);
+    const preprocessedMain = preprocessSingleShaderSource(editorSources.main.source, new Set<string>(["main"]), editorSources) + `
+    void main() {
+        vec4 color;
+        mainImage(color, gl_FragCoord.xy);
+        fragColor = color;
+    } `;
     const preprocessedPost = preprocessSingleShaderSource(editorSources.post.source, new Set<string>(["post"]), editorSources);
 
     const bufferNames = Object.keys(editorSources).filter(fileName =>

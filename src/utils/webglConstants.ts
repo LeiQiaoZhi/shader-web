@@ -1,44 +1,50 @@
 import {COLORS_TEMPLATE} from "./colorsTemplate";
 import { KEYCODES_MACROS } from "./keycodesMacros";
 
-export const defaultVertexShaderSource = `
-  attribute vec4 a_position;
-  void main() {
-      gl_Position = a_position;
-  }
+export const defaultVertexShaderSource = `#version 300 es
+
+layout(location = 0) in vec4 a_position;
+
+void main() {
+    gl_Position = a_position;
+}
 `;
 
 export const defaultFragmentShaderSource =
-    `// Default shader for the main pass
+    `#version 300 es
 precision mediump float;
 
 // built-in uniforms
 uniform float iTime;
-uniform ivec2 iResolution;
+uniform vec2 iResolution;
 uniform sampler2D iPreviousFrame;
 uniform sampler2D iKeyboard;
 
-void main() {
-    vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
+out vec4 fragColor;
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord ){
+    vec2 uv = gl_FragCoord.xy / min(iResolution.x, iResolution.y);
     vec3 color = vec3(uv, 0.5 * sin(iTime) + 0.5);
-    gl_FragColor = vec4(color, 1.0);
+    fragColor = vec4(color, 1.0);
 }
 `;
 
 export const defaultPostFragmentShaderSource =
-    `// Default shader for the post-processing pass
+    `#version 300 es
 precision mediump float;
 
 // built-in uniforms
 uniform float iTime;
-uniform ivec2 iResolution;
-uniform sampler2D iColorTexture;
+uniform vec2 iResolution;
+uniform sampler2D iColorBuffer;
 uniform sampler2D iPreviousFrame;
 uniform sampler2D iKeyboard;
 
+out vec4 fragColor;
+
 void main() {
-    vec2 uv = gl_FragCoord.xy / min(float(iResolution.x), float(iResolution.y));
-    gl_FragColor = texture2D(iColorTexture, uv);
+    vec2 uv = gl_FragCoord.xy / iResolution;
+    fragColor = texture(iColorBuffer, uv);
 }
 `;
 

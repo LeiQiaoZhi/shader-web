@@ -67,7 +67,7 @@ export class BufferRenderPass {
         uniforms.forEach(([name, type, value]) => {
             shader.setUniform(name, type, value);
         });
-        shader.setUniformVec2I("iResolution", [this.width, this.height]);
+        shader.setUniformVec2("iResolution", [this.width, this.height]);
         keyboardEventsTexture?.passToShader(shader, "iKeyboard", 0);
         buffersRenderPasses.forEach((bufferRenderPass, index) => {
             bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index + 1);

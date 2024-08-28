@@ -70,12 +70,19 @@ export class Shader {
     }
 
     public setUniformFromConfig(config: UniformConfigData) {
-        const name = config.gl?.name ?? "Undefined Name";
+        const name = config.gl?.name;
+        const type = config.gl?.type;
+        if (!name || !type) {
+            console.error("Uniform config is missing name or type", config);
+            return;
+        }
         const value = config.ui?.value;
-        this.setUniform(name, value, config.gl?.type);
+        // console.log(`setting uniform ${name} of type ${type} to ${value}`);
+        this.setUniform(name, type, value);
     }
 
     public setUniform(name: string, type: string, value: any): void {
+        this.activate();
         switch (type) {
             case "float":
                 this.setUniformFloat(name, value);

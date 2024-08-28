@@ -43,6 +43,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         const bufferRenderPasses = Object.keys(shaderSources.buffers).map((bufferName, index) =>
             new BufferRenderPass(gl, bufferName, shaderSources.buffers[bufferName], setStatus)
         );
+        if (mainRenderPass.shader) {
+            setMainShader(mainRenderPass.shader);
+        }
 
         let firstRenderLoop = true;
         const vertexBuffer = createScreenQuadBuffer(gl);
@@ -51,9 +54,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         const render = (time: number) => {
             if (firstRenderLoop) {
                 console.log("Setting new shader")
-                if (mainRenderPass.shader) {
-                    setMainShader(mainRenderPass.shader);
-                }
+
                 firstRenderLoop = false;
                 elapsedTimeRef.current = 0;
             }

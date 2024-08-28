@@ -44,6 +44,7 @@ export class MainRenderPass {
         }
         this.shader = new Shader(gl, vertexShader, fragShader);
 
+        console.log(`Main Render Pass created, ${this.width}x${this.height}`);
     }
 
     public draw(
@@ -64,7 +65,7 @@ export class MainRenderPass {
         uniforms.forEach(([name, type, value]) => {
             shader.setUniform(name, type, value);
         });
-        shader.setUniformVec2I("iResolution", [this.width, this.height]);
+        shader.setUniformVec2("iResolution", [this.width, this.height]);
         previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
         if (!keyboardEventsTexture) {
             console.error("Keyboard texture is null");

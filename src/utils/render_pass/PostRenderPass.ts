@@ -33,6 +33,8 @@ export class PostRenderPass {
             return;
         }
         this.shader = new Shader(gl, vertexShader, fragShader);
+
+        console.log(`Post Render Pass created, ${this.width}x${this.height}`);
     }
 
     public draw(
@@ -53,9 +55,9 @@ export class PostRenderPass {
         uniforms.forEach(([name, type, value]) => {
             shader.setUniform(name, type, value);
         });
-        shader.setUniformVec2I("iResolution", [this.width, this.height]);
+        shader.setUniformVec2("iResolution", [this.width, this.height]);
         this.previousFrameTexture.passToShader(shader, "iPreviousFrame", 0);
-        initialColorTexture.passToShader(shader, "iColorTexture", 1);
+        initialColorTexture.passToShader(shader, "iColorBuffer", 1);
         keyboardEventsTexture?.passToShader(shader, "iKeyboard", 2);
         buffersRenderPasses.forEach((bufferRenderPass, index) => {
             bufferRenderPass.previousFrameTexture.passToShader(shader, bufferRenderPass.uniformName, index + 3);

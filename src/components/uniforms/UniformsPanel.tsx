@@ -18,7 +18,7 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     const {mode, setMode, configManager, configDataState} = useUniformContext();
 
     useEffect(() => {
-        console.log("Config Changed, from manager:", configDataState);
+        // console.log("Config Changed, from manager:", configDataState);
     }, [configDataState])
 
     const onConfigFileSelect = async (file: File) => {
@@ -53,7 +53,6 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
 
             <div className="uniforms-components-container" style={mode === UniformPanelMode.Edit ? {gap: 0} : {}}
                  onChange={e => {
-                     console.log("Uniform modified, data to save to storage:", configManager.getConfigData());
                      saveDataWithKey("configData", configManager.getConfigData())
                  }}>
                 {

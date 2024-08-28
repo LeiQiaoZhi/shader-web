@@ -15,6 +15,19 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
         setValue(config.ui.value);
     }, [config, mainShader]);
 
+    const debounce = <T extends (...args: any[]) => void>(func: T, delay: number): T => {
+        let timeoutId: number | undefined;
+
+        return function (...args: Parameters<T>) {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = window.setTimeout(() => {
+                func(...args);
+            }, delay);
+        } as T;
+    };
+
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.valueAsNumber;
         setValue(config.ui.value);
@@ -24,8 +37,9 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     return (
         <div className="slider-component-container">
             <div className="slider-label-and-input-field">
-                <input type="number" value={value} onChange={handleValueChange}/>
-                <TooltipLabel label={config.name} tooltip={config.gl?.name  ?? "Undefined Name"}/>
+                <input type="number" value={value}
+                       onChange={debounce((e: React.ChangeEvent<HTMLInputElement>) => handleValueChange(e), 200)}/>
+                <TooltipLabel label={config.name} tooltip={config.gl?.name ?? "Undefined Name"}/>
             </div>
             <input type="range" id={uniqueId} className="uniform-slider"
                    min={config.ui.min} max={config.ui.max} step={config.ui.step}

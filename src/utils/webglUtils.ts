@@ -2,11 +2,11 @@ import {IShaderStatus, ShaderSources} from "./contexts/ShaderContext";
 
 export const createGl = (canvas: HTMLCanvasElement) => {
     // Try to get a WebGL 2.0 context
-    // let gl: WebGL2RenderingContext | null = canvas.getContext('webgl2') as WebGL2RenderingContext | null;
-    let gl: WebGLRenderingContext | null = canvas.getContext('webgl') as WebGLRenderingContext | null;
+    let gl: WebGL2RenderingContext | null = canvas.getContext('webgl2') as WebGL2RenderingContext | null;
+    // let gl: WebGLRenderingContext | null = canvas.getContext('webgl') as WebGLRenderingContext | null;
 
     if (gl) {
-        // console.log('Using WebGL 2.0');
+        console.log('Using WebGL 2.0');
     } else {
         // If WebGL 2.0 context is not available, fall back to WebGL 1.0
         // gl = canvas.getContext('webgl') as WebGLRenderingContext | null;
