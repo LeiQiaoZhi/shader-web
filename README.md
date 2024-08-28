@@ -1,22 +1,44 @@
 # Shader Web
 
 > A static web app that makes writing GLSL shaders more enjoyable!
-> - think _ShaderToy_ with a better shader editing experience, but without the social/sharing aspect
+> - think _ShaderToy_ with a better shader editing experience, but without the online features
 
 **Key Features:**
 
-- render frag shader output using WebGL
+- render frag shader output using WebGL, supports **multi-pass rendering**
 - tweak your uniforms using ui widgets and see changes in real-time!
   - use a `.toml` or `.json` config file to specify the uniform widgets 
 - edit shader source code using a modern embedded code editor, or upload your file
-  - supports vim, emacs
+  - supports **vim**, emacs, vscode, sublime keybindings
   - supports a large number of themes
 - both light and dark themes for the website
+
+| Feature                                     | ***Shader Web*** | ShaderToy |
+| ------------------------------------------- | ---------------- | --------- |
+| Real-Time Shader Rendering                  | ✅                | ✅         |
+| Custom Canvas Resolution                    | ✅                |           |
+| Web-Based Editor                            | ✅                | ✅         |
+| GLSL Syntax Highlighting                    | ✅                | ✅         |
+| Editor Tabs                                 | ✅                | ✅         |
+| Editor Keybindings (Vim, Emacs, ...)        | ✅                |           |
+| Editor Themes                               | ✅                |           |
+| `#include` Preprocessor                     | ✅                |           |
+| Shader Inputs (`iResolution`, `iTime`, ...) | ✅                | ✅         |
+| Multi-Pass Rendering                        | ✅                | ✅         |
+| Custom Buffer Dimensions                    | ✅                |           |
+| Tweak Uniform Values with UI widgets        | ✅                |           |
+| Website dark/light theme                    | ✅                |           |
+| Keyboard Input as Texture                   | ⌚                | ✅         |
+| Fullscreen Canvas                           | ⌚                | ✅         |
+| Sound Input                                 |                  | ✅         |
+| Online Features (Comment, Explore, ...)     |                  | ✅         |
 
 
 ---
 
-## TODOs and Finished Tasks
+## TODOs and Finished Tasks 
+
+Detailed list, for the dev's reference
 
 - [x] frag shader rendering on a quad
 - [x] select shader file from local disk
@@ -73,7 +95,7 @@
   - [x] compile shortcut
   - [x] editor shortcut -- find
   - [ ] help -- list all shortcuts
-- [x] **create buffer type file** 
+- [x] **multi-pass rendering** 
   - [x] frontend to create buffer shader file
   - [x] abstract render pass and texture
   - [x] save and pass previous frame of buffer
@@ -84,8 +106,10 @@
   - [ ] state store and read from framebuffer (vec3 <=> other types)
   - [ ] noises 
   - [ ] sdfs 
+  - [ ] keycodes
 - [ ] screenshot
 - [ ] performance -- show fps
 - [ ] export from shadertoy
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
+- [ ] pass uniforms not only to the main shader
