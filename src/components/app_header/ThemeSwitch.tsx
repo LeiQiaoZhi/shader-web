@@ -22,7 +22,10 @@ const ThemeSwitch: React.FC = () => {
     }
 
     return (
-        <IconButton onClick={toggleTheme} size="small" padding="small">
+        <IconButton 
+            onClick={toggleTheme} size="small" padding="small"
+            tooltip={theme === 'light' ? "To Dark Mode" : "To Light Mode"}
+        >
             {
                 theme === 'light' ? (<IoMdSunny/>) : (<IoMoon/>)
             }

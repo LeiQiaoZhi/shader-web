@@ -5,22 +5,22 @@
 }
 
 /* Tooltip text hidden by default */
-.tooltip-container::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    transform: translate(-100%, 100%);
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: var(--small-gap);
-    border-radius: var(--small-radius);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity var(--normal-transition);
-    pointer-events: none;
-    font-size: var(--small-font-size);
-}
+/*.tooltip-container::after {*/
+/*    content: attr(data-tooltip);*/
+/*    position: absolute;*/
+/*    transform: translate(-100%, 100%);*/
+/*    background-color: var(--primary-color);*/
+/*    color: var(--secondary-color);*/
+/*    padding: var(--small-gap);*/
+/*    border-radius: var(--small-radius);*/
+/*    white-space: nowrap;*/
+/*    opacity: 0;*/
+/*    transition: opacity var(--normal-transition);*/
+/*    pointer-events: none;*/
+/*    font-size: var(--small-font-size);*/
+/*}*/
 
-.tooltip-container:hover::after {
-    opacity: 1;
-    z-index: 1000;
-}
+/*.tooltip-container:hover::after {*/
+/*    opacity: 1;*/
+/*    z-index: 1000;*/
+/*}*/

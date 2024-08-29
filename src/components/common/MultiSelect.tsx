@@ -1,12 +1,15 @@
 import React from 'react';
 import "./MultiSelect.css"
+import IconButton from "./IconButton";
+import {CiSettings} from "react-icons/ci";
+import {IoIosSettings} from "react-icons/io";
 
 interface MultiSelectProps {
-    title: string,
+    tooltip: string,
     children: React.ReactNode;
 }
 
-const MultiSelect: React.FC<MultiSelectProps> = ({title, children}) => {
+const MultiSelect: React.FC<MultiSelectProps> = ({tooltip, children}) => {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
         <div className={`multiselect ${isOpen ? "" : "muted"}`}>
@@ -20,7 +23,12 @@ const MultiSelect: React.FC<MultiSelectProps> = ({title, children}) => {
                     </div>
                 </div>
             )}
-            <button onClick={e => setIsOpen(!isOpen)}>{title}</button>
+            <IconButton 
+                onClick={e => setIsOpen(!isOpen)}
+                size="large" padding="normal"
+                tooltip={tooltip}>
+                <IoIosSettings/>
+            </IconButton>
         </div>
     );
 };

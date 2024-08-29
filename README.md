@@ -129,8 +129,11 @@ Detailed list, for the dev's reference
     - [x] main function
     - [x] iResolution use vec2
     - [x] use WebGL2 + GLSL 300 es
+    - [ ] hide built-in code/inputs like shadertoy
 
 Bugs and Issues:
 
 - [ ] pause button border size inconsistent
 - [ ] keyboard expands panel
+- [ ] save shader code for compile
+- [ ] some keyboard shortcuts in editor

@@ -3,8 +3,8 @@ button {
     box-sizing: border-box;
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    /*border: var(--normal-border) solid var(--primary-color);*/
-    border: none;
+    border: var(--normal-border) solid var(--primary-color);
+    /*border: none;*/
     border-radius: var(--normal-radius);
     padding: var(--small-gap) var(--normal-gap);
     transition: var(--normal-transition);
@@ -14,8 +14,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+    border: var(--normal-border) solid var(--secondary-color);
 }
 
 .muted button, button.muted {

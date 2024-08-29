@@ -24,7 +24,7 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
 
     return (
         <div className="shader-row-control-container shader-dimension-control muted">
-            <IconButton
+            <IconButton tooltip="Set Dimension"
                 onClick={() => {
                     setViewportDimension([width, height]);
                     saveDataWithKey("width", width);
@@ -45,7 +45,7 @@ export const ShaderDimensionControl: React.FC<ShaderDimensionControlProps> = (
                     e => setHeight(e.target.valueAsNumber)
                 }/>
             </label>
-            <IconButton
+            <IconButton tooltip="Reset Dimension"
                 onClick={() => {
                     setViewportDimension([DEFAULT_SAVED_DATA.width, DEFAULT_SAVED_DATA.height]);
                     saveDataWithKey("width", DEFAULT_SAVED_DATA.width);

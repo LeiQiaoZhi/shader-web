@@ -19,6 +19,7 @@ const AppHeader: React.FC = () => {
             </div>
             <div className="app-header-right">
                 <IconButton padding='0' size='normal' className="others"
+                            tooltip={"Reset all saved data"}
                             onClick={_ => {
                                 console.log("reset all saved data");
                                 resetAllSavedData();
@@ -26,7 +27,10 @@ const AppHeader: React.FC = () => {
                             }}>
                     <BiReset/>
                 </IconButton>
-                <IconButton padding='0' size='normal' className="others">
+                <IconButton
+                    padding='0' size='normal' className="others"
+                    tooltip={"Github Repo"}
+                >
                     <BsGithub/>
                 </IconButton>
 

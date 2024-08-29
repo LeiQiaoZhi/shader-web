@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useId} from 'react';
 import "./IconButton.css"
+import {Tooltip} from "react-tooltip";
 
 interface IconButtonProps {
     children: React.ReactNode;
@@ -9,6 +10,7 @@ interface IconButtonProps {
     color?: string;
     background?: string;
     className?: string;
+    tooltip?: string;
 }
 
 const IconButton: React.FC<IconButtonProps> = (
@@ -20,8 +22,10 @@ const IconButton: React.FC<IconButtonProps> = (
         color,
         background,
         className,
+        tooltip
     }
 ) => {
+    const id = useId();
     const style: any = {};
     if (size) {
         style.fontSize = `var(--${size}-font-size)`;
@@ -29,15 +33,19 @@ const IconButton: React.FC<IconButtonProps> = (
     if (padding) {
         style.padding = (padding === '0') ? 0 : `var(--${padding}-gap)`;
     }
-    if (color){
+    if (color) {
         style.color = color;
     }
-    if (background){
+    if (background) {
         style.background = background;
     }
     return (
-        <button onClick={onClick} className={`icon-button ${className}`} style={style}>
+        <button onClick={onClick} className={`icon-button ${className}`} style={style}
+                data-tooltip-id={id} data-tooltip-content={tooltip}
+        >
             {children}
+            <Tooltip id={id}
+             style={{fontSize: 'small'}} />
         </button>
     );
 };

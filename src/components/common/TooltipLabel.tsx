@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useId} from "react";
 import "./TooltipLabel.css"
+import {Tooltip} from "react-tooltip";
 
 interface TooltipLabelProps {
     label: string;
@@ -7,8 +8,12 @@ interface TooltipLabelProps {
 }
 
 const TooltipLabel : React.FC<TooltipLabelProps> = ({label, tooltip}) => {
+    const id = useId();
     return (
-      <label data-tooltip={tooltip} className="tooltip-container"> {label} </label>
+      <label data-tooltip-id={id} data-tooltip-content={tooltip} className="tooltip-container"> 
+          {label} 
+          <Tooltip id={id}/>
+      </label>
     );
 }
 

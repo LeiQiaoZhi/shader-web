@@ -8,6 +8,7 @@ import {exportStringForDownload, loadData, saveDataWithKey} from "../../utils/br
 import {UniformPanelMode, useUniformContext} from "../../utils/contexts/UniformsContext";
 import {UniformConfigData} from "./UniformsSpecification";
 import UniformEditAddButton from "./UniformEditAddButton";
+import {Tooltip} from "react-tooltip";
 
 interface UniformsPanelProps {
 }
@@ -36,16 +37,20 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     }
 
     return (
-        <div className="uniforms-panel" data-visible={isVisible} >
+        <div className="uniforms-panel" data-visible={isVisible}>
             <PanelHeader title={mode === UniformPanelMode.Normal ? "Uniforms" : "Uniforms (Edit)"}
                          isVisible={isVisible} setVisible={setIsVisible}>
-                <div onClick={e => setMode(
-                    mode === UniformPanelMode.Normal ? UniformPanelMode.Edit : UniformPanelMode.Normal
-                )}>
+                <div data-tooltip-id={"uniforms-edit-tooltip"} data-tooltip-content={"Edit Uniforms Widgets"}
+                     onClick={e => setMode(
+                         mode === UniformPanelMode.Normal ? UniformPanelMode.Edit : UniformPanelMode.Normal
+                     )}>
                     <FaEdit/>
+                    <Tooltip id={"uniforms-edit-tooltip"}/>
                 </div>
-                <div onClick={handleExportConfig}>
+                <div data-tooltip-id={"uniforms-download-tooltip"} data-tooltip-content={"Export Config"}
+                    onClick={handleExportConfig}>
                     <FaFileDownload/>
+                    <Tooltip id={"uniforms-download-tooltip"}/>
                 </div>
             </PanelHeader>
 

@@ -9,7 +9,7 @@ import EditorKeybindingSelect from "./settings/EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
 import EditorSettingCheckbox from "./settings/EditorSettingCheckbox";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
-import {FaEdit, FaFileDownload, FaPlay} from "react-icons/fa";
+import {FaEdit, FaFileDownload, FaFileImport, FaFileUpload, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
 import {exportStringForDownload, loadData} from "../../utils/browserUtils";
@@ -22,6 +22,7 @@ import {FaBuffer, FaFileCode} from "react-icons/fa6";
 import {IoColorFilter} from "react-icons/io5";
 import {useKeyboardShortcut} from "../../utils/keyboard";
 import {preprocessShaderSource} from "../../utils/shaderPreprocessor";
+import {Tooltip} from "react-tooltip";
 
 
 const CodeEditor = () => {
@@ -53,7 +54,6 @@ const CodeEditor = () => {
 
     useEffect(() => {
         console.log("Shader source changed");
-        // TODO: remove upload shader button from shader panel
     }, [shaderSources]);
 
     const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -61,6 +61,9 @@ const CodeEditor = () => {
         exportStringForDownload(editorSources[activeTab].source, activeTab + ".frag");
     }
 
+    const handleImportCode = (e: React.MouseEvent<HTMLDivElement>) => {
+        // TODO: more options, download in a zip, in a single file...
+    }
     const compileShader = (e: any) => {
         console.log("Editor sources", editorSources);
         setShaderSources(preprocessShaderSource(editorSources))
@@ -69,13 +72,22 @@ const CodeEditor = () => {
     return (
         <div className="editor" data-visible={isVisible}>
             <PanelHeader title={"Code"} isVisible={isVisible} setVisible={setIsVisible}>
-                <div onClick={handleExportCode}>
+                <div onClick={handleImportCode}
+                     data-tooltip-id={"editor-import-tooltip"} data-tooltip-content={"Import Code"}>
+                    <FaFileImport/>
+                    <Tooltip id={"editor-import-tooltip"}/>
+                </div>
+                <div onClick={handleExportCode}
+                     data-tooltip-id={"editor-export-tooltip"} data-tooltip-content={"Export Code"}>
                     <FaFileDownload/>
+                    <Tooltip id={"editor-export-tooltip"}/>
                 </div>
             </PanelHeader>
 
             <div className="editor-tabs-outer-container">
-                <GrAddCircle onClick={e => setShowAddModal(true)}/>
+                <GrAddCircle onClick={e => setShowAddModal(true)}
+                                data-tooltip-id={"editor-add-tooltip"} data-tooltip-content={"Add Tab"}/>
+                <Tooltip id={"editor-add-tooltip"} content={"Add File"} place={"left"}/>
                 <div className="editor-tabs-container">
                     {
                         Object.keys(editorSources).map((tabName, i: number) =>
@@ -134,15 +146,15 @@ const CodeEditor = () => {
             />
 
             <div className="editor-bottom-control" data-visible={isVisible}>
-                <IconButton
-                    size="large" padding="normal"
-                    onClick={compileShader}>
+                <IconButton tooltip="Compile"
+                            size="large" padding="normal"
+                            onClick={compileShader}>
                     <FaPlay/>
                 </IconButton>
                 <EditorFontSizeSelect fontSize={editorFontSize} setFontSize={setEditorFontSize}/>
                 <EditorThemeSelect editorTheme={editorTheme} setEditorTheme={setEditorTheme}/>
                 <EditorKeybindingSelect keybinding={keybinding} setKeybinding={setKeybinding}/>
-                <MultiSelect title={"More"}>
+                <MultiSelect tooltip={"More Settings"}>
                     <EditorSettingCheckbox label={"Show fold widgets"} state={showFolds} setter={setShowFolds}/>
                     <EditorSettingCheckbox label={"Show gutter"} state={showGutter} setter={setShowGutter}/>
                     <EditorSettingCheckbox label={"Show line numbers"} state={showLineNumbers}

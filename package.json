@@ -19,6 +19,7 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^5.28.0",
     "toml": "^3.0.0",
     "toml-js": "^0.0.8",
     "typescript": "^4.9.5",

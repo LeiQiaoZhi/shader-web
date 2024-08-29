@@ -45,7 +45,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
 
     return (
         <div className={"shader-row-control-container" + (pausedState ? " muted" : "")}>
-            <IconButton onClick={handlePauseToggle}>
+            <IconButton onClick={handlePauseToggle} tooltip={pausedState ? "Resume" : "Pause"}>
                 {pausedState
                     ? (<FaPlayCircle title="Resume"/>)
                     : (<FaPause/>)
@@ -55,7 +55,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
                 <label>Speed: {speed.toFixed(2)}</label>
                 <input type="range" onChange={handleSpeedChange} min={0} max={2} step={0.01} defaultValue={speed}/>
             </div>
-            <IconButton onClick={handleRestart}>
+            <IconButton onClick={handleRestart} tooltip="Restart">
                 <IoPlayBack/>
             </IconButton>
         </div>

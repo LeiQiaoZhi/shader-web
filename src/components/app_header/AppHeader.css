@@ -47,12 +47,10 @@
     font-size: var(--normal-font-size);
 }
 
-.app-header-right button:hover {
-    background: var(--primary-color);
-    color: var(--secondary-color);
+.app-header-right button:not(.others):hover {
+    background: var(--text-color);
 }
 
 .app-header-right .others:hover {
-    color: var(--primary-color);
-    background: var(--secondary-color);
+    color: var(--text-color);
 }
