@@ -72,14 +72,14 @@ const CodeEditor = () => {
                 <IconButton
                     onClick={e => setShowImportModal(true)}
                     tooltip="Import Code" padding='0' size='normal'
-                    bg="none !important" border='0' color="var(--secondary-text-color)"
+                    bg="none" border='0' color="var(--secondary-text-color)"
                 >
                     <FaFileImport/>
                 </IconButton>
                 <IconButton
                     onClick={e => setShowExportModal(true)} 
                     tooltip="Export Code" padding='0' size='normal'
-                    bg="none !important" border='0' color="var(--secondary-text-color)"
+                    bg="none" border='0' color="var(--secondary-text-color)"
                 >
                     <FaFileDownload/>
                 </IconButton>
