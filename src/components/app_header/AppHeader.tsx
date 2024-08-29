@@ -27,7 +27,10 @@ const AppHeader: React.FC = () => {
                 <IconButton
                     padding='0' size='normal' className="others"
                     tooltip={"Github Repo"}
-                >
+                    onClick={
+                        event => {
+                            window.open('https://github.com/LeiQiaoZhi/shader-web', '_blank');
+                        }}>
                     <BsGithub/>
                 </IconButton>
 

@@ -8,4 +8,6 @@
     height: min-content !important;
     width: min-content !important;
     gap: var(--small-gap);
+    
+    cursor: pointer;
 }
