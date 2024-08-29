@@ -4,12 +4,13 @@ import FileSelect from "../common/FileSelect";
 import UniformComponent from "./UniformComponent";
 import PanelHeader from "../common/PanelHeader";
 import {FaEdit, FaFileDownload} from "react-icons/fa";
-import {exportStringForDownload, loadData, saveDataWithKey} from "../../utils/browserUtils";
+import {loadData, saveDataWithKey} from "../../utils/browser/browserLocalStorage";
 import {UniformPanelMode, useUniformContext} from "../../utils/contexts/UniformsContext";
 import {UniformConfigData} from "./UniformsSpecification";
 import UniformEditAddButton from "./UniformEditAddButton";
 import {Tooltip} from "react-tooltip";
 import IconButton from "../common/IconButton";
+import {exportStringForDownload} from "../../utils/browser/download";
 
 interface UniformsPanelProps {
 }
@@ -20,7 +21,7 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
     const {mode, setMode, configManager, configDataState} = useUniformContext();
 
     useEffect(() => {
-        // console.log("Config Changed, from manager:", configDataState);
+        console.log("Config Changed, from manager:", configDataState);
     }, [configDataState])
 
     const onConfigFileSelect = async (file: File) => {

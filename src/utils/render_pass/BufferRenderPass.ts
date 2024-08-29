@@ -3,7 +3,7 @@ import { BufferSource, IShaderStatus } from "../contexts/ShaderContext";
 import { createShader } from "../webglUtils";
 import { defaultVertexShaderSource } from "../webglConstants";
 import { Texture } from "../Texture";
-import { toPascalCase } from "../browserUtils";
+import { toPascalCase } from "../browser/browserLocalStorage";
 
 export class BufferRenderPass {
     shader?: Shader;

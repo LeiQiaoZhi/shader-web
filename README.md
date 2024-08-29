@@ -111,11 +111,16 @@ Detailed list, for the dev's reference
     - [x] post render pass
     - [x] improve shader status for multiple passes
     - [x] generic buffers pass
+- [x] **more compatible with shadertoy**
+    - [x] main function
+    - [x] iResolution use vec2
+    - [x] use WebGL2 + GLSL 300 es
+    - [x] hide built-in code/inputs like shadertoy
 - [ ] more templates/libraries
     - [ ] state store and read from framebuffer (vec3 <=> other types)
     - [ ] noises
     - [ ] sdfs
-    - [ ] keycodes
+    - [x] keycodes
 - [ ] screenshot
 - [ ] performance -- show fps
 - [ ] **export and import shaders**
@@ -125,11 +130,8 @@ Detailed list, for the dev's reference
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
 - [ ] pass uniforms not only to the main shader
-- [x] **more compatible with shadertoy**
-    - [x] main function
-    - [x] iResolution use vec2
-    - [x] use WebGL2 + GLSL 300 es
-    - [ ] hide built-in code/inputs like shadertoy
+- [ ] make some modal buttons work
+  - [ ] edit uniform reset
 
 Bugs and Issues:
 

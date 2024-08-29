@@ -1,7 +1,12 @@
-import {defaultFragmentShaderSource, defaultPostFragmentShaderSource, ShaderFileType} from "./webglConstants";
-import {ThemeStringType} from "./contexts/ThemeContext";
-import {TopLevelConfigData} from "../components/uniforms/UniformsSpecification";
-import {ShaderSources} from "./contexts/ShaderContext";
+import {
+    defaultFragmentShaderSource,
+    defaultPostFragmentShaderSource, mainShaderSuffix,
+    ShaderFileType,
+    shaderPrefixMap
+} from "../webglConstants";
+import {ThemeStringType} from "../contexts/ThemeContext";
+import {TopLevelConfigData} from "../../components/uniforms/UniformsSpecification";
+import {ShaderSources} from "../contexts/ShaderContext";
 
 export const toCamelCase = (str: string): string => {
     return str
@@ -19,15 +24,6 @@ export const toPascalCase = (str: string): string => {
         .join('');
 }
 
-export const exportStringForDownload = (content: string, fileName: string) => {
-    const blob = new Blob([content]);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(url);
-}
 
 export interface EditorSources {
     main: { source: string, type: ShaderFileType.Buffer };
@@ -75,7 +71,11 @@ export const DEFAULT_SAVED_DATA: SavedData = {
     editorTheme: "",
     editorFontSize: "medium",
     editorKeybinding: "vim",
-    shaderSources: {main: defaultFragmentShaderSource, buffers: {}, post: defaultPostFragmentShaderSource},
+    shaderSources: {
+        main: shaderPrefixMap["main"] + defaultFragmentShaderSource + mainShaderSuffix, 
+        post: shaderPrefixMap["post"] + defaultPostFragmentShaderSource,
+        buffers: {},
+    },
     editorSources: {
         main: {source: defaultFragmentShaderSource, type: ShaderFileType.Buffer},
         post: {source: defaultPostFragmentShaderSource, type: ShaderFileType.Buffer},

@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import ConfigManager from "../ConfigManager";
-import {loadData, saveDataWithKey} from "../browserUtils";
+import {loadData, saveDataWithKey} from "../browser/browserLocalStorage";
 import {TopLevelConfigData, UniformConfigData} from "../../components/uniforms/UniformsSpecification";
 
 export enum UniformPanelMode {

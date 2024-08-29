@@ -6,7 +6,7 @@ import {LuListRestart} from "react-icons/lu";
 import {MdRestartAlt} from "react-icons/md";
 import {IoPlayBack} from "react-icons/io5";
 import IconButton from "../common/IconButton";
-import {saveDataWithKey} from "../../utils/browserUtils";
+import {saveDataWithKey} from "../../utils/browser/browserLocalStorage";
 
 interface ShaderAnimationControlProps {
     pausedState: boolean,

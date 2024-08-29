@@ -1,7 +1,7 @@
 import {Shader} from "../Shader";
 import {IShaderStatus} from "../contexts/ShaderContext";
 import {createShader} from "../webglUtils";
-import {defaultVertexShaderSource} from "../webglConstants";
+import {defaultVertexShaderSource, mainShaderSuffix} from "../webglConstants";
 import {Texture} from "../Texture";
 import {BufferRenderPass} from "./BufferRenderPass";
 
@@ -21,11 +21,7 @@ export class MainRenderPass {
         this.gl = gl;
         this.width = gl.canvas.width;
         this.height = gl.canvas.height;
-        fragSource = fragSource + `void main() {
-        vec4 color;
-        mainImage(color, gl_FragCoord.xy);
-        fragColor = color;
-        }`;
+        fragSource = fragSource;
 
         // init framebuffer
         const frameBuffer = gl.createFramebuffer();

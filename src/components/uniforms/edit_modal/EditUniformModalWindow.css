@@ -35,7 +35,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: var(--large-gap);
     background-color: var(--background-color);
     border-radius: var(--normal-radius);
 }
@@ -43,14 +42,26 @@
 .modal-header h2 {
     flex: 1;
     white-space: nowrap;
+    padding: 0 var(--large-gap);
+    color: var(--text-color);
+    font-weight: normal;
 }
 
 .modal-body {
     display: flex;
     flex-direction: column;
     gap: var(--large-gap);
+    white-space: nowrap;
 }
 
 .modal-body label {
     white-space: nowrap;
+}
+
+.modal-file-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-gap);
+    justify-content: center;
+    color: var(--secondary-text-color);
 }

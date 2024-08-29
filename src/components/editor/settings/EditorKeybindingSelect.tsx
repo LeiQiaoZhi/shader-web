@@ -3,7 +3,7 @@ import "ace-builds/src-noconflict/keybinding-vim"
 import "ace-builds/src-noconflict/keybinding-emacs"
 import "ace-builds/src-noconflict/keybinding-vscode"
 import "ace-builds/src-noconflict/keybinding-sublime"
-import {saveDataWithKey} from "../../../utils/browserUtils";
+import {saveDataWithKey} from "../../../utils/browser/browserLocalStorage";
 
 interface EditorKeybindingSelectProps {
     keybinding: string,

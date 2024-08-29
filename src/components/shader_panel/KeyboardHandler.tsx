@@ -28,7 +28,7 @@ const KeyboardHandler: React.FC<Props> = (
             }
             return prevKeys;
         });
-        console.log('Key pressed:', event.code, 'KeyCode:', keyCode);
+        // console.log('Key pressed:', event.code, 'KeyCode:', keyCode);
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
@@ -37,18 +37,16 @@ const KeyboardHandler: React.FC<Props> = (
                 Array.from(prevKeys).filter(item => item.code !== event.code);
             return newKeys;
         });
-        console.log('Key released:', event.code);
+        // console.log('Key released:', event.code);
     };
 
     const handleLoseFocus = () => {
-        // Handle tab losing focus, e.g., assume keys were released
-        console.log('Tab lost focus');
+        // console.log('Tab lost focus');
         setKeysBeingPressed([]);
     };
 
     const handleGainFocus = () => {
-        // Handle tab regaining focus
-        console.log('Tab gained focus');
+        // console.log('Tab gained focus');
         setKeysBeingPressed([]);
     };
 

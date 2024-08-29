@@ -3,7 +3,7 @@ import "./ShaderDimensionControl.css"
 import {GiResize} from "react-icons/gi";
 import {GrPowerReset} from "react-icons/gr";
 import IconButton from "../common/IconButton";
-import {DEFAULT_SAVED_DATA, loadData, saveDataWithKey} from "../../utils/browserUtils";
+import {DEFAULT_SAVED_DATA, loadData, saveDataWithKey} from "../../utils/browser/browserLocalStorage";
 
 
 interface ShaderDimensionControlProps {

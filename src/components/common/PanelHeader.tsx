@@ -2,7 +2,7 @@ import React from 'react';
 import {FaExpandArrowsAlt} from "react-icons/fa";
 import "./PanelHeader.css"
 import {LuMinimize2} from "react-icons/lu";
-import {saveDataWithKey} from "../../utils/browserUtils";
+import {saveDataWithKey} from "../../utils/browser/browserLocalStorage";
 import IconButton from "./IconButton";
 
 interface PanelHeaderProps {

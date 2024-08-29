@@ -12,7 +12,7 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import {FaEdit, FaFileDownload, FaFileImport, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
-import {exportStringForDownload, loadData} from "../../utils/browserUtils";
+import {loadData} from "../../utils/browser/browserLocalStorage";
 import {GrAddCircle} from "react-icons/gr";
 import EditorAddTabModal from "./modal/EditorAddTabModal";
 import EditorEditTabModal from "./modal/EditorEditTabModal";
@@ -20,11 +20,12 @@ import {useEditorContext} from "../../utils/contexts/EditorContext";
 import {bufferPrefix, ShaderFileType, shaderPrefixMap} from "../../utils/webglConstants";
 import {FaBuffer, FaFileCode} from "react-icons/fa6";
 import {IoColorFilter} from "react-icons/io5";
-import {useKeyboardShortcut} from "../../utils/keyboard";
+import {useKeyboardShortcut} from "../../utils/browser/keyboard";
 import {preprocessShaderSource} from "../../utils/shaderPreprocessor";
 import {Tooltip} from "react-tooltip";
 import {EditorShaderInputs} from "./EditorShaderInputs";
-import {GoTriangleRight} from "react-icons/go";
+import EditorExportModal from "./modal/EditorExportModal";
+import EditorImportModal from "./modal/EditorImportModal";
 
 
 const CodeEditor = () => {
@@ -35,6 +36,8 @@ const CodeEditor = () => {
         activeTab, setActiveTab,
         showAddModal, setShowAddModal,
         showEditModal, setShowEditModal,
+        showExportModal, setShowExportModal,
+        showImportModal, setShowImportModal,
         tabNameToEdit, setTabNameToEdit,
     } = useEditorContext();
 
@@ -58,14 +61,6 @@ const CodeEditor = () => {
         console.log("Shader source changed");
     }, [shaderSources]);
 
-    const handleExportCode = (e: React.MouseEvent<HTMLElement>) => {
-        // TODO: more options, download in a zip, in a single file...
-        exportStringForDownload(editorSources[activeTab].source, activeTab + ".frag");
-    }
-
-    const handleImportCode = (e: React.MouseEvent<HTMLElement>) => {
-        // TODO: more options, download in a zip, in a single file...
-    }
     const compileShader = (e: any) => {
         console.log("(settings shaders sources) Editor sources", editorSources);
         setShaderSources(preprocessShaderSource(editorSources))
@@ -75,13 +70,15 @@ const CodeEditor = () => {
         <div className="editor" data-visible={isVisible}>
             <PanelHeader title={"Code"} isVisible={isVisible} setVisible={setIsVisible}>
                 <IconButton
-                    onClick={handleImportCode} tooltip="Import Code" padding='0' size='normal'
+                    onClick={e => setShowImportModal(true)}
+                    tooltip="Import Code" padding='0' size='normal'
                     bg="none !important" border='0' color="var(--secondary-text-color)"
                 >
                     <FaFileImport/>
                 </IconButton>
                 <IconButton
-                    onClick={handleExportCode} tooltip="Export Code" padding='0' size='normal'
+                    onClick={e => setShowExportModal(true)} 
+                    tooltip="Export Code" padding='0' size='normal'
                     bg="none !important" border='0' color="var(--secondary-text-color)"
                 >
                     <FaFileDownload/>
@@ -119,8 +116,11 @@ const CodeEditor = () => {
                     }
                 </div>
             </div>
+            
             {showAddModal && <EditorAddTabModal/>}
             {showEditModal && <EditorEditTabModal/>}
+            {showExportModal && <EditorExportModal/>}
+            {showImportModal && <EditorImportModal/>}
 
             {
                 editorSources[activeTab].type === ShaderFileType.Buffer &&

@@ -1,7 +1,7 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import {Shader} from "../Shader";
 import {defaultFragmentShaderSource} from "../webglConstants";
-import {EditorSources, loadData, saveDataWithKey} from "../browserUtils";
+import {EditorSources, loadData, saveDataWithKey} from "../browser/browserLocalStorage";
 
 interface IEditorContext {
     editorSources: EditorSources;
@@ -12,6 +12,10 @@ interface IEditorContext {
     setShowAddModal: (showAddModal: boolean) => void;
     showEditModal: boolean;
     setShowEditModal: (showEditModal: boolean) => void;
+    showExportModal: boolean;
+    setShowExportModal: (showEditModal: boolean) => void;
+    showImportModal: boolean;
+    setShowImportModal: (showEditModal: boolean) => void;
     tabNameToEdit: string;
     setTabNameToEdit: (tabNameToEdit: string) => void;
 }
@@ -28,6 +32,8 @@ const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
     const [activeTab, setActiveTab] = useState(savedData.activeTab);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [showImportModal, setShowImportModal] = useState(false);
     const [tabNameToEdit, setTabNameToEdit] = useState("");
 
     const setEditorSourcesWithSave = (newSources: EditorSources) => {
@@ -45,6 +51,8 @@ const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
             activeTab, setActiveTab: setActiveTabWithSave,
             showAddModal, setShowAddModal,
             showEditModal, setShowEditModal,
+            showExportModal, setShowExportModal,
+            showImportModal, setShowImportModal,
             tabNameToEdit, setTabNameToEdit,
         }}>
             {children}

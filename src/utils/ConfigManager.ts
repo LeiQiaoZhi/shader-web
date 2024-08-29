@@ -1,5 +1,5 @@
 import * as TOML from "toml";
-import {saveDataWithKey} from "./browserUtils";
+import {saveDataWithKey} from "./browser/browserLocalStorage";
 import {TopLevelConfigData, UniformConfigData} from "../components/uniforms/UniformsSpecification";
 
 

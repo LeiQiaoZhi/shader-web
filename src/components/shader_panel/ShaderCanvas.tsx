@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { createGl, createScreenQuadBuffer } from "../../utils/webglUtils";
+import React, {useEffect, useRef, useState} from 'react';
+import {createGl, createScreenQuadBuffer} from "../../utils/webglUtils";
 import './ShaderCanvas.css'
-import { useShaderContext } from "../../utils/contexts/ShaderContext";
+import {useShaderContext} from "../../utils/contexts/ShaderContext";
 import ShaderStatusBar from "./ShaderStatusBar";
 import ShaderAnimationControl from "./ShaderAnimationControl";
-import { ShaderDimensionControl } from "./ShaderDimensionControl";
+import {ShaderDimensionControl} from "./ShaderDimensionControl";
 import PanelHeader from "../common/PanelHeader";
-import { loadData } from "../../utils/browserUtils";
-import { MainRenderPass } from "../../utils/render_pass/MainRenderPass";
-import { PostRenderPass } from "../../utils/render_pass/PostRenderPass";
-import { BufferRenderPass } from "../../utils/render_pass/BufferRenderPass";
+import {loadData} from "../../utils/browser/browserLocalStorage";
+import {MainRenderPass} from "../../utils/render_pass/MainRenderPass";
+import {PostRenderPass} from "../../utils/render_pass/PostRenderPass";
+import {BufferRenderPass} from "../../utils/render_pass/BufferRenderPass";
 import KeyboardHandler from './KeyboardHandler';
-import { Texture } from '../../utils/Texture';
+import {Texture} from '../../utils/Texture';
 
 interface ShaderCanvasProps {
 }
@@ -27,7 +27,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
-    const { setMainShader, setStatus, shaderSources } = useShaderContext();
+    const {setMainShader, setStatus, shaderSources} = useShaderContext();
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -64,29 +64,30 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
             }
 
+            const uniforms = [
+                ["iTime", "float", elapsedTimeRef.current * 0.001],
+            ] as [string, string, any][];
+
             bufferRenderPasses.forEach((bufferRenderPass) => {
-                bufferRenderPass.draw(bufferRenderPasses, 
+                bufferRenderPass.draw(bufferRenderPasses,
                     keyboardStatesTextureRef.current,
-                    vertexBuffer, [
-                    ["iTime", "float", elapsedTimeRef.current],
-                ]);
+                    vertexBuffer, uniforms
+                );
             });
 
             mainRenderPass.draw(
                 bufferRenderPasses,
                 postRenderPass.previousFrameTexture,
                 keyboardStatesTextureRef.current,
-                vertexBuffer, [
-                ["iTime", "float", elapsedTimeRef.current],
-            ]);
+                vertexBuffer, uniforms
+            );
 
             postRenderPass.draw(
                 bufferRenderPasses,
                 mainRenderPass.colorTexture,
                 keyboardStatesTextureRef.current,
-                vertexBuffer, [
-                ["iTime", "float", elapsedTimeRef.current],
-            ]);
+                vertexBuffer, uniforms
+            );
 
             previousFrameTime.current = time;
             requestAnimationFrame(render);
@@ -106,13 +107,13 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     }, [shaderSources, viewportDimension]);
 
     return (
-        <div className='shader-canvas-container' style={{ width: `${viewportDimension}` }} data-visible={isVisible}>
-            <PanelHeader title="Shader" isVisible={isVisible} setVisible={setIsVisible} />
-            <ShaderStatusBar width={viewportDimension[0]} />
-            <canvas ref={canvasRef} width={viewportDimension[0]} height={viewportDimension[1]} />
+        <div className='shader-canvas-container' style={{width: `${viewportDimension}`}} data-visible={isVisible}>
+            <PanelHeader title="Shader" isVisible={isVisible} setVisible={setIsVisible}/>
+            <ShaderStatusBar width={viewportDimension[0]}/>
+            <canvas ref={canvasRef} width={viewportDimension[0]} height={viewportDimension[1]}/>
             <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef}
-                elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState} />
-            <ShaderDimensionControl viewportDimension={viewportDimension} setViewportDimension={setViewportDimension} />
+                                    elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState}/>
+            <ShaderDimensionControl viewportDimension={viewportDimension} setViewportDimension={setViewportDimension}/>
             <KeyboardHandler keyboardEventsTextureRef={keyboardStatesTextureRef}/>
         </div>
     );

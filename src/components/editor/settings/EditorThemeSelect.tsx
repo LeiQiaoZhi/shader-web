@@ -11,7 +11,7 @@ import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-noconflict/theme-chrome"
 import "ace-builds/src-noconflict/theme-solarized_light"
 import {useThemeContext} from "../../../utils/contexts/ThemeContext";
-import {saveDataWithKey} from "../../../utils/browserUtils";
+import {saveDataWithKey} from "../../../utils/browser/browserLocalStorage";
 import Select from "../../common/Select";
 
 const EDITOR_THEMES = [

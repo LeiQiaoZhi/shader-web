@@ -59,6 +59,7 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
 
     const [type, setType] = useState<string>(uniformConfig.ui.type);
     const [glType, setGLType] = useState<string | undefined>(uniformConfig.gl?.type);
+    const originalConfig = JSON.parse(JSON.stringify(uniformConfig));
 
     useEffect(() => {
         const suitableGlTypes = UNIFORMS_UI_TYPES_TO_GL_TYPES_MAP[type];
@@ -81,7 +82,13 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
                         }}
                     ><GiConfirmed/></IconButton>
                     <h2>Edit Widget</h2>
-                    <IconButton><GrPowerReset/></IconButton>
+                    <IconButton onClick={e => {
+                        console.log("Resetting config to original", originalConfig);
+                        uniformConfig = {...originalConfig};
+                        console.log("Uniform Config", uniformConfig);
+                        setShowModal(false);
+                        setHover(false);
+                    }}><GrPowerReset/></IconButton>
                 </div>
                 <div className="modal-body">
                     <EditUniformModalInputField

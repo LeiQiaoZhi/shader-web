@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
 import {Shader} from "../Shader";
-import {loadData, saveDataWithKey} from "../browserUtils";
+import {loadData, saveDataWithKey} from "../browser/browserLocalStorage";
 
 export type ThemeStringType = "light" | "dark";
 

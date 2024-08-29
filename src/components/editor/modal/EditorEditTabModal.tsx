@@ -1,7 +1,7 @@
 import React from 'react';
 import IconButton from "../../common/IconButton";
 import {GiConfirmed} from "react-icons/gi";
-import {EditorSources, toPascalCase} from "../../../utils/browserUtils";
+import {EditorSources, toPascalCase} from "../../../utils/browser/browserLocalStorage";
 import {MdCancel, MdDelete} from "react-icons/md";
 import {useEditorContext} from "../../../utils/contexts/EditorContext";
 import WarningText from "../../common/WarningText";

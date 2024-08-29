@@ -1,11 +1,11 @@
-import {COLORS_TEMPLATE} from "./colorsTemplate";
-import {KEYCODES_MACROS} from "./keycodesMacros";
+import {COLORS_TEMPLATE} from "./shader_templates/colorsTemplate";
+import {KEYCODES_MACROS} from "./shader_templates/keycodesMacros";
 
 export const bufferPrefix: string = `#version 300 es // version
 precision mediump float; // precision
 
 // built-in uniforms
-uniform float     iTime;           // time in ms
+uniform float     iTime;           // time in seconds
 uniform vec2      iResolution;     // resolution in pixels
 uniform sampler2D iPreviousFrame;  // previous frame
 uniform sampler2D iKeyboard;       // key press states
@@ -19,7 +19,7 @@ export const shaderPrefixMap: { [key: string]: string } = {
 precision mediump float;
 
 // built-in uniforms
-uniform float     iTime;           // time in ms
+uniform float     iTime;           // time in seconds
 uniform vec2      iResolution;     // resolution in pixels
 uniform sampler2D iPreviousFrame;  // previous frame
 uniform sampler2D iColorBuffer;    // output from the "main" shader in this frame
@@ -28,6 +28,13 @@ uniform sampler2D iKeyboard;       // key press states
 out vec4 fragColor; // output
 `,
 }
+
+export const mainShaderSuffix = `
+void main() {
+    vec4 color;
+    mainImage(color, gl_FragCoord.xy);
+    fragColor = color;
+}`;
 
 export const defaultVertexShaderSource = `#version 300 es
 
@@ -39,18 +46,7 @@ void main() {
 `;
 
 export const defaultFragmentShaderSource =
-    `#version 300 es
-precision mediump float;
-
-// built-in uniforms
-uniform float iTime;
-uniform vec2 iResolution;
-uniform sampler2D iPreviousFrame;
-uniform sampler2D iKeyboard;
-
-out vec4 fragColor;
-
-void mainImage( out vec4 fragColor, in vec2 fragCoord ){
+    `void mainImage( out vec4 fragColor, in vec2 fragCoord ){
     vec2 uv = gl_FragCoord.xy / min(iResolution.x, iResolution.y);
     vec3 color = vec3(uv, 0.5 * sin(iTime) + 0.5);
     fragColor = vec4(color, 1.0);
@@ -58,19 +54,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ){
 `;
 
 export const defaultPostFragmentShaderSource =
-    `#version 300 es
-precision mediump float;
-
-// built-in uniforms
-uniform float iTime;
-uniform vec2 iResolution;
-uniform sampler2D iColorBuffer;
-uniform sampler2D iPreviousFrame;
-uniform sampler2D iKeyboard;
-
-out vec4 fragColor;
-
-void main() {
+    `void main() {
     vec2 uv = gl_FragCoord.xy / iResolution;
     fragColor = texture(iColorBuffer, uv);
 }
