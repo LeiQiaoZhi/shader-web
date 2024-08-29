@@ -45,3 +45,12 @@
     color: var(--text-color);
     cursor: pointer;
 }
+
+.shader-keyboard-events-body{
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-gap);
+    align-items: start;
+    justify-content: center;
+    color: var(--secondary-text-color);
+}

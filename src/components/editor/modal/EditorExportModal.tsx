@@ -45,6 +45,8 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
                         const filNamesWithExtensions = fileNames.map((fileName) => fileName +
                             (editorSources[fileName].type === "Buffer" ? ".buffer" : ".common"));
                         downloadStringsAsZip(sources, filNamesWithExtensions, zipName);
+                        
+                        setShowExportModal(false);
                     }}>
                         <FaDownload/> Download
                     </IconButton>

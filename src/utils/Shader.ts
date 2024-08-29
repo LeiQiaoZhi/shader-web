@@ -68,6 +68,11 @@ export class Shader {
         const uniformLocation = this.gl.getUniformLocation(this.program, name);
         this.gl.uniform2i(uniformLocation, values[0], values[1]);
     }
+    
+    public setUniformVec4(name: string, values: Float32Array | [number, number, number, number]) {
+        const uniformLocation = this.gl.getUniformLocation(this.program, name);
+        this.gl.uniform4f(uniformLocation, values[0], values[1], values[2], values[3]);
+    }
 
     public setUniformFromConfig(config: UniformConfigData) {
         const name = config.gl?.name;
@@ -101,6 +106,9 @@ export class Shader {
                 break;
             case "vec2":
                 this.setUniformVec2(name, value);
+                break;
+            case "vec4":
+                this.setUniformVec4(name, value);
                 break;
             default:
                 console.warn(`Unsupported type ${type}`);

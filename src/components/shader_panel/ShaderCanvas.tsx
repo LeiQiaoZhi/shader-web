@@ -10,7 +10,7 @@ import {loadData} from "../../utils/browser/browserLocalStorage";
 import {MainRenderPass} from "../../utils/render_pass/MainRenderPass";
 import {PostRenderPass} from "../../utils/render_pass/PostRenderPass";
 import {BufferRenderPass} from "../../utils/render_pass/BufferRenderPass";
-import KeyboardHandler from './KeyboardHandler';
+import IOHandler from './IOHandler';
 import {Texture} from '../../utils/Texture';
 
 interface ShaderCanvasProps {
@@ -21,6 +21,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const pausedRef = useRef<boolean>(savedData.isPaused);
     const speedRef = useRef<number>(savedData.speed);
+    const mouseRef = useRef<Float32Array>(new Float32Array(4));
     const keyboardStatesTextureRef = useRef<Texture | null>(null);
     const previousFrameTime = useRef<number>(0);
     const elapsedTimeRef = useRef<number>(0);
@@ -29,6 +30,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
     const {setMainShader, setStatus, shaderSources} = useShaderContext();
 
+    
     // contains side effect, runs after the component is rendered
     useEffect(() => {
         console.log("Starting WebGL")
@@ -47,25 +49,26 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             setMainShader(mainRenderPass.shader);
         }
 
-        let firstRenderLoop = true;
+        let frameNumber = 0;
         const vertexBuffer = createScreenQuadBuffer(gl);
         gl.clearColor(0, 0, 0, 0);
 
         const render = (time: number) => {
-            if (firstRenderLoop) {
+            if (frameNumber === 0) {
                 console.log("Setting new shader")
-
-                firstRenderLoop = false;
                 elapsedTimeRef.current = 0;
             }
 
             const deltaTime = time - previousFrameTime.current;
             if (!pausedRef.current) {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
+                frameNumber++;
             }
 
             const uniforms = [
                 ["iTime", "float", elapsedTimeRef.current * 0.001],
+                ["iFrame", "int", frameNumber],
+                ["iMouse", "vec4", mouseRef.current],
             ] as [string, string, any][];
 
             bufferRenderPasses.forEach((bufferRenderPass) => {
@@ -114,7 +117,8 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef}
                                     elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState}/>
             <ShaderDimensionControl viewportDimension={viewportDimension} setViewportDimension={setViewportDimension}/>
-            <KeyboardHandler keyboardEventsTextureRef={keyboardStatesTextureRef}/>
+            <IOHandler keyboardEventsTextureRef={keyboardStatesTextureRef} 
+                       mouseRef={mouseRef} canvasRef={canvasRef}/>
         </div>
     );
 };

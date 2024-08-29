@@ -6,9 +6,11 @@ precision mediump float; // precision
 
 // built-in uniforms
 uniform float     iTime;           // time in seconds
+uniform int       iFrame;          // shader playback frame
 uniform vec2      iResolution;     // resolution in pixels
 uniform sampler2D iPreviousFrame;  // previous frame
 uniform sampler2D iKeyboard;       // key press states
+uniform vec4      iMouse;          // xy: current position, zw: click position
 
 out vec4 fragColor; // output
 `
@@ -20,10 +22,12 @@ precision mediump float;
 
 // built-in uniforms
 uniform float     iTime;           // time in seconds
+uniform int       iFrame;          // shader playback frame
 uniform vec2      iResolution;     // resolution in pixels
 uniform sampler2D iPreviousFrame;  // previous frame
 uniform sampler2D iColorBuffer;    // output from the "main" shader in this frame
 uniform sampler2D iKeyboard;       // key press states
+uniform vec4      iMouse;          // xy: current position, zw: click position
 
 out vec4 fragColor; // output
 `,

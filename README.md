@@ -25,6 +25,7 @@
 | Editor Keybindings (Vim, Emacs, ...)        | ✅                |           |
 | Editor Themes                               | ✅                |           |
 | `#include` Preprocessor                     | ✅                |           |
+| Export and import from disk as zip files    | ✅                |           |
 | Shader Inputs (`iResolution`, `iTime`, ...) | ✅                | ✅         |
 | Multi-Pass Rendering                        | ✅                | ✅         |
 | Custom Buffer Dimensions                    | ✅                |           |
@@ -123,8 +124,8 @@ Detailed list, for the dev's reference
     - [x] keycodes
 - [ ] screenshot
 - [ ] performance -- show fps
-- [ ] **export and import shaders**
-    - [ ] import
+- [x] **export and import shaders**
+    - [x] import
     - [ ] export with options (files in a zip, preprocessed file)
     - [ ] import from shadertoy
 - [ ] true pause (stop rendering the next frame)
