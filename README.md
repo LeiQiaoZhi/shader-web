@@ -3,7 +3,7 @@
 > A static web app that makes writing GLSL shaders more enjoyable!
 > - think _ShaderToy_ with a better shader editing experience, but without the online features
 
-<!-- TODO: live demo -->
+live demo: https://shaderweb.netlify.app
 
 **Key Features:**
 
@@ -37,7 +37,20 @@
 | Sound Input                                 |                  | ✅         |
 | Online Features (Comment, Explore, ...)     |                  | ✅         |
 
-<!-- TODO: Screenshots -->
+Screenshots:
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/9b666858-a178-402d-8108-a05c952b496b" alt="Image 1" />
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/9c4f10b5-bd0d-4163-8873-aaf0986fbc30" alt="Image 2" />
+    </td>
+  </tr>
+</table>
+
+
 
 ---
 
