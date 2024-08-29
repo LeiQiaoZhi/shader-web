@@ -72,6 +72,10 @@
     white-space: nowrap;
 }
 
+.editor-tab:hover {
+    border-radius: var(--small-radius);
+}
+
 .editor-tab:hover label {
     font-weight: bold;
 }
@@ -85,7 +89,11 @@
 #ace-editor {
     font-family: var(--font), sans-serif;
     flex: 1;
-    min-height: 300px;
+}
+
+.editor-shader-inputs .ace_hidden-cursors,
+.editor-shader-inputs .ace_cursor {
+    opacity: 0 !important;
 }
 
 .editor-bottom-control {

@@ -106,6 +106,7 @@ export const loadData = (): SavedData => {
 
 export const saveDataWithKey = (key: string, value: any) => {
     if (!(key in DEFAULT_SAVED_DATA)) {
+        console.error(`Key ${key} not found in default saved data`);
         return;
     }
     const data = loadData();

@@ -1,5 +1,33 @@
 import {COLORS_TEMPLATE} from "./colorsTemplate";
-import { KEYCODES_MACROS } from "./keycodesMacros";
+import {KEYCODES_MACROS} from "./keycodesMacros";
+
+export const bufferPrefix: string = `#version 300 es // version
+precision mediump float; // precision
+
+// built-in uniforms
+uniform float     iTime;           // time in ms
+uniform vec2      iResolution;     // resolution in pixels
+uniform sampler2D iPreviousFrame;  // previous frame
+uniform sampler2D iKeyboard;       // key press states
+
+out vec4 fragColor; // output
+`
+
+export const shaderPrefixMap: { [key: string]: string } = {
+    main: bufferPrefix,
+    post: `#version 300 es
+precision mediump float;
+
+// built-in uniforms
+uniform float     iTime;           // time in ms
+uniform vec2      iResolution;     // resolution in pixels
+uniform sampler2D iPreviousFrame;  // previous frame
+uniform sampler2D iColorBuffer;    // output from the "main" shader in this frame
+uniform sampler2D iKeyboard;       // key press states
+
+out vec4 fragColor; // output
+`,
+}
 
 export const defaultVertexShaderSource = `#version 300 es
 

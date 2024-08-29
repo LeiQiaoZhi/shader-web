@@ -29,4 +29,19 @@
     gap: var(--small-gap);
     align-items: start;
     color: var(--secondary-text-color);
+
+    white-space: pre-wrap;
+}
+
+.shader-keyboard-events-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-content: center;
+    gap: var(--small-gap);
+}
+
+.shader-keyboard-events-header:hover {
+    color: var(--text-color);
+    cursor: pointer;
 }

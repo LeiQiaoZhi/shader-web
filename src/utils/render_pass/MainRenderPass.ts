@@ -1,9 +1,9 @@
-import { Shader } from "../Shader";
-import { IShaderStatus } from "../contexts/ShaderContext";
-import { createShader } from "../webglUtils";
-import { defaultVertexShaderSource } from "../webglConstants";
-import { Texture } from "../Texture";
-import { BufferRenderPass } from "./BufferRenderPass";
+import {Shader} from "../Shader";
+import {IShaderStatus} from "../contexts/ShaderContext";
+import {createShader} from "../webglUtils";
+import {defaultVertexShaderSource} from "../webglConstants";
+import {Texture} from "../Texture";
+import {BufferRenderPass} from "./BufferRenderPass";
 
 export class MainRenderPass {
     shader?: Shader;
@@ -21,6 +21,11 @@ export class MainRenderPass {
         this.gl = gl;
         this.width = gl.canvas.width;
         this.height = gl.canvas.height;
+        fragSource = fragSource + `void main() {
+        vec4 color;
+        mainImage(color, gl_FragCoord.xy);
+        fragColor = color;
+        }`;
 
         // init framebuffer
         const frameBuffer = gl.createFramebuffer();
@@ -35,8 +40,8 @@ export class MainRenderPass {
         }
 
         // init shader
-        const { shader: vertexShader } = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
-        const { shader: fragShader, status: shaderStatus } = createShader(gl, gl.FRAGMENT_SHADER, fragSource);
+        const {shader: vertexShader} = createShader(gl, gl.VERTEX_SHADER, defaultVertexShaderSource);
+        const {shader: fragShader, status: shaderStatus} = createShader(gl, gl.FRAGMENT_SHADER, fragSource);
         setStatus("main", shaderStatus);
         if (!fragShader || !vertexShader) {
             console.error("Main shader is null", shaderStatus);
@@ -45,6 +50,7 @@ export class MainRenderPass {
         this.shader = new Shader(gl, vertexShader, fragShader);
 
         console.log(`Main Render Pass created, ${this.width}x${this.height}`);
+
     }
 
     public draw(

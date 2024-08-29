@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useShaderContext} from '../../utils/contexts/ShaderContext';
 import {FaMouse} from 'react-icons/fa';
 import {Texture} from '../../utils/Texture';
+import {VscTriangleDown, VscTriangleRight} from "react-icons/vsc";
 
 type Props = {
     keyboardEventsTextureRef: React.MutableRefObject<Texture | null>;
@@ -14,6 +15,7 @@ const KeyboardHandler: React.FC<Props> = (
     const [keyCode, setKeyCode] = useState<number | null>(null);
     const [keyPressed, setKeyPressed] = useState<string | null>(null);
     const [keysBeingPressed, setKeysBeingPressed] = useState<{ code: string, keycode: number }[]>([]);
+    const [showInfo, setShowInfo] = useState(false);
 
     const handleKeyDown = (event: KeyboardEvent) => {
         const keyCode = event.keyCode ?? event.key.charCodeAt(0);
@@ -76,9 +78,22 @@ const KeyboardHandler: React.FC<Props> = (
 
     return (
         <div className="shader-row-control-container shader-keyboard-events muted">
-            <div><FaMouse/> Input Events</div>
-            {keyCode && <div>Key last pressed: {keyPressed}({keyCode})</div>}
-            <div>Keys being pressed: {Array.from(keysBeingPressed).map(key => key.code).join(', ')}</div>
+            <div className="shader-keyboard-events-header"
+                onClick={
+                () => setShowInfo(!showInfo)
+            }>
+                {showInfo
+                    ? <VscTriangleDown/>
+                    : <VscTriangleRight/>}
+                Input Events 
+            </div>
+            {showInfo && <div>Key last pressed: {keyPressed}({keyCode})</div>}
+            {showInfo &&
+                <div>
+                    Keys being pressed: <br/>{Array.from(keysBeingPressed).map(
+                        key => key.code).join('\n')}
+                </div>
+            }
         </div>
     )
 }

@@ -68,7 +68,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 bufferRenderPass.draw(bufferRenderPasses, 
                     keyboardStatesTextureRef.current,
                     vertexBuffer, [
-                    ["iTime", "float", elapsedTimeRef.current * 0.01],
+                    ["iTime", "float", elapsedTimeRef.current],
                 ]);
             });
 
@@ -77,7 +77,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 postRenderPass.previousFrameTexture,
                 keyboardStatesTextureRef.current,
                 vertexBuffer, [
-                ["iTime", "float", elapsedTimeRef.current * 0.01],
+                ["iTime", "float", elapsedTimeRef.current],
             ]);
 
             postRenderPass.draw(
@@ -85,7 +85,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
                 mainRenderPass.colorTexture,
                 keyboardStatesTextureRef.current,
                 vertexBuffer, [
-                ["iTime", "float", elapsedTimeRef.current * 0.01],
+                ["iTime", "float", elapsedTimeRef.current],
             ]);
 
             previousFrameTime.current = time;

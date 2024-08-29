@@ -19,15 +19,16 @@ const PanelHeader: React.FC<PanelHeaderProps> = (
         children,
     }
 ) => {
+    const onMinMaxClick = (e: React.MouseEvent<SVGElement>) => {
+        setVisible(!isVisible);
+        saveDataWithKey(`${title.toLowerCase()}Visible`, !isVisible);
+    }
     return (
         <div className="panel-header" data-visible={isVisible}>
-            <div style={{"flex": "1 auto", width: "min-content"}} onClick={
-                e => {
-                    setVisible(!isVisible);
-                    saveDataWithKey(`${title.toLowerCase()}Visible`, !isVisible);
-                }
-            }>
-                {isVisible ? <LuMinimize2/> : <FaExpandArrowsAlt/>}
+            <div style={{"flex": "1 auto", width: "min-content"}}>
+                {isVisible
+                    ? <LuMinimize2 onClick={onMinMaxClick}/>
+                    : <FaExpandArrowsAlt onClick={onMinMaxClick}/>}
             </div>
             <h2>
                 {title}

@@ -9,7 +9,7 @@ import EditorKeybindingSelect from "./settings/EditorKeybindingSelect";
 import MultiSelect from "../common/MultiSelect";
 import EditorSettingCheckbox from "./settings/EditorSettingCheckbox";
 import {useShaderContext} from "../../utils/contexts/ShaderContext";
-import {FaEdit, FaFileDownload, FaFileImport, FaFileUpload, FaPlay} from "react-icons/fa";
+import {FaEdit, FaFileDownload, FaFileImport, FaPlay} from "react-icons/fa";
 import PanelHeader from "../common/PanelHeader";
 import IconButton from "../common/IconButton";
 import {exportStringForDownload, loadData} from "../../utils/browserUtils";
@@ -17,12 +17,14 @@ import {GrAddCircle} from "react-icons/gr";
 import EditorAddTabModal from "./modal/EditorAddTabModal";
 import EditorEditTabModal from "./modal/EditorEditTabModal";
 import {useEditorContext} from "../../utils/contexts/EditorContext";
-import {ShaderFileType} from "../../utils/webglConstants";
+import {bufferPrefix, ShaderFileType, shaderPrefixMap} from "../../utils/webglConstants";
 import {FaBuffer, FaFileCode} from "react-icons/fa6";
 import {IoColorFilter} from "react-icons/io5";
 import {useKeyboardShortcut} from "../../utils/keyboard";
 import {preprocessShaderSource} from "../../utils/shaderPreprocessor";
 import {Tooltip} from "react-tooltip";
+import {EditorShaderInputs} from "./EditorShaderInputs";
+import {GoTriangleRight} from "react-icons/go";
 
 
 const CodeEditor = () => {
@@ -65,7 +67,7 @@ const CodeEditor = () => {
         // TODO: more options, download in a zip, in a single file...
     }
     const compileShader = (e: any) => {
-        console.log("Editor sources", editorSources);
+        console.log("(settings shaders sources) Editor sources", editorSources);
         setShaderSources(preprocessShaderSource(editorSources))
     }
 
@@ -86,7 +88,7 @@ const CodeEditor = () => {
 
             <div className="editor-tabs-outer-container">
                 <GrAddCircle onClick={e => setShowAddModal(true)}
-                                data-tooltip-id={"editor-add-tooltip"} data-tooltip-content={"Add Tab"}/>
+                             data-tooltip-id={"editor-add-tooltip"} data-tooltip-content={"Add Tab"}/>
                 <Tooltip id={"editor-add-tooltip"} content={"Add File"} place={"left"}/>
                 <div className="editor-tabs-container">
                     {
@@ -118,6 +120,15 @@ const CodeEditor = () => {
             {showAddModal && <EditorAddTabModal/>}
             {showEditModal && <EditorEditTabModal/>}
 
+            {
+                editorSources[activeTab].type === ShaderFileType.Buffer &&
+                <EditorShaderInputs 
+                    source={shaderPrefixMap[activeTab] ?? bufferPrefix}
+                    theme={editorTheme} isVisible={isVisible} fontSize={editorFontSize}
+                    showLineNumbers={showLineNumbers} showGutter={showGutter} showFolds={showFolds} wrap={wrap}
+                />
+            }
+
             <AceEditor
                 value={editorSources[activeTab].source}
                 onChange={newSource => {
@@ -146,7 +157,7 @@ const CodeEditor = () => {
             />
 
             <div className="editor-bottom-control" data-visible={isVisible}>
-                <IconButton tooltip="Compile"
+                <IconButton tooltip="Compile (Ctrl + Enter)"
                             size="large" padding="normal"
                             onClick={compileShader}>
                     <FaPlay/>
