@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {useShaderContext} from '../../utils/contexts/ShaderContext';
-import {FaMouse} from 'react-icons/fa';
 import {Texture} from '../../utils/Texture';
 import {VscTriangleDown, VscTriangleRight} from "react-icons/vsc";
 
@@ -13,7 +11,6 @@ type Props = {
 const IOHandler: React.FC<Props> = (
     {keyboardEventsTextureRef, mouseRef, canvasRef}
 ) => {
-    const {mainShader} = useShaderContext();
     const [keyCode, setKeyCode] = useState<number | null>(null);
     const [keyPressed, setKeyPressed] = useState<string | null>(null);
     const [keysBeingPressed, setKeysBeingPressed] = useState<{ code: string, keycode: number }[]>([]);
@@ -59,9 +56,7 @@ const IOHandler: React.FC<Props> = (
 
     const handleKeyUp = (event: KeyboardEvent) => {
         setKeysBeingPressed(prevKeys => {
-            const newKeys =
-                Array.from(prevKeys).filter(item => item.code !== event.code);
-            return newKeys;
+            return Array.from(prevKeys).filter(item => item.code !== event.code);
         });
         // console.log('Key released:', event.code);
     };

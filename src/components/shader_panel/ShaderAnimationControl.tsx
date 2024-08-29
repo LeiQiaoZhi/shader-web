@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "./ShaderAnimationControl.css"
-import {FaPlay, FaPlayCircle} from "react-icons/fa";
+import {FaPlayCircle} from "react-icons/fa";
 import {FaPause} from "react-icons/fa6";
-import {LuListRestart} from "react-icons/lu";
-import {MdRestartAlt} from "react-icons/md";
 import {IoPlayBack} from "react-icons/io5";
 import IconButton from "../common/IconButton";
 import {saveDataWithKey} from "../../utils/browser/browserLocalStorage";
@@ -27,13 +25,13 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
 
     const [speed, setSpeed] = useState(speedRef.current);
 
-    const handlePauseToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handlePauseToggle = () => {
         pausedRef.current = !pausedRef.current;
         setPausedState(pausedRef.current);
         saveDataWithKey("isPaused", pausedRef.current);
     }
 
-    const handleRestart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleRestart = () => {
         elapsedTimeRef.current = 0;
     }
 

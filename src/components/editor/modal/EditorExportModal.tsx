@@ -11,7 +11,7 @@ interface EditorExportModalProps {
 }
 
 const EditorExportModal: React.FC<EditorExportModalProps> = () => {
-    const [warning, setWarning] = React.useState<string>("");
+    const [warning] = React.useState<string>("");
     const [options, setOptions] = React.useState<string>("All");
     const {editorSources, setShowExportModal} = useEditorContext();
 

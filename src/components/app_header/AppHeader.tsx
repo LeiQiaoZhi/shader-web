@@ -3,10 +3,7 @@ import "./AppHeader.css"
 import ThemeSwitch from "./ThemeSwitch";
 import IconButton from "../common/IconButton";
 import {BsGithub} from "react-icons/bs";
-import {GrPowerReset} from "react-icons/gr";
 import {BiReset} from "react-icons/bi";
-import {RxReset} from "react-icons/rx";
-import {MdFormatColorReset} from "react-icons/md";
 import {resetAllSavedData} from "../../utils/browser/browserLocalStorage";
 
 const AppHeader: React.FC = () => {

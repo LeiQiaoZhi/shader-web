@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useThemeContext} from "../../utils/contexts/ThemeContext";
 import IconButton from "../common/IconButton";
-import {IoMoon, IoSunny} from "react-icons/io5";
+import {IoMoon} from "react-icons/io5";
 import {IoMdSunny} from "react-icons/io";
 
 const ThemeSwitch: React.FC = () => {

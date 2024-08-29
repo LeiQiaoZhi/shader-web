@@ -42,7 +42,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         console.log("Shader Sources", shaderSources);
         const mainRenderPass = new MainRenderPass(gl, shaderSources.main, setStatus);
         const postRenderPass = new PostRenderPass(gl, shaderSources.post, setStatus);
-        const bufferRenderPasses = Object.keys(shaderSources.buffers).map((bufferName, index) =>
+        const bufferRenderPasses = Object.keys(shaderSources.buffers).map((bufferName) =>
             new BufferRenderPass(gl, bufferName, shaderSources.buffers[bufferName], setStatus)
         );
         if (mainRenderPass.shader) {

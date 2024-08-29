@@ -43,6 +43,32 @@
 
 ## Running the App Locally
 
+> To build and run **_shader web_** on your local machine, follow the steps below:
+
+Before you begin, make sure you have the following installed on your machine:
+
+- **Node.js** (version 14.x or higher)
+- **npm** (Node Package Manager, typically installed with Node.js)
+- **Git** (for cloning the repository)
+
+First, clone your GitHub repository to your local machine using Git.
+
+Once the repository is cloned, navigate to the project directory:
+
+Install the necessary dependencies for your project using npm:
+
+```bash
+npm install
+```
+
+To start the development server and run your app locally:
+
+```bash
+npm start
+```
+
+This will start the app in development mode, and you should see the app running in your default browser at `http://localhost:3000/`.
+
 ---
 
 ## TODOs and Finished Tasks
@@ -60,8 +86,8 @@ Detailed list, for the dev's reference
     - [x] dropdown
     - [ ] image/texture component
 - [x] iResolution uniform
-- [ ] **I/O*
-    - [ ] **iMouse uniform**
+- [x] **I/O*
+    - [x] iMouse uniform
     - [x] keyboard texture input
 - [x] shader compilation error message
 - [x] animation control
@@ -120,7 +146,7 @@ Detailed list, for the dev's reference
 - [ ] more templates/libraries
     - [ ] state store and read from framebuffer (vec3 <=> other types)
     - [ ] noises
-    - [ ] sdfs
+    - [x] sdfs
     - [x] keycodes
 - [ ] screenshot
 - [ ] performance -- show fps

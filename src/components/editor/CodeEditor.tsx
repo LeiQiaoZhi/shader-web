@@ -38,7 +38,7 @@ const CodeEditor = () => {
         showEditModal, setShowEditModal,
         showExportModal, setShowExportModal,
         showImportModal, setShowImportModal,
-        tabNameToEdit, setTabNameToEdit,
+        setTabNameToEdit,
     } = useEditorContext();
 
     // editor settings

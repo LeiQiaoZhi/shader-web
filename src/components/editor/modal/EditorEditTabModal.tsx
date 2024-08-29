@@ -7,7 +7,6 @@ import {useEditorContext} from "../../../utils/contexts/EditorContext";
 import WarningText from "../../common/WarningText";
 import {ShaderFileType} from "../../../utils/webglConstants";
 import EditorTabModalBufferDimensionInput from "./EditorTabModalBufferDimensionInput";
-import {tab} from "@testing-library/user-event/dist/tab";
 
 interface EditorEditTabModalProps {
 }

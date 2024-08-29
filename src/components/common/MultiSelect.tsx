@@ -1,7 +1,6 @@
 import React from 'react';
 import "./MultiSelect.css"
 import IconButton from "./IconButton";
-import {CiSettings} from "react-icons/ci";
 import {IoIosSettings} from "react-icons/io";
 
 interface MultiSelectProps {

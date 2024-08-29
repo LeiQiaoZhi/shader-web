@@ -1,5 +1,4 @@
 import React from "react";
-import {GoTriangleRight} from "react-icons/go";
 import AceEditor from "react-ace";
 import "./EditorShaderInputs.css"
 import {VscTriangleDown, VscTriangleRight} from "react-icons/vsc";
