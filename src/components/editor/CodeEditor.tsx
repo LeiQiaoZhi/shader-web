@@ -58,12 +58,12 @@ const CodeEditor = () => {
         console.log("Shader source changed");
     }, [shaderSources]);
 
-    const handleExportCode = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleExportCode = (e: React.MouseEvent<HTMLElement>) => {
         // TODO: more options, download in a zip, in a single file...
         exportStringForDownload(editorSources[activeTab].source, activeTab + ".frag");
     }
 
-    const handleImportCode = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleImportCode = (e: React.MouseEvent<HTMLElement>) => {
         // TODO: more options, download in a zip, in a single file...
     }
     const compileShader = (e: any) => {
@@ -74,16 +74,18 @@ const CodeEditor = () => {
     return (
         <div className="editor" data-visible={isVisible}>
             <PanelHeader title={"Code"} isVisible={isVisible} setVisible={setIsVisible}>
-                <div onClick={handleImportCode}
-                     data-tooltip-id={"editor-import-tooltip"} data-tooltip-content={"Import Code"}>
+                <IconButton
+                    onClick={handleImportCode} tooltip="Import Code" padding='0' size='normal'
+                    bg="none !important" border='0' color="var(--secondary-text-color)"
+                >
                     <FaFileImport/>
-                    <Tooltip id={"editor-import-tooltip"}/>
-                </div>
-                <div onClick={handleExportCode}
-                     data-tooltip-id={"editor-export-tooltip"} data-tooltip-content={"Export Code"}>
+                </IconButton>
+                <IconButton
+                    onClick={handleExportCode} tooltip="Export Code" padding='0' size='normal'
+                    bg="none !important" border='0' color="var(--secondary-text-color)"
+                >
                     <FaFileDownload/>
-                    <Tooltip id={"editor-export-tooltip"}/>
-                </div>
+                </IconButton>
             </PanelHeader>
 
             <div className="editor-tabs-outer-container">
@@ -122,7 +124,7 @@ const CodeEditor = () => {
 
             {
                 editorSources[activeTab].type === ShaderFileType.Buffer &&
-                <EditorShaderInputs 
+                <EditorShaderInputs
                     source={shaderPrefixMap[activeTab] ?? bufferPrefix}
                     theme={editorTheme} isVisible={isVisible} fontSize={editorFontSize}
                     showLineNumbers={showLineNumbers} showGutter={showGutter} showFolds={showFolds} wrap={wrap}

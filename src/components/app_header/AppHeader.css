@@ -51,6 +51,6 @@
     background: var(--text-color);
 }
 
-.app-header-right .others:hover {
+.others:hover {
     color: var(--text-color);
 }

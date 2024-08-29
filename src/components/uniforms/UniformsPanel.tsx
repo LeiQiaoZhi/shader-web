@@ -9,6 +9,7 @@ import {UniformPanelMode, useUniformContext} from "../../utils/contexts/Uniforms
 import {UniformConfigData} from "./UniformsSpecification";
 import UniformEditAddButton from "./UniformEditAddButton";
 import {Tooltip} from "react-tooltip";
+import IconButton from "../common/IconButton";
 
 interface UniformsPanelProps {
 }
@@ -40,18 +41,18 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
         <div className="uniforms-panel" data-visible={isVisible}>
             <PanelHeader title={mode === UniformPanelMode.Normal ? "Uniforms" : "Uniforms (Edit)"}
                          isVisible={isVisible} setVisible={setIsVisible}>
-                <div data-tooltip-id={"uniforms-edit-tooltip"} data-tooltip-content={"Edit Uniforms Widgets"}
-                     onClick={e => setMode(
-                         mode === UniformPanelMode.Normal ? UniformPanelMode.Edit : UniformPanelMode.Normal
-                     )}>
+                <IconButton tooltip={"Edit Uniforms Widgets"} padding='0' size='normal'
+                            bg='none' border='0' color="var(--secondary-text-color)"
+                            onClick={e => setMode(
+                                mode === UniformPanelMode.Normal ? UniformPanelMode.Edit : UniformPanelMode.Normal
+                            )}>
                     <FaEdit/>
-                    <Tooltip id={"uniforms-edit-tooltip"}/>
-                </div>
-                <div data-tooltip-id={"uniforms-download-tooltip"} data-tooltip-content={"Export Config"}
-                    onClick={handleExportConfig}>
+                </IconButton>
+                <IconButton tooltip={"Export Config"} padding='0' size='normal'
+                            bg='none' border='0' color="var(--secondary-text-color)"
+                            onClick={handleExportConfig}>
                     <FaFileDownload/>
-                    <Tooltip id={"uniforms-download-tooltip"}/>
-                </div>
+                </IconButton>
             </PanelHeader>
 
             <FileSelect onFileSelect={onConfigFileSelect} accept=".toml, .json" id="config select" title="Config"/>

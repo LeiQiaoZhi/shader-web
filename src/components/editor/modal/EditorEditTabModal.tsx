@@ -92,7 +92,7 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                         <EditorTabModalBufferDimensionInput width={width} setWidth={setWidth}
                                                             setHeight={setHeight} height={height}/>
                     }
-                    <IconButton size="small" background="var(--contrast-color)" color="var(--background-color)"
+                    <IconButton size="small" bg="var(--contrast-color)" color="var(--background-color)"
                                 onClick={e => {
                                     const {
                                         [tabNameToEdit]: source,
