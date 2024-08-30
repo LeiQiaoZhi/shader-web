@@ -50,7 +50,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             setMainShader(mainRenderPass.shader);
         }
         const allShaders = [mainRenderPass.shader, postRenderPass.shader, ...bufferRenderPasses.map((bufferRenderPass) => bufferRenderPass.shader)]
-            .filter((shader) => shader !== null) as Shader[];
+            .filter((shader) => shader !== undefined && shader !== null) as Shader[];
         console.log("All Shaders", allShaders);
         setAllShaders(allShaders);
 
