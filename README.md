@@ -159,13 +159,14 @@ Detailed list, for the dev's reference
     - [ ] import from shadertoy
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
-- [ ] pass uniforms not only to the main shader
+- [ ] **pass uniforms not only to the main shader**
+- [ ] **better shader error messages**
 - [ ] make some modal buttons work
   - [ ] edit uniform reset
 
 Bugs and Issues:
 
-- [ ] pause button border size inconsistent
-- [ ] keyboard expands panel
-- [ ] save shader code for compile
+- [x] pause button border size inconsistent
+- [x] keyboard expands panel
+- [x] save shader code for compile
 - [ ] some keyboard shortcuts in editor

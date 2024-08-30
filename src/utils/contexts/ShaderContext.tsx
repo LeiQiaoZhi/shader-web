@@ -33,6 +33,8 @@ interface IShaderContext {
     setStatus: (key: string, status: IShaderStatus | undefined) => void;
     shaderSources: ShaderSources;
     setShaderSources: (shaderSources: ShaderSources) => void;
+    allShaders: Shader[];
+    setAllShaders: (shaders: Shader[]) => void;
 }
 
 const ShaderContext = createContext<IShaderContext | undefined>(undefined);
@@ -44,6 +46,7 @@ interface ShaderContextProps {
 const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
     const savedData = loadData();
     const [mainShader, setMainShader] = useState<Shader | null>(null);
+    const [allShaders, setAllShaders] = useState<Shader[]>([]);
     const [shaderStatuses, setShaderStatuses] = useState<IShaderStatuses>({});
     const [shaderSources, setShaderSources] = useState<ShaderSources>(savedData.shaderSources);
 
@@ -65,6 +68,8 @@ const ShaderContextProvider: React.FC<ShaderContextProps> = ({children}) => {
             setStatus: setShaderStatusForceUpdate,
             shaderSources: shaderSources,
             setShaderSources: setShaderSourceWithSave,
+            allShaders: allShaders,
+            setAllShaders: setAllShaders
         }}>
             {children}
         </ShaderContext.Provider>

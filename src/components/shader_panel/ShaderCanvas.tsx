@@ -12,6 +12,7 @@ import {PostRenderPass} from "../../utils/render_pass/PostRenderPass";
 import {BufferRenderPass} from "../../utils/render_pass/BufferRenderPass";
 import IOHandler from './IOHandler';
 import {Texture} from '../../utils/Texture';
+import {Shader} from "../../utils/Shader";
 
 interface ShaderCanvasProps {
 }
@@ -28,9 +29,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [pausedState, setPausedState] = useState(pausedRef.current);
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
-    const {setMainShader, setStatus, shaderSources} = useShaderContext();
+    const {setMainShader, setStatus, shaderSources, setAllShaders} = useShaderContext();
 
-    
+
     // contains side effect, runs after the component is rendered
     useEffect(() => {
         console.log("Starting WebGL")
@@ -48,6 +49,11 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         if (mainRenderPass.shader) {
             setMainShader(mainRenderPass.shader);
         }
+        const allShaders = [mainRenderPass.shader, postRenderPass.shader, ...bufferRenderPasses.map((bufferRenderPass) => bufferRenderPass.shader)]
+            .filter((shader) => shader !== null) as Shader[];
+        console.log("All Shaders", allShaders);
+        setAllShaders(allShaders);
+
 
         let frameNumber = 0;
         const vertexBuffer = createScreenQuadBuffer(gl);
@@ -117,7 +123,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             <ShaderAnimationControl pausedRef={pausedRef} pausedState={pausedState} speedRef={speedRef}
                                     elapsedTimeRef={elapsedTimeRef} setPausedState={setPausedState}/>
             <ShaderDimensionControl viewportDimension={viewportDimension} setViewportDimension={setViewportDimension}/>
-            <IOHandler keyboardEventsTextureRef={keyboardStatesTextureRef} 
+            <IOHandler keyboardEventsTextureRef={keyboardStatesTextureRef}
                        mouseRef={mouseRef} canvasRef={canvasRef}/>
         </div>
     );
