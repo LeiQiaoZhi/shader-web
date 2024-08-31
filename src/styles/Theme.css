@@ -19,7 +19,7 @@
     --normal-transition: 100ms;
     --short-transition: 50ms;
     
-    --font: 'CaskaydiaCove Nerd Font';
+    --font: 'CaskaydiaCove Nerd Font', 'Fira Code', 'menlo', 'Courier New', monospace;
 }
 
 [data-theme="light"] {
