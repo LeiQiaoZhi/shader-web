@@ -1,6 +1,6 @@
 import {EditorSources} from "./browser/browserLocalStorage";
 import {BufferSource, ShaderSources} from "./contexts/ShaderContext";
-import {mainShaderSuffix, ShaderFileType, shaderPrefixMap} from "./webglConstants";
+import {bufferPrefix, mainShaderSuffix, ShaderFileType, shaderPrefixMap} from "./webglConstants";
 
 export const preprocessShaderSource = (editorSources: EditorSources): ShaderSources => {
     const preprocessedMain =
@@ -20,7 +20,10 @@ export const preprocessShaderSource = (editorSources: EditorSources): ShaderSour
     const preprocessedBuffers: { [name: string]: BufferSource } = {};
     bufferNames.forEach(postName => {
         preprocessedBuffers[postName] = {
-            source: preprocessSingleShaderSource(editorSources[postName].source, new Set<string>([postName]), editorSources),
+            source:
+                bufferPrefix +
+                preprocessSingleShaderSource(editorSources[postName].source, new Set<string>([postName]), editorSources)
+                + mainShaderSuffix,
             width: editorSources[postName].width,
             height: editorSources[postName].height,
         }

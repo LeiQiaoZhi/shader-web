@@ -25,6 +25,9 @@ const EditorTabModalBufferDimensionInput: React.FC<EditorTabModalBufferDimension
                            setHeight(e.target.valueAsNumber);
                        }}/>
             </div>
+            <label style={{color: "var(--secondary-text-color)"}}>
+                Set to 0 or below 0 for canvas size
+            </label>
         </div>
     );
 };

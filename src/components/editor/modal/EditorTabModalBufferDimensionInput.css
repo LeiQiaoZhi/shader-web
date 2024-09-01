@@ -1,6 +1,6 @@
 .buffer-dimension-input-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: var(--normal-gap)
 }

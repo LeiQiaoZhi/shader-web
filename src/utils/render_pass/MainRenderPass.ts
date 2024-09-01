@@ -1,7 +1,7 @@
 import {Shader} from "../Shader";
 import {IShaderStatus} from "../contexts/ShaderContext";
 import {createShader} from "../webglUtils";
-import {defaultVertexShaderSource, mainShaderSuffix} from "../webglConstants";
+import {defaultVertexShaderSource} from "../webglConstants";
 import {Texture} from "../Texture";
 import {BufferRenderPass} from "./BufferRenderPass";
 

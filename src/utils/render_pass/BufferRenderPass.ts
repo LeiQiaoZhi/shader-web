@@ -23,7 +23,15 @@ export class BufferRenderPass {
     ) {
         this.gl = gl;
         this.width = bufferSource.width ?? gl.canvas.width;
+        if (this.width <= 0) {
+            console.warn(`Buffer ${name} width <= 0, setting to canvas width`);
+            this.width = gl.canvas.width;
+        }
         this.height = bufferSource.height ?? gl.canvas.height;
+        if (this.height <= 0) {
+            console.warn(`Buffer ${name} height <= 0, setting to canvas height`);
+            this.height = gl.canvas.height;
+        }
         this.uniformName = "i" + toPascalCase(name);
         console.log(this.uniformName, this.width, this.height);
 
