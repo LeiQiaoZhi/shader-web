@@ -11,8 +11,14 @@ export interface IShaderStatuses {
 
 export interface IShaderStatus {
     success: boolean;
-    message: string | null;
+    messages: IShaderMessage[] | null;
 }
+
+export interface IShaderMessage {
+    message: string;
+    neighbourLines: string;
+}
+
 
 export interface BufferSource {
     source: string,

@@ -159,7 +159,7 @@ Detailed list, for the dev's reference
     - [ ] import from shadertoy
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
-- [ ] **pass uniforms not only to the main shader**
+- [x] pass uniforms not only to the main shader
 - [ ] **better shader error messages**
 - [ ] make some modal buttons work
   - [ ] edit uniform reset

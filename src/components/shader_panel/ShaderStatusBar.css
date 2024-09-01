@@ -2,11 +2,15 @@
     --status-width: 0;
     font-size: var(--small-font-size);
     color: var(--secondary-text-color);
-    padding: var(--small-gap) var(--normal-gap);
+    padding: var(--small-gap);
     border-radius: var(--normal-radius);
     width: var(--status-width);
     box-sizing: border-box;
     text-align: left;
+    
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-gap);
 }
 
 .shader-status-bar[data-success="false"]{
@@ -16,4 +20,8 @@
 
 .shader-status-bar[data-success="true"]{
     background: var(--background-color);
+}
+
+.shader-status-file-errors-header{
+    font-weight: bold;
 }

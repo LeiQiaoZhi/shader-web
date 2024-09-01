@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Texture} from '../../utils/Texture';
 import {VscTriangleDown, VscTriangleRight} from "react-icons/vsc";
+import {Expander} from "../common/Expander";
 
 type Props = {
     keyboardEventsTextureRef: React.MutableRefObject<Texture | null>,
@@ -14,11 +15,9 @@ const IOHandler: React.FC<Props> = (
     const [keyCode, setKeyCode] = useState<number | null>(null);
     const [keyPressed, setKeyPressed] = useState<string | null>(null);
     const [keysBeingPressed, setKeysBeingPressed] = useState<{ code: string, keycode: number }[]>([]);
-    const [showInfo, setShowInfo] = useState(false);
     const [mouseState, setMouseState] = useState<Float32Array>(new Float32Array(4));
 
     const mouseMoveHandler = (event: MouseEvent, canvas: HTMLCanvasElement | null) => {
-        console.log('Mouse move event');
         if (canvas) {
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
@@ -108,39 +107,28 @@ const IOHandler: React.FC<Props> = (
             keyboardArray[key.keycode] = 255;
         });
         keyboardEventsTextureRef.current?.changePixels(keyboardArray);
-        console.log('Color array has one at:', keyboardArray.indexOf(255));
+        // console.log('Color array has one at:', keyboardArray.indexOf(255));
     }, [keysBeingPressed]);
 
     return (
         <div className="shader-row-control-container shader-keyboard-events muted">
-            <div className="shader-keyboard-events-header"
-                 onClick={
-                     () => setShowInfo(!showInfo)
-                 }>
-                {showInfo
-                    ? <VscTriangleDown/>
-                    : <VscTriangleRight/>}
-                Input Events
-            </div>
-            <div className="shader-keyboard-events-body">
-                {showInfo && <div>Key last pressed: {keyPressed}({keyCode})</div>}
-                {showInfo &&
+            <Expander title="Input Events" headerClassName="shader-keyboard-events-header">
+                <div className="shader-keyboard-events-body">
+                    <div>
+                        Key last pressed: {keyPressed}({keyCode})
+                    </div>
                     <div>
                         Keys being pressed: <br/>{Array.from(keysBeingPressed).map(
                         key => key.code).join('\n')}
                     </div>
-                }
-                {showInfo &&
-                    <div
-                    >Mouse Position: {mouseState[0].toFixed(2)}, {mouseState[1].toFixed(2)}
+                    <div>
+                        Mouse Position: {mouseState[0].toFixed(2)}, {mouseState[1].toFixed(2)}
                     </div>
-                }
-                {showInfo &&
                     <div>
                         Mouse Down Position: {mouseState[2].toFixed(2)}, {mouseState[3].toFixed(2)}
                     </div>
-                }
-            </div>
+                </div>
+            </Expander>
         </div>
     )
 }

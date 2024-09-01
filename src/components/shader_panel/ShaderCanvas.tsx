@@ -61,8 +61,9 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
 
         const render = (time: number) => {
             if (frameNumber === 0) {
-                console.log("Setting new shader")
+                console.log("Setting new shader", frameNumber);
                 elapsedTimeRef.current = 0;
+                frameNumber = 1;
             }
 
             const deltaTime = time - previousFrameTime.current;

@@ -42,8 +42,12 @@ const CodeEditor = () => {
     } = useEditorContext();
 
     // editor settings
-    const [editorTheme, setEditorTheme] = useState(savedData.editorTheme);
-    const [editorFontSize, setEditorFontSize] = useState(savedData.editorFontSize);
+    const {
+        editorTheme, setEditorTheme,
+        editorFontSize, setEditorFontSize,
+    } = useEditorContext();
+    // const [editorTheme, setEditorTheme] = useState(savedData.editorTheme);
+    // const [editorFontSize, setEditorFontSize] = useState(savedData.editorFontSize);
     const [keybinding, setKeybinding] = useState(savedData.editorKeybinding);
     const [showLineNumbers, setShowLineNumbers] = useState(false);
     const [showGutter, setShowGutter] = useState(false);
@@ -77,7 +81,7 @@ const CodeEditor = () => {
                     <FaFileImport/>
                 </IconButton>
                 <IconButton
-                    onClick={e => setShowExportModal(true)} 
+                    onClick={e => setShowExportModal(true)}
                     tooltip="Export Code" padding='0' size='normal'
                     bg="none" border='0' color="var(--secondary-text-color)"
                 >
@@ -116,7 +120,7 @@ const CodeEditor = () => {
                     }
                 </div>
             </div>
-            
+
             {showAddModal && <EditorAddTabModal/>}
             {showEditModal && <EditorEditTabModal/>}
             {showExportModal && <EditorExportModal/>}
@@ -126,7 +130,7 @@ const CodeEditor = () => {
                 editorSources[activeTab].type === ShaderFileType.Buffer &&
                 <EditorShaderInputs
                     source={shaderPrefixMap[activeTab] ?? bufferPrefix}
-                    theme={editorTheme} isVisible={isVisible} fontSize={editorFontSize}
+                    isVisible={isVisible}
                     showLineNumbers={showLineNumbers} showGutter={showGutter} showFolds={showFolds} wrap={wrap}
                 />
             }

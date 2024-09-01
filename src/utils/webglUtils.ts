@@ -1,4 +1,4 @@
-import {IShaderStatus, ShaderSources} from "./contexts/ShaderContext";
+import {IShaderMessage, IShaderStatus, ShaderSources} from "./contexts/ShaderContext";
 
 export const createGl = (canvas: HTMLCanvasElement) => {
     // Try to get a WebGL 2.0 context
@@ -48,16 +48,16 @@ function parseShaderErrors(errorLog: string): ShaderError[] {
             const [location, ...messageParts] = error.trim().split(': ');
             const lineNumber = location.split(':')[1]; // Extract the line number
             const message = messageParts.join(': '); // Reconstruct the error message
-            return { lineNumber, message };
+            return {lineNumber, message};
         });
-    
+
     return errors;
 }
 
 function getLinesWithNeighbours(
     source: string,
     lineNumber: number,
-    neighbouringLines: number = 2
+    neighbouringLines: number = 3
 ): string {
     // Split the source into lines
     const lines = source.split('\n');
@@ -73,7 +73,7 @@ function getLinesWithNeighbours(
     return resultLines.map((line, index) => {
         const currentLineNumber = start + index + 1;
         const prefix = (currentLineNumber === lineNumber) ? '>' : ' ';
-        return `${prefix} ${currentLineNumber}: ${line}`;
+        return `${prefix} ${line}`;
     }).join('\n');
 }
 
@@ -91,23 +91,24 @@ export const createShader = (gl: WebGLRenderingContext, type: number, source: st
         const errorMessage = gl.getShaderInfoLog(shader);
         console.error(errorMessage);
         const errors = parseShaderErrors(errorMessage ?? '');
-        console.log(errors);
         const logs = errors.map(error => {
             const lines = getLinesWithNeighbours(source, parseInt(error.lineNumber));
-            return `${error.message}\n${lines}`;
+            return {
+                message: error.message,
+                neighbourLines: lines
+            } as IShaderMessage;
         });
-        console.log(logs.join('\n'));
+        console.log(logs);
         gl.deleteShader(shader);
         return {
             shader: null,
             status: {
                 success: false,
-                // message: errorMessage?.replace(/[\n\u0000]+$/g, '') ?? null
-                message: logs ? logs.join('\n\n') : "Unknown Error"
+                messages: logs
             }
         };
     }
-    return {shader: shader, status: {success: true, message: "Compile Success"}}
+    return {shader: shader, status: {success: true, messages: null}};
 };
 
 export const createProgram = (gl: WebGLRenderingContext, vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram => {

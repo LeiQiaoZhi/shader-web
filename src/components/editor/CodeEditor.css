@@ -91,10 +91,6 @@
     flex: 1;
 }
 
-.editor-shader-inputs .ace_hidden-cursors,
-.editor-shader-inputs .ace_cursor {
-    opacity: 0 !important;
-}
 
 .editor-bottom-control {
     display: flex;

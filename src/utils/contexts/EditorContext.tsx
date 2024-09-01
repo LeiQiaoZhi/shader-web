@@ -18,6 +18,24 @@ interface IEditorContext {
     setShowImportModal: (showEditModal: boolean) => void;
     tabNameToEdit: string;
     setTabNameToEdit: (tabNameToEdit: string) => void;
+    
+    // editor settings
+    editorTheme: string;
+    setEditorTheme: (theme: string) => void;
+    editorFontSize: string;
+    setEditorFontSize: (fontSize: string) => void;
+    keybinding: string;
+    setKeybinding: (keybinding: string) => void;
+    showLineNumbers: boolean;
+    setShowLineNumbers: (showLineNumbers: boolean) => void;
+    showGutter: boolean;
+    setShowGutter: (showGutter: boolean) => void;
+    showFolds: boolean;
+    setShowFolds: (showFolds: boolean) => void;
+    wrap: boolean;
+    setWrap: (wrap: boolean) => void;
+    highlightLine: boolean;
+    setHighlightLine: (highlightLine: boolean) => void;
 }
 
 const EditorContext = createContext<IEditorContext | undefined>(undefined);
@@ -35,6 +53,16 @@ const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
     const [showExportModal, setShowExportModal] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
     const [tabNameToEdit, setTabNameToEdit] = useState("");
+
+    // editor settings
+    const [editorTheme, setEditorTheme] = useState(savedData.editorTheme);
+    const [editorFontSize, setEditorFontSize] = useState(savedData.editorFontSize);
+    const [keybinding, setKeybinding] = useState(savedData.editorKeybinding);
+    const [showLineNumbers, setShowLineNumbers] = useState(false);
+    const [showGutter, setShowGutter] = useState(false);
+    const [showFolds, setShowFolds] = useState(false);
+    const [wrap, setWrap] = useState(false);
+    const [highlightLine, setHighlightLine] = useState(true);
 
     const setEditorSourcesWithSave = (newSources: EditorSources) => {
         setEditorSources(newSources);
@@ -54,6 +82,14 @@ const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
             showExportModal, setShowExportModal,
             showImportModal, setShowImportModal,
             tabNameToEdit, setTabNameToEdit,
+            editorTheme, setEditorTheme,
+            editorFontSize, setEditorFontSize,
+            keybinding, setKeybinding,
+            showLineNumbers, setShowLineNumbers,
+            showGutter, setShowGutter,
+            showFolds, setShowFolds,
+            wrap, setWrap,
+            highlightLine, setHighlightLine
         }}>
             {children}
         </EditorContext.Provider>

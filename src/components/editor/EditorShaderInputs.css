@@ -1,23 +1,9 @@
 .editor-shader-inputs {
     background: var(--background-color);
     border-radius: var(--small-radius);
-}
+    padding: var(--normal-border) ;
 
-.editor-shader-inputs-header {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-content: center;
-    gap: var(--small-gap);
-    padding: var(--small-gap);
-    
     color: var(--secondary-text-color);
-}
-
-.editor-shader-inputs-header:hover {
-    color: var(--text-color);
-    cursor: pointer;
 }
 
 .editor-shader-inputs #ace-editor {

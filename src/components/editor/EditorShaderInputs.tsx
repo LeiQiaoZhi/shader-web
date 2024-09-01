@@ -1,12 +1,11 @@
 import React from "react";
 import AceEditor from "react-ace";
 import "./EditorShaderInputs.css"
-import {VscTriangleDown, VscTriangleRight} from "react-icons/vsc";
+import {Expander} from "../common/Expander";
+import {useEditorContext} from "../../utils/contexts/EditorContext";
 
 interface EditorShaderInputsProps {
-    theme: string,
     isVisible: boolean,
-    fontSize: string,
     showLineNumbers: boolean,
     showGutter: boolean,
     showFolds: boolean,
@@ -16,9 +15,7 @@ interface EditorShaderInputsProps {
 
 export const EditorShaderInputs: React.FC<EditorShaderInputsProps> = (
     {
-        theme,
         isVisible,
-        fontSize,
         showLineNumbers,
         showGutter,
         showFolds,
@@ -26,37 +23,29 @@ export const EditorShaderInputs: React.FC<EditorShaderInputsProps> = (
         source
     }
 ) => {
-    const [showCode, setShowCode] = React.useState(false);
-
+    const {editorTheme, editorFontSize} = useEditorContext();
     return (
         <div className="editor-shader-inputs">
-            <div className="editor-shader-inputs-header"
-                 onClick={
-                     () => setShowCode(!showCode)
-                 }>
-                {showCode
-                    ? <VscTriangleDown/>
-                    : <VscTriangleRight/>}
-                Shader Inputs & Others
-            </div>
-            <AceEditor
-                value={source}
-                mode="glsl"
-                readOnly={true}
-                theme={theme}
-                focus={false}
-                width={isVisible ? "100%" : "0"}
-                maxLines={Infinity}
-                fontSize={fontSize}
-                setOptions={{
-                    showLineNumbers: showLineNumbers,
-                    showGutter: showGutter,
-                    showFoldWidgets: showFolds,
-                    highlightActiveLine: false, highlightGutterLine: false
-                }}
-                wrapEnabled={wrap}
-                style={showCode ? {} : {display: "none"}}
-            />
+            <Expander title="Shader Inputs" headerClassName="editor-shader-inputs readonly">
+                <AceEditor
+                    value={source}
+                    mode="glsl"
+                    readOnly={true}
+                    theme={editorTheme}
+                    focus={false}
+                    width={isVisible ? "100%" : "0"}
+                    maxLines={Infinity}
+                    fontSize={editorFontSize}
+                    setOptions={{
+                        showLineNumbers: showLineNumbers,
+                        showGutter: showGutter,
+                        showFoldWidgets: showFolds,
+                        highlightActiveLine: false, highlightGutterLine: false
+                    }}
+                    wrapEnabled={wrap}
+                    style={{transition: 'none'}}
+                />
+            </Expander>
         </div>
 
     );

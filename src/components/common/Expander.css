@@ -1,0 +1,12 @@
+.expander-title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: var(--small-gap);
+}
+
+.expander-title:hover {
+    color: var(--text-color);
+    cursor: pointer;
+}

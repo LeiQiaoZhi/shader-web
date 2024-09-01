@@ -80,3 +80,10 @@ h2 {
     -moz-appearance: none;
     appearance: none;
 }
+
+
+
+.readonly .ace_hidden-cursors,
+.readonly .ace_cursor {
+    opacity: 0 !important;
+}
