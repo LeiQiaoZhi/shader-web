@@ -1,6 +1,7 @@
 import {COLORS_TEMPLATE} from "./shader_templates/colorsTemplate";
 import {KEYCODES_MACROS} from "./shader_templates/keycodesMacros";
 import {SDFS_TEMPLATE} from "./shader_templates/sdfsTemplate";
+import {CONVOLUTION_TEMPLATE} from "./shader_templates/convolutionTemplate";
 
 export const bufferPrefix: string = `#version 300 es // version
 precision mediump float; // precision
@@ -71,6 +72,7 @@ export const SHADER_SOURCE_TEMPLATE_MAP: { [key: string]: string } = {
     "Colors": COLORS_TEMPLATE,
     "Keycodes": KEYCODES_MACROS,
     "SDFs": SDFS_TEMPLATE,
+    "Convolution": CONVOLUTION_TEMPLATE,
 }
 
 export enum ShaderFileType {

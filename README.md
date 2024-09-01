@@ -87,9 +87,9 @@ Detailed list, for the dev's reference
     - [x] checkbox for bool
     - [x] fold-able component
     - [x] dropdown
-    - [ ] image/texture component
+    - [ ] **image/texture component**
 - [x] iResolution uniform
-- [x] **I/O*
+- [x] I/O
     - [x] iMouse uniform
     - [x] keyboard texture input
 - [x] shader compilation error message
@@ -132,8 +132,8 @@ Detailed list, for the dev's reference
 - [x] keyboard shortcuts (compile, set dimension)
     - [x] compile shortcut
     - [x] editor shortcut -- find
-    - [ ] **help -- list all shortcuts**
-    - [ ] **tooltips**
+    - [ ] help -- list all shortcuts
+    - [x] tooltips
 - [x] multi-pass rendering
     - [x] frontend to create buffer shader file
     - [x] abstract render pass and texture
@@ -141,7 +141,7 @@ Detailed list, for the dev's reference
     - [x] post render pass
     - [x] improve shader status for multiple passes
     - [x] generic buffers pass
-- [x] **more compatible with shadertoy**
+- [x] more compatible with shadertoy
     - [x] main function
     - [x] iResolution use vec2
     - [x] use WebGL2 + GLSL 300 es
@@ -151,8 +151,8 @@ Detailed list, for the dev's reference
     - [ ] noises
     - [x] sdfs
     - [x] keycodes
-- [ ] screenshot
-- [ ] performance -- show fps
+- [ ] **screenshot**
+- [ ] **performance -- show fps**
 - [x] **export and import shaders**
     - [x] import
     - [ ] export with options (files in a zip, preprocessed file)
