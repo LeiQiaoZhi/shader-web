@@ -160,7 +160,7 @@ Detailed list, for the dev's reference
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
 - [x] pass uniforms not only to the main shader
-- [ ] **better shader error messages**
+- [x] better shader error messages
 - [ ] make some modal buttons work
   - [ ] edit uniform reset
 

@@ -7,13 +7,15 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();
     const [value, setValue] = useState(0);
-    const {mainShader} = useShaderContext();
+    const {allShaders} = useShaderContext();
 
     // initialize
     useEffect(() => {
-        mainShader?.setUniformFromConfig(config);
+        allShaders.forEach(shader => {
+            shader.setUniformFromConfig(config);
+        });
         setValue(config.ui.value);
-    }, [config, mainShader]);
+    }, [config, allShaders]);
 
     const debounce = <T extends (...args: any[]) => void>(func: T, delay: number): T => {
         let timeoutId: number | undefined;
@@ -31,7 +33,9 @@ const SliderUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.valueAsNumber;
         setValue(config.ui.value);
-        mainShader?.setUniformFromConfig(config);
+        allShaders.forEach(shader => {
+            shader.setUniformFromConfig(config);
+        });
     }
 
     return (

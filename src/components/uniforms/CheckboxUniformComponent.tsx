@@ -6,19 +6,23 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 
 const CheckboxUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();
-    const {mainShader} = useShaderContext();
+    const {allShaders} = useShaderContext();
     const [checked, setChecked] = useState(false);
 
     // Initialize
     useEffect(() => {
-        mainShader?.setUniformFromConfig(config);
+        allShaders.forEach(shader => {
+            shader.setUniformFromConfig(config);
+        });
         setChecked(config.ui.value);
-    }, [config, mainShader]);
+    }, [config, allShaders]);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.checked;
         setChecked(event.target.checked);
-        mainShader?.setUniformFromConfig(config);
+        allShaders.forEach(shader => {
+            shader.setUniformFromConfig(config);
+        });
     }
 
     return (

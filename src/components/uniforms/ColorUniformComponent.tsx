@@ -7,22 +7,26 @@ import {useShaderContext} from "../../utils/contexts/ShaderContext";
 const ColorUniformComponent: React.FC<IUniformComponentProps> = ({config}) => {
     const uniqueId = useId();
     const [color, setColor] = useState("#000");
-    const {mainShader} = useShaderContext();
+    const {allShaders} = useShaderContext();
 
     // initialize
     useEffect(() => {
-        mainShader?.setUniformFromConfig(config);
+        allShaders.forEach(shader => {
+            shader.setUniformFromConfig(config);
+        });
         if (config.ui.value[0] !== "#") {
             config.ui.value = "#" + config.ui.value;
         }
         setColor(config.ui.value);
-    }, [config, mainShader]);
+    }, [config, allShaders]);
     
 
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         config.ui.value = event.target.value;
         setColor(config.ui.value);
-        mainShader?.setUniformFromConfig(config);
+        allShaders.forEach(shader => {
+            shader.setUniformFromConfig(config);
+        });
     }
 
     return (
