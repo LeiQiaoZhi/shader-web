@@ -56,48 +56,49 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
 
 
         let frameNumber = 0;
+        elapsedTimeRef.current = 0;
         const vertexBuffer = createScreenQuadBuffer(gl);
         gl.clearColor(0, 0, 0, 0);
 
         const render = (time: number) => {
-            if (frameNumber === 0) {
-                console.log("Setting new shader", frameNumber);
+            if (elapsedTimeRef.current <= 0) {
                 elapsedTimeRef.current = 0;
+                console.log("Setting new shader", frameNumber);
                 frameNumber = 1;
             }
 
             const deltaTime = time - previousFrameTime.current;
-            if (!pausedRef.current) {
+            if (!pausedRef.current || frameNumber === 1) {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
                 frameNumber++;
-            }
 
-            const uniforms = [
-                ["iTime", "float", elapsedTimeRef.current * 0.001],
-                ["iFrame", "int", frameNumber],
-                ["iMouse", "vec4", mouseRef.current],
-            ] as [string, string, any][];
+                const uniforms = [
+                    ["iTime", "float", elapsedTimeRef.current * 0.001],
+                    ["iFrame", "int", frameNumber],
+                    ["iMouse", "vec4", mouseRef.current],
+                ] as [string, string, any][];
 
-            bufferRenderPasses.forEach((bufferRenderPass) => {
-                bufferRenderPass.draw(bufferRenderPasses,
+                bufferRenderPasses.forEach((bufferRenderPass) => {
+                    bufferRenderPass.draw(bufferRenderPasses,
+                        keyboardStatesTextureRef.current,
+                        vertexBuffer, uniforms
+                    );
+                });
+
+                mainRenderPass.draw(
+                    bufferRenderPasses,
+                    postRenderPass.previousFrameTexture,
                     keyboardStatesTextureRef.current,
                     vertexBuffer, uniforms
                 );
-            });
 
-            mainRenderPass.draw(
-                bufferRenderPasses,
-                postRenderPass.previousFrameTexture,
-                keyboardStatesTextureRef.current,
-                vertexBuffer, uniforms
-            );
-
-            postRenderPass.draw(
-                bufferRenderPasses,
-                mainRenderPass.colorTexture,
-                keyboardStatesTextureRef.current,
-                vertexBuffer, uniforms
-            );
+                postRenderPass.draw(
+                    bufferRenderPasses,
+                    mainRenderPass.colorTexture,
+                    keyboardStatesTextureRef.current,
+                    vertexBuffer, uniforms
+                );
+            }
 
             previousFrameTime.current = time;
             requestAnimationFrame(render);

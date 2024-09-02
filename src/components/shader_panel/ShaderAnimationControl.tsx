@@ -32,7 +32,7 @@ const ShaderAnimationControl: React.FC<ShaderAnimationControlProps> = (
     }
 
     const handleRestart = () => {
-        elapsedTimeRef.current = 0;
+        elapsedTimeRef.current = -1000;
     }
 
     const handleSpeedChange = (event: React.ChangeEvent<HTMLInputElement>) => {

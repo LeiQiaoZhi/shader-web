@@ -170,3 +170,4 @@ Bugs and Issues:
 - [x] keyboard expands panel
 - [x] save shader code for compile
 - [ ] some keyboard shortcuts in editor
+- [x] restart doesn't reset iFrame
