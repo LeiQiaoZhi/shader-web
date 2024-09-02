@@ -47,6 +47,7 @@
 }
 
 .shader-keyboard-events-body{
+    padding-top: var(--normal-gap);
     display: flex;
     flex-direction: column;
     gap: var(--small-gap);

@@ -13,6 +13,7 @@ import {BufferRenderPass} from "../../utils/render_pass/BufferRenderPass";
 import IOHandler from './IOHandler';
 import {Texture} from '../../utils/Texture';
 import {Shader} from "../../utils/Shader";
+import {ShaderPerformance} from "./ShaderPerformance";
 
 interface ShaderCanvasProps {
 }
@@ -30,7 +31,17 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
     const [viewportDimension, setViewportDimension] = useState([savedData.width, savedData.height]);
     const [isVisible, setIsVisible] = useState(savedData.shaderVisible);
     const {setMainShader, setStatus, shaderSources, setAllShaders} = useShaderContext();
+    const [deltaTimes, setDeltaTimes] = useState<number[]>([]);
 
+    const addDeltaTime = (deltaTime: number) => {
+        setDeltaTimes(prevDeltaTimes => {
+            if (prevDeltaTimes.length > 100) {
+                return [...prevDeltaTimes.slice(1), deltaTime];
+            } else {
+                return [...prevDeltaTimes, deltaTime];
+            }
+        });
+    };
 
     // contains side effect, runs after the component is rendered
     useEffect(() => {
@@ -51,9 +62,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         }
         const allShaders = [mainRenderPass.shader, postRenderPass.shader, ...bufferRenderPasses.map((bufferRenderPass) => bufferRenderPass.shader)]
             .filter((shader) => shader !== undefined && shader !== null) as Shader[];
-        console.log("All Shaders", allShaders);
         setAllShaders(allShaders);
-
 
         let frameNumber = 0;
         elapsedTimeRef.current = 0;
@@ -63,14 +72,18 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
         const render = (time: number) => {
             if (elapsedTimeRef.current <= 0) {
                 elapsedTimeRef.current = 0;
-                console.log("Setting new shader", frameNumber);
                 frameNumber = 1;
+                console.log("Setting new shader", frameNumber);
             }
 
             const deltaTime = time - previousFrameTime.current;
-            if (!pausedRef.current || frameNumber === 1) {
+
+            if (!pausedRef.current || frameNumber <= 2) {
                 elapsedTimeRef.current += deltaTime * speedRef.current;
                 frameNumber++;
+                if (deltaTime > 0) {
+                    addDeltaTime(deltaTime);
+                }
 
                 const uniforms = [
                     ["iTime", "float", elapsedTimeRef.current * 0.001],
@@ -127,6 +140,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = () => {
             <ShaderDimensionControl viewportDimension={viewportDimension} setViewportDimension={setViewportDimension}/>
             <IOHandler keyboardEventsTextureRef={keyboardStatesTextureRef}
                        mouseRef={mouseRef} canvasRef={canvasRef}/>
+            <ShaderPerformance deltaTimes={deltaTimes}/>
         </div>
     );
 };

@@ -1,16 +1,16 @@
 .shader-status-bar {
-    --status-width: 0;
     font-size: var(--small-font-size);
     color: var(--secondary-text-color);
     padding: var(--small-gap);
     border-radius: var(--normal-radius);
-    width: var(--status-width);
     box-sizing: border-box;
     text-align: left;
     
     display: flex;
     flex-direction: column;
     gap: var(--small-gap);
+    
+    align-self: stretch;
 }
 
 .shader-status-bar[data-success="false"]{
