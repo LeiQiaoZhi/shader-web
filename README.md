@@ -152,7 +152,7 @@ Detailed list, for the dev's reference
     - [x] sdfs
     - [x] keycodes
 - [ ] **screenshot**
-- [ ] **performance -- show fps**
+- [x] performance -- show fps
 - [x] **export and import shaders**
     - [x] import
     - [ ] export with options (files in a zip, preprocessed file)
