@@ -38,7 +38,7 @@ const ShaderStatusBar: React.FC<ShaderStatusBarProps> = ({width}) => {
             'color': (isSuccess()
                 ? inSuccessAnimation ? `var(--secondary-color)` : `var(--secondary-text-color)`
                 : `var(--background-color)`) + ' !important',
-            '--status-width': `${width}px`,
+            'width': `${width}px`,
             'transition': `all 400ms`
         } as React.CSSProperties;
     }

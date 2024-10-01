@@ -4,6 +4,7 @@
     flex-direction: row;
     justify-content: start;
     gap: var(--small-gap);
+    word-break: break-word; /* Forces the text to break between words */
 }
 
 .expander-title:hover {
