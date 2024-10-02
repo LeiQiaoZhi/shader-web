@@ -7,7 +7,7 @@ export const downloadStringsAsZip = (strings: string[], fileNames: string[], zip
 
     // Add each string as a file in the zip
     strings.forEach((content, index) => {
-        const fileName = fileNames[index] + ".glsl" || `file${index + 1}.common.glsl`;
+        const fileName = fileNames[index] || `file${index + 1}.common`;
         zip.file(fileName, content);
     });
 

@@ -38,7 +38,7 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                         filesObject[relativePath] = await zipEntry.async('text');
                     }
                 }
-                
+
                 setFilesContent(filesObject);
             } catch (error) {
                 console.error('Error reading ZIP file:', error);
@@ -82,24 +82,24 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                             setWarning("there must be a main and post file");
                             return;
                         }
-                        
+
                         const newSources: EditorSources = {
                             main: {source: filesContent["main.buffer.glsl"], type: ShaderFileType.Buffer},
                             post: {source: filesContent["post.buffer.glsl"], type: ShaderFileType.Buffer},
                         };
-                        
+
                         Object.keys(filesContent).forEach((fileName) => {
                             if (fileName === "main.buffer.glsl" || fileName === "post.buffer.glsl") {
                                 return;
                             }
-                            
+
                             const shaderType = fileName.endsWith(".buffer.glsl") ? ShaderFileType.Buffer : ShaderFileType.Common;
                             const shaderName = fileName.replace(".buffer.glsl", "").replace(".common.glsl", "");
                             newSources[shaderName] = {source: filesContent[fileName], type: shaderType};
                         });
-                        
+
                         console.log("Importing sources", newSources);
-                        
+
                         setEditorSources(newSources);
                         setActiveTab("main");
                         setShowImportModal(false);
