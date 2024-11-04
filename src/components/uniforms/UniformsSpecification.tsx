@@ -43,6 +43,14 @@ export const UNIFORMS_UI_TYPE_TO_COMPONENT_MAP: { [key: string]: React.FC<IUnifo
     dropdown: DropdownUniformComponent,
 };
 
+export const UNIFORMS_UI_TYPE_TO_DEFAULT_VALUE: { [key: string]: any; } = {
+    checkbox: false,
+    slider: 0,
+    color: "#ffffff",
+    folder: "",
+    dropdown: 0,
+};
+
 export const UNIFORMS_GL_TYPES = [
     "float",
     "bool",

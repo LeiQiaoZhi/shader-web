@@ -7,7 +7,7 @@ import Select from "../../common/Select";
 import {
     UniformConfigData,
     UNIFORMS_FIELDS_TO_DEFAULT_VALUES,
-    UNIFORMS_UI_TYPE_TO_COMPONENT_MAP,
+    UNIFORMS_UI_TYPE_TO_COMPONENT_MAP, UNIFORMS_UI_TYPE_TO_DEFAULT_VALUE,
     UNIFORMS_UI_TYPES_TO_FIELDS_MAP, UNIFORMS_UI_TYPES_TO_GL_TYPES_MAP
 } from "../UniformsSpecification";
 
@@ -98,7 +98,9 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
                     <div><label>Type: </label>
                         <Select value={type} values={Object.keys(UNIFORMS_UI_TYPE_TO_COMPONENT_MAP)}
                                 onChange={e => {
+                                    console.log("Setting type", e.target.value);
                                     uniformConfig.ui.type = e.target.value;
+                                    uniformConfig.ui.value = UNIFORMS_UI_TYPE_TO_DEFAULT_VALUE[e.target.value];
                                     setType(e.target.value);
                                 }}/>
                     </div>

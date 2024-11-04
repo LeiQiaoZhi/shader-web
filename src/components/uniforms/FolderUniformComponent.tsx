@@ -38,7 +38,7 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({index, config
                         );
                     })
                 }
-                <UniformEditAddButton index={[...index, config.children.length]}/>
+                <UniformEditAddButton index={[...index, config.children ? config.children.length : 0]}/>
             </div>
         </div>
     );

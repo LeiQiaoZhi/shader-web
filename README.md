@@ -168,7 +168,6 @@ Detailed list, for the dev's reference
 - [x] confirm before reset
 
 Bugs and Issues:
-- [ ] create a color uniform component => error
+- [x] create a color uniform component => error
+- [ ] add a uniform in a folder component => error
 - [ ] some keyboard shortcuts in editor
-- [x] import doesn't process json
-- [x] import doesn't compile immediately

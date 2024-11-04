@@ -126,6 +126,7 @@ export const createProgram = (gl: WebGLRenderingContext, vertexShader: WebGLShad
 };
 
 export const hexToRgba = (hex: string, alpha: number = 1): [number, number, number, number] => {
+    console.log("hex", hex);
     // Remove the hash at the start if it's there
     hex = hex.replace(/^#/, '');
 
