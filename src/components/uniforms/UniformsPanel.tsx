@@ -56,7 +56,7 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
                 </IconButton>
             </PanelHeader>
 
-            <FileSelect onFileSelect={onConfigFileSelect} accept=".toml, .json" id="config select" title="Config"/>
+            {/*<FileSelect onFileSelect={onConfigFileSelect} accept=".toml, .json" id="config select" title="Config"/>*/}
 
             <div className="uniforms-components-container" style={mode === UniformPanelMode.Edit ? {gap: 0} : {}}
                  onChange={e => {

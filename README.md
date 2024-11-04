@@ -155,8 +155,8 @@ Detailed list, for the dev's reference
 - [x] performance -- show fps
 - [x] **export and import shaders**
     - [x] import
-    - [ ] **fix uniforms import and export**
-    - [ ] incorporate config file
+    - [x] fix uniforms import and export
+    - [x] incorporate config file
     - [ ] export with options (files in a zip, preprocessed file)
     - [ ] import from shadertoy
 - [ ] true pause (stop rendering the next frame)
