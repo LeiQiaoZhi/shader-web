@@ -170,4 +170,5 @@ Detailed list, for the dev's reference
 Bugs and Issues:
 - [ ] create a color uniform component => error
 - [ ] some keyboard shortcuts in editor
-- [ ] import doesn't take json
+- [x] import doesn't process json
+- [x] import doesn't compile immediately

@@ -9,6 +9,10 @@ import {EditorSources} from "../../../utils/browser/browserLocalStorage";
 import {ShaderFileType} from "../../../utils/webglConstants";
 import {FaFileImport} from "react-icons/fa";
 import WarningText from "../../common/WarningText";
+import configManager from "../../../utils/ConfigManager";
+import {useUniformContext} from "../../../utils/contexts/UniformsContext";
+import {useShaderContext} from "../../../utils/contexts/ShaderContext";
+import {preprocessShaderSource} from "../../../utils/shaderPreprocessor";
 
 interface EditorImportModalProps {
 }
@@ -17,6 +21,8 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
     const [warning, setWarning] = useState<string>("");
     const [options, setOptions] = useState<string>("Overwrite");
     const {setEditorSources, setShowImportModal, setActiveTab} = useEditorContext();
+    const {setShaderSources} = useShaderContext();
+    const {configManager} = useUniformContext();
 
     const [filesContent, setFilesContent] = useState<{ [key: string]: string }>({});
 
@@ -88,6 +94,14 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                             post: {source: filesContent["post.buffer.glsl"], type: ShaderFileType.Buffer},
                         };
 
+                        // if the zip contains a uniformsConfig.json file, remove it from the sources and set it
+                        const config = filesContent["uniformsConfig.json"];
+                        if (config !== undefined) {
+                            console.log("Importing uniforms config", config);
+                            delete filesContent["uniformsConfig.json"];
+                            configManager.setConfigFromString(config);
+                        }
+
                         Object.keys(filesContent).forEach((fileName) => {
                             if (fileName === "main.buffer.glsl" || fileName === "post.buffer.glsl") {
                                 return;
@@ -98,9 +112,14 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                             newSources[shaderName] = {source: filesContent[fileName], type: shaderType};
                         });
 
+
                         console.log("Importing sources", newSources);
 
+                        // make editor show the new sources
                         setEditorSources(newSources);
+                        // compile the new sources
+                        setShaderSources(preprocessShaderSource(newSources));
+
                         setActiveTab("main");
                         setShowImportModal(false);
                     }}>

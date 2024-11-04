@@ -46,8 +46,6 @@ const CodeEditor = () => {
         editorTheme, setEditorTheme,
         editorFontSize, setEditorFontSize,
     } = useEditorContext();
-    // const [editorTheme, setEditorTheme] = useState(savedData.editorTheme);
-    // const [editorFontSize, setEditorFontSize] = useState(savedData.editorFontSize);
     const [keybinding, setKeybinding] = useState(savedData.editorKeybinding);
     const [showLineNumbers, setShowLineNumbers] = useState(false);
     const [showGutter, setShowGutter] = useState(false);

@@ -30,6 +30,12 @@ class ConfigManager {
         saveDataWithKey("configData", this.configData);
     }
 
+    setConfigFromString(config: string) {
+        this.configData = JSON.parse(config);
+        this.setConfigData(this.configData);
+        saveDataWithKey("configData", this.configData);
+    }
+
     private readFile(file: File): Promise<string> {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -99,6 +105,7 @@ class ConfigManager {
         currentLevelConfig.splice(indexToDelete, 1);
         this.setConfigData({...this.configData});
     }
+
 }
 
 export default ConfigManager;
