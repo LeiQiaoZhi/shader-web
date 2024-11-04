@@ -5,8 +5,12 @@ import IconButton from "../common/IconButton";
 import {BsGithub} from "react-icons/bs";
 import {BiReset} from "react-icons/bi";
 import {resetAllSavedData} from "../../utils/browser/browserLocalStorage";
+import ResetConfirmModal from "../editor/modal/ResetConfirmModal";
 
 const AppHeader: React.FC = () => {
+
+    const [showResetConfirmModal, setShowResetConfirmModal] = React.useState<boolean>(false);
+
     return (
         <div className="app-header">
             <div className="app-header-left">
@@ -18,9 +22,7 @@ const AppHeader: React.FC = () => {
                 <IconButton padding='0' size='normal' className="others"
                             tooltip={"Reset all saved data"}
                             onClick={_ => {
-                                console.log("reset all saved data");
-                                resetAllSavedData();
-                                window.location.reload();
+                                setShowResetConfirmModal(true);
                             }}>
                     <BiReset/>
                 </IconButton>
@@ -36,6 +38,8 @@ const AppHeader: React.FC = () => {
 
                 <ThemeSwitch/>
             </div>
+
+            {showResetConfirmModal && <ResetConfirmModal setShow={setShowResetConfirmModal}/>}
         </div>
     );
 }

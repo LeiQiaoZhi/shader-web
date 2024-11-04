@@ -155,6 +155,7 @@ Detailed list, for the dev's reference
 - [x] performance -- show fps
 - [x] **export and import shaders**
     - [x] import
+    - [ ] **fix uniforms import and export**
     - [ ] incorporate config file
     - [ ] export with options (files in a zip, preprocessed file)
     - [ ] import from shadertoy
@@ -164,11 +165,9 @@ Detailed list, for the dev's reference
 - [x] better shader error messages
 - [ ] make some modal buttons work
   - [ ] edit uniform reset
+- [x] confirm before reset
 
 Bugs and Issues:
-
-- [x] pause button border size inconsistent
-- [x] keyboard expands panel
-- [x] save shader code for compile
+- [ ] create a color uniform component => error
 - [ ] some keyboard shortcuts in editor
-- [x] restart doesn't reset iFrame
+- [ ] import doesn't take json
