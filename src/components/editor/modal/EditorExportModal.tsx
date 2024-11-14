@@ -26,8 +26,9 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
 
         const uniformConfigString = configManager.getConfigAsString();
 
-        const filNamesWithExtensions = fileNames.map((fileName) => fileName +
-            (editorSources[fileName].type === "Buffer" ? ".buffer.glsl" : ".common.glsl"));
+        const filNamesWithExtensions = fileNames.map((fileName) => fileName
+            + (editorSources[fileName].width && editorSources[fileName].height ? `.${editorSources[fileName].width}x${editorSources[fileName].height}` : "")
+            + (editorSources[fileName].type === "Buffer" ? ".buffer.glsl" : ".common.glsl"));
         if (option === "All") {
             // Add uniforms config to the zip
             filNamesWithExtensions.push("uniformsConfig.json");

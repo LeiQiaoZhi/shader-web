@@ -171,3 +171,7 @@ Bugs and Issues:
 - [x] create a color uniform component => error
 - [ ] add a uniform in a folder component => error
 - [ ] some keyboard shortcuts in editor
+- [ ] buffer -- no iResolution (can't deal with iMouse), perhaps / iMouse by resolution?
+- [ ] buffer -- need to manually define uniform sampler iUniformName
+- [ ] buffer -- iPreviousFrame doesn't make sense
+- [ ] **buffer -- import doesn't import buffer sizes**

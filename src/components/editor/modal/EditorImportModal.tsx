@@ -109,7 +109,28 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
 
                             const shaderType = fileName.endsWith(".buffer.glsl") ? ShaderFileType.Buffer : ShaderFileType.Common;
                             const shaderName = fileName.replace(".buffer.glsl", "").replace(".common.glsl", "");
-                            newSources[shaderName] = {source: filesContent[fileName], type: shaderType};
+
+                            // if the shader is a buffer, extract the width and height from the filename
+                            if (shaderType === ShaderFileType.Buffer) {
+                                const match = shaderName.match(/\.([0-9]+)x([0-9]+)$/);
+
+                                if (match) {
+                                    const width = parseInt(match[1], 10);
+                                    const height = parseInt(match[2], 10);
+                                    const newName = shaderName.replace(`.${width}x${height}`, "");
+                                    newSources[newName] = {
+                                        source: filesContent[fileName],
+                                        type: shaderType,
+                                        width: width,
+                                        height: height
+                                    };
+                                }
+                                else {
+                                    newSources[shaderName] = {source: filesContent[fileName], type: shaderType};
+                                }
+                            } else {
+                                newSources[shaderName] = {source: filesContent[fileName], type: shaderType};
+                            }
                         });
 
 
