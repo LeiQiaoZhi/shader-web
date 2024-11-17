@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import AceEditor from "react-ace";
 import "./CodeEditor.css"
 import TextMode from 'ace-builds/src-noconflict/mode-glsl';
-import "ace-builds/src-noconflict/ext-searchbox"
 import EditorThemeSelect from "./settings/EditorThemeSelect";
 import EditorFontSizeSelect from "./settings/EditorFontSizeSelect";
 import EditorKeybindingSelect from "./settings/EditorKeybindingSelect";
@@ -27,6 +26,8 @@ import {EditorShaderInputs} from "./EditorShaderInputs";
 import EditorExportModal from "./modal/EditorExportModal";
 import EditorImportModal from "./modal/EditorImportModal";
 import {CustomHighlightRules} from "../../CustomGLSLMode";
+import "ace-builds/src-noconflict/ext-searchbox"
+import "ace-builds/src-noconflict/ext-language_tools"
 
 const CodeEditor = () => {
     const savedData = loadData();
@@ -52,6 +53,7 @@ const CodeEditor = () => {
     const [showFolds, setShowFolds] = useState(false);
     const [wrap, setWrap] = useState(false);
     const [highlightLine, setHighlightLine] = useState(true);
+    const [liveAutoComplete, setLiveAutoComplete] = useState(true);
 
     const [isVisible, setIsVisible] = useState(savedData.codeVisible);
 
@@ -147,14 +149,14 @@ const CodeEditor = () => {
                 fontSize={editorFontSize}
                 editorProps={{$blockScrolling: true}}
                 setOptions={{
-                    enableBasicAutocompletion: true,
-                    enableLiveAutocompletion: true,
-                    enableSnippets: true,
                     showLineNumbers: showLineNumbers,
                     showGutter: showGutter,
                     showFoldWidgets: showFolds,
                     showInvisibles: false,
                 }}
+                // enableBasicAutocompletion={true}
+                enableLiveAutocompletion={liveAutoComplete}
+                // enableSnippets={true}
                 wrapEnabled={wrap}
                 highlightActiveLine={highlightLine}
                 keyboardHandler={keybinding}
@@ -189,6 +191,8 @@ const CodeEditor = () => {
                     <EditorSettingCheckbox label={"Wrap"} state={wrap} setter={setWrap}/>
                     <EditorSettingCheckbox label={"Highlight active line"} state={highlightLine}
                                            setter={setHighlightLine}/>
+                    <EditorSettingCheckbox label={"Auto complete"} state={liveAutoComplete}
+                                           setter={setLiveAutoComplete}/>
                 </MultiSelect>
             </div>
         </div>

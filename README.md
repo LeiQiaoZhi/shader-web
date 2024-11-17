@@ -173,6 +173,7 @@ Detailed list, for the dev's reference
 - [ ] error message shows correct line number and file, before preprocessing
   - [ ] show error in editor gutter using annotations
 - [ ] update logs
+- [ ] persistent editor settings
 
 Bugs and Issues:
 - [ ] add a uniform in a folder component => error

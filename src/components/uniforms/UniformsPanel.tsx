@@ -65,7 +65,7 @@ const UniformsPanel: React.FC<UniformsPanelProps> = () => {
                 {
                     configDataState.uniforms.map((uniformConfig: UniformConfigData, i: number) => {
                         return (
-                            <div>
+                            <div key={i}>
                                 <UniformEditAddButton index={[i]}/>
                                 <UniformComponent key={uniformConfig.name} index={[i]} uniformConfig={uniformConfig}/>
                             </div>
