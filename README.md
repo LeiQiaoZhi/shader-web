@@ -168,7 +168,7 @@ Detailed list, for the dev's reference
   - [ ] edit uniform reset
 - [x] confirm before reset
 - [x] error message shows line number
-- [ ] **editor syntax highlighting for new glsl version**
+- [x] editor syntax highlighting for new glsl version
 - [ ] save the name for export later, when importing 
 - [ ] error message shows correct line number and file, before preprocessing
   - [ ] show error in editor gutter using annotations

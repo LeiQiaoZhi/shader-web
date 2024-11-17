@@ -10,24 +10,66 @@ import "ace-builds/src-noconflict/theme-chaos"
 import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-noconflict/theme-chrome"
 import "ace-builds/src-noconflict/theme-solarized_light"
+import "ace-builds/src-noconflict/theme-dreamweaver"
+import "ace-builds/src-noconflict/theme-gruvbox"
+import "ace-builds/src-noconflict/theme-gruvbox_dark_hard"
+import "ace-builds/src-noconflict/theme-gruvbox_light_hard"
+import "ace-builds/src-noconflict/theme-one_dark"
+import "ace-builds/src-noconflict/theme-xcode"
+import "ace-builds/src-noconflict/theme-twilight"
+import "ace-builds/src-noconflict/theme-tomorrow_night"
+import "ace-builds/src-noconflict/theme-iplastic"
+import "ace-builds/src-noconflict/theme-solarized_dark"
+import "ace-builds/src-noconflict/theme-clouds_midnight"
+import "ace-builds/src-noconflict/theme-gob"
+import "ace-builds/src-noconflict/theme-crimson_editor"
+import "ace-builds/src-noconflict/theme-idle_fingers"
+import "ace-builds/src-noconflict/theme-merbivore"
+import "ace-builds/src-noconflict/theme-terminal"
+import "ace-builds/src-noconflict/theme-vibrant_ink"
+
 import {useThemeContext} from "../../../utils/contexts/ThemeContext";
 import {saveDataWithKey} from "../../../utils/browser/browserLocalStorage";
 import Select from "../../common/Select";
 
-const EDITOR_THEMES = [
-    ["", "Follow website"],
+const DARK_THEMES = [
     ["github_dark", "Github Dark"],
-    ["chrome", "Chrome"],
     ["dracula", "Dracula"],
-    ["clouds", "Clouds"],
     ["nord_dark", "Nord Dark"],
-    ["dawn", "Dawn"],
+    ["gruvbox", "Gruvbox"],
+    ["gruvbox_dark_hard", "Gruvbox Dark Hard"],
+    ["one_dark", "One Dark"],
+    ["twilight", "Twilight"],
+    ["tomorrow_night", "Tomorrow Night"],
+    ["solarized_dark", "Solarized Dark"],
+    ["clouds_midnight", "Clouds Midnight"],
+    ["gob", "Gob"],
+    ["idle_fingers", "Idle Fingers"],
+    ["merbivore", "Merbivore"],
+    ["terminal", "Terminal"],
+    ["vibrant_ink", "Vibrant Ink"],
+];
+
+const LIGHT_THEMES = [
     ["solarized_light", "Solarized Light"],
+    ["iplastic", "IPlastic"],
+    ["xcode", "Xcode"],
+    ["chrome", "Chrome"],
+    ["clouds", "Clouds"],
+    ["crimson_editor", "Crimson Editor"],
+    ["dawn", "Dawn"],
     ["monokai", "Monokai"],
     ["ambiance", "Ambiance"],
     ["chaos", "Chaos"],
     ["github", "Github"],
+    ["dreamweaver", "Dreamweaver"],
+    ["gruvbox_light_hard", "Gruvbox Light Hard"],
 ];
+
+const EDITOR_THEMES = DARK_THEMES.concat(LIGHT_THEMES);
+EDITOR_THEMES.unshift(
+    ["", "Follow website"],
+);
 
 interface EditorThemeSelectProps {
     editorTheme: string,
@@ -37,7 +79,7 @@ interface EditorThemeSelectProps {
 const EditorThemeSelect: React.FC<EditorThemeSelectProps> = ({setEditorTheme, editorTheme}) => {
     const {theme} = useThemeContext();
     const defaultDarkTheme = "dracula";
-    const defaultLightTheme = "chrome";
+    const defaultLightTheme = "solarized_light";
     const [selectedTheme, setSelectedTheme] = useState(editorTheme);
 
     useEffect(() => {
@@ -59,6 +101,10 @@ const EditorThemeSelect: React.FC<EditorThemeSelectProps> = ({setEditorTheme, ed
             <Select value={selectedTheme}
                     values={EDITOR_THEMES.map((pair, _) => pair[0])}
                     optionNames={EDITOR_THEMES.map((pair, _) => pair[1])}
+                    groups={{
+                        "Dark": 1,
+                        "Light": DARK_THEMES.length + 1,
+                    }}
                     onChange={
                         (e) => {
                             setSelectedTheme(e.target.value);
