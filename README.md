@@ -167,9 +167,11 @@ Detailed list, for the dev's reference
 - [ ] make some modal buttons work
   - [ ] edit uniform reset
 - [x] confirm before reset
-- [ ] **error message shows line number**
+- [x] error message shows line number
 - [ ] editor syntax highlighting for new glsl version
-- [ ] save the name for export later, when importing
+- [ ] save the name for export later, when importing 
+- [ ] error message shows correct line number and file, before preprocessing
+  - [ ] show error in editor gutter using annotations
 
 Bugs and Issues:
 - [ ] add a uniform in a folder component => error

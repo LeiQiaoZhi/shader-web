@@ -58,23 +58,21 @@ function getLinesWithNeighbours(
     source: string,
     lineNumber: number,
     neighbouringLines: number = 3
-): string {
+) {
     // Split the source into lines
-    const lines = source.split('\n');
+    const sourceLines = source.split('\n');
 
     // Calculate the start and end indices for the slice
     const start = Math.max(0, lineNumber - neighbouringLines - 1);
-    const end = Math.min(lines.length, lineNumber + neighbouringLines);
+    const end = Math.min(sourceLines.length, lineNumber + neighbouringLines);
 
     // Get the relevant lines and join them into a single string
-    const resultLines = lines.slice(start, end);
+    const resultLines = sourceLines.slice(start, end);
+    const lines = resultLines.join('\n');
 
-    // Create a formatted result string, including line numbers for reference
-    return resultLines.map((line, index) => {
-        const currentLineNumber = start + index + 1;
-        const prefix = (currentLineNumber === lineNumber) ? '>' : ' ';
-        return `${prefix} ${line}`;
-    }).join('\n');
+    return {
+        lines, start
+    };
 }
 
 interface ICreateShaderReturn {
@@ -92,10 +90,12 @@ export const createShader = (gl: WebGLRenderingContext, type: number, source: st
         console.error(errorMessage);
         const errors = parseShaderErrors(errorMessage ?? '');
         const logs = errors.map(error => {
-            const lines = getLinesWithNeighbours(source, parseInt(error.lineNumber));
+            const {lines, start} = getLinesWithNeighbours(source, parseInt(error.lineNumber));
             return {
                 message: error.message,
-                neighbourLines: lines
+                neighbourLines: lines,
+                startLineNumber: start,
+                errorLineNumber: parseInt(error.lineNumber),
             } as IShaderMessage;
         });
         console.log(logs);

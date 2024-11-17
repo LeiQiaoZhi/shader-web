@@ -19,7 +19,9 @@ export const ShaderStatusError: React.FC<ShaderStatusErrorProps> = (
             <div style={{
                 paddingLeft: 'var(--small-gap)',
                 paddingTop: 'var(--small-gap)',
-            }} className="readonly">
+            }}
+                 className="readonly"
+            >
                 <AceEditor
                     value={messageObj.neighbourLines}
                     mode="glsl"
@@ -30,17 +32,27 @@ export const ShaderStatusError: React.FC<ShaderStatusErrorProps> = (
                     maxLines={Infinity}
                     fontSize={"small"}
                     setOptions={{
-                        showLineNumbers: false,
-                        showGutter: false,
+                        showLineNumbers: true,
+                        showGutter: true,
                         showFoldWidgets: false,
-                        highlightActiveLine: false, 
-                        highlightGutterLine: false
+                        highlightActiveLine: false,
+                        highlightGutterLine: false,
+                        firstLineNumber: messageObj.startLineNumber ?? 1,
                     }}
+                    showPrintMargin={true}
                     wrapEnabled={false}
                     style={{
                         transition: 'none',
                         borderRadius: 'var(--small-radius)',
-                }}
+                    }}
+                    annotations={
+                        [{
+                            row: (messageObj.errorLineNumber ?? 0) - (messageObj.startLineNumber ?? 0) - 1,
+                            column: 0,
+                            type: 'error',
+                            text: messageObj.message
+                        }]
+                    }
                 />
             </div>
         </Expander>

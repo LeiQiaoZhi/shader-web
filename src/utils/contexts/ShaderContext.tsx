@@ -17,6 +17,8 @@ export interface IShaderStatus {
 export interface IShaderMessage {
     message: string;
     neighbourLines: string;
+    startLineNumber?: number;
+    errorLineNumber?: number;
 }
 
 
