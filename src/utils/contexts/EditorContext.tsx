@@ -76,10 +76,15 @@ const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
         saveDataWithKey("activeTab", newTab);
     }
 
+    const setFileNameWithSave = (newFileName: string) => {
+        setFileName(newFileName);
+        saveDataWithKey("fileName", newFileName);
+    }
+
     return (
         <EditorContext.Provider value={{
             editorSources, setEditorSources: setEditorSourcesWithSave,
-            fileName, setFileName,
+            fileName, setFileName: setFileNameWithSave,
             activeTab, setActiveTab: setActiveTabWithSave,
             showAddModal, setShowAddModal,
             showEditModal, setShowEditModal,

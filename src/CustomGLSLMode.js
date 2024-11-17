@@ -69,7 +69,7 @@ export class CustomHighlightRules extends new TextMode.Mode().HighlightRules {
             },
             {
                 token: "variable.parameter",
-                regex: "(?<![a-zA-Z])i[A-Z][a-zA-Z]*"
+                regex: "(?<![a-zA-Z])i[A-Z][a-zA-Z0-9]*"
             },
             {
                 token: "support.type",
