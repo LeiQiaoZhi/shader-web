@@ -159,6 +159,7 @@ Detailed list, for the dev's reference
     - [x] incorporate config file
     - [ ] export with options (files in a zip, preprocessed file)
     - [ ] import from shadertoy
+    - [ ] export to shadertoy
 - [ ] true pause (stop rendering the next frame)
 - [ ] embed
 - [x] pass uniforms not only to the main shader
@@ -166,12 +167,14 @@ Detailed list, for the dev's reference
 - [ ] make some modal buttons work
   - [ ] edit uniform reset
 - [x] confirm before reset
+- [ ] **error message shows line number**
+- [ ] editor syntax highlighting for new glsl version
+- [ ] save the name for export later, when importing
 
 Bugs and Issues:
-- [x] create a color uniform component => error
 - [ ] add a uniform in a folder component => error
 - [ ] some keyboard shortcuts in editor
 - [ ] buffer -- no iResolution (can't deal with iMouse), perhaps / iMouse by resolution?
 - [ ] buffer -- need to manually define uniform sampler iUniformName
 - [ ] buffer -- iPreviousFrame doesn't make sense
-- [ ] **buffer -- import doesn't import buffer sizes**
+- [ ] export -- chrome doesn't let choose where the file is saved
