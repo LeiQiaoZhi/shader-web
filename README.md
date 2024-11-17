@@ -121,7 +121,7 @@ Detailed list, for the dev's reference
     - [x] modify
     - [x] delete
     - [x] create
-    - [ ] reorder
+    - [ ] **reorder**
 - [x] tabs in editors
     - [x] scrolling tab bar
     - [x] delete
@@ -168,10 +168,11 @@ Detailed list, for the dev's reference
   - [ ] edit uniform reset
 - [x] confirm before reset
 - [x] error message shows line number
-- [ ] editor syntax highlighting for new glsl version
+- [ ] **editor syntax highlighting for new glsl version**
 - [ ] save the name for export later, when importing 
 - [ ] error message shows correct line number and file, before preprocessing
   - [ ] show error in editor gutter using annotations
+- [ ] update logs
 
 Bugs and Issues:
 - [ ] add a uniform in a folder component => error

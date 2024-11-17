@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import AceEditor from "react-ace";
 import "./CodeEditor.css"
-import "ace-builds/src-noconflict/mode-glsl"
+import TextMode from 'ace-builds/src-noconflict/mode-glsl';
 import "ace-builds/src-noconflict/ext-searchbox"
 import EditorThemeSelect from "./settings/EditorThemeSelect";
 import EditorFontSizeSelect from "./settings/EditorFontSizeSelect";
@@ -26,7 +26,7 @@ import {Tooltip} from "react-tooltip";
 import {EditorShaderInputs} from "./EditorShaderInputs";
 import EditorExportModal from "./modal/EditorExportModal";
 import EditorImportModal from "./modal/EditorImportModal";
-
+import {CustomHighlightRules} from "../../CustomGLSLMode";
 
 const CodeEditor = () => {
     const savedData = loadData();
@@ -158,6 +158,13 @@ const CodeEditor = () => {
                 wrapEnabled={wrap}
                 highlightActiveLine={highlightLine}
                 keyboardHandler={keybinding}
+                onLoad={
+                    editor => {
+                        const customMode = new TextMode.Mode();
+                        customMode.HighlightRules = CustomHighlightRules;
+                        editor.getSession().setMode(customMode);
+                    }
+                }
             />
 
             <div className="editor-bottom-control" data-visible={isVisible}>
