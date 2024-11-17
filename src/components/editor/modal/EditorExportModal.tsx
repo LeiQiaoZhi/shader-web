@@ -7,8 +7,6 @@ import Select from "../../common/Select";
 import {FaDownload, FaInfo} from "react-icons/fa";
 import {downloadStringsAsZip} from "../../../utils/browser/download";
 import {useUniformContext} from "../../../utils/contexts/UniformsContext";
-import {IoWarning} from "react-icons/io5";
-import {FaCircleInfo} from "react-icons/fa6";
 
 interface EditorExportModalProps {
 }
@@ -18,7 +16,7 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
     const [options, setOptions] = React.useState<string>("All");
     const [filNamesWithExtensions, setFilNamesWithExtensions] = React.useState<string[]>([]);
     const [sources, setSources] = React.useState<string[]>([]);
-    const {editorSources, setShowExportModal} = useEditorContext();
+    const {editorSources, setShowExportModal, fileName} = useEditorContext();
     const {configManager} = useUniformContext();
 
     const prepareSourcesAndFileNames = (option: string) => {
@@ -67,6 +65,7 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
                                     prepareSourcesAndFileNames(e.target.value);
                                 }}/>
                     </div>
+                    {fileName}
                     {Object.keys(filNamesWithExtensions).length > 0 && (
                         <div className="modal-file-list">
                             {filNamesWithExtensions.map((name, index) => (
@@ -75,7 +74,7 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
                         </div>
                     )}
                     <IconButton onClick={e => {
-                        const zipName = "shader-sources.zip";
+                        const zipName = fileName + ".zip";
                         downloadStringsAsZip(sources, filNamesWithExtensions, zipName);
                         setShowExportModal(false);
                     }}>
@@ -83,7 +82,7 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
                     </IconButton>
                     {
                         warning !== "" &&
-                        <IconText preset={"warn"} text={warning}/>                }
+                        <IconText preset={"warn"} text={warning}/>}
                     <IconText
                         preset={"info"}
                         text={`To enable the "Save As" dialog in Chrome:

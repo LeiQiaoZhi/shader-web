@@ -21,11 +21,12 @@ interface EditorImportModalProps {
 const EditorImportModal: React.FC<EditorImportModalProps> = () => {
     const [warning, setWarning] = useState<string>("");
     const [options, setOptions] = useState<string>("Overwrite");
-    const {setEditorSources, setShowImportModal, setActiveTab} = useEditorContext();
+    const {setEditorSources, setShowImportModal, setActiveTab, setFileName} = useEditorContext();
     const {setShaderSources} = useShaderContext();
     const {configManager} = useUniformContext();
 
     const [filesContent, setFilesContent] = useState<{ [key: string]: string }>({});
+    const [importedName, setImportedName] = useState<string>("shader");
 
     const id = useId();
 
@@ -46,6 +47,7 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                     }
                 }
 
+                setImportedName(file.name.replace(".zip", ""));
                 setFilesContent(filesObject);
             } catch (error) {
                 console.error('Error reading ZIP file:', error);
@@ -125,8 +127,7 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                                         width: width,
                                         height: height
                                     };
-                                }
-                                else {
+                                } else {
                                     newSources[shaderName] = {source: filesContent[fileName], type: shaderType};
                                 }
                             } else {
@@ -134,9 +135,10 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                             }
                         });
 
-
                         console.log("Importing sources", newSources);
 
+                        console.log("Imported name", importedName);
+                        setFileName(importedName);
                         // make editor show the new sources
                         setEditorSources(newSources);
                         // compile the new sources
@@ -149,7 +151,7 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                     </IconButton>
                     {
                         warning !== "" &&
-                        <IconText preset={"warn"} text={warning}/>                }
+                        <IconText preset={"warn"} text={warning}/>}
                 </div>
             </div>
         </div>

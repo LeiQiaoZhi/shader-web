@@ -35,6 +35,7 @@ export interface EditorSources {
 export interface SavedData {
     theme: ThemeStringType,
     // editor settings
+    fileName: string,
     editorTheme: string,
     editorFontSize: string,
     editorKeybinding: string,
@@ -56,8 +57,9 @@ export interface SavedData {
 }
 
 const isSavedData = (obj: any): boolean => {
-    return "theme" in obj && "editorTheme" in obj && "editorFontSize" in obj
-        && "editorKeybinding" in obj && "shaderSources" in obj && "configData" in obj
+    return "theme" in obj
+        && "fileName" in obj && "editorTheme" in obj && "editorFontSize" in obj && "editorKeybinding" in obj
+        && "shaderSources" in obj && "configData" in obj && "editorSources" in obj && "activeTab" in obj
         && "uniformsVisible" in obj && "shaderVisible" in obj && "codeVisible" in obj
         && "width" in obj && "height" in obj
         && "speed" in obj && "isPaused" in obj
@@ -68,11 +70,12 @@ const VIEWPORT_WIDTH = 400;
 const VIEWPORT_HEIGHT = 400;
 export const DEFAULT_SAVED_DATA: SavedData = {
     theme: "light",
+    fileName: "shader",
     editorTheme: "",
     editorFontSize: "medium",
     editorKeybinding: "vim",
     shaderSources: {
-        main: shaderPrefixMap["main"] + defaultFragmentShaderSource + mainShaderSuffix, 
+        main: shaderPrefixMap["main"] + defaultFragmentShaderSource + mainShaderSuffix,
         post: shaderPrefixMap["post"] + defaultPostFragmentShaderSource,
         buffers: {},
     },

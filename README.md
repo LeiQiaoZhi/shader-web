@@ -171,7 +171,7 @@ Detailed list, for the dev's reference
 - [x] confirm before reset
 - [x] error message shows line number
 - [x] editor syntax highlighting for new glsl version
-- [ ] save the name for export later, when importing
+- [x] save the name for export later, when importing
 - [ ] error message shows correct line number and file, before preprocessing
     - [ ] show error in editor gutter using annotations
 - [ ] update logs
@@ -184,4 +184,4 @@ Bugs and Issues:
 - [ ] buffer -- no iResolution (can't deal with iMouse), perhaps / iMouse by resolution?
 - [ ] buffer -- need to manually define uniform sampler iUniformName
 - [ ] buffer -- iPreviousFrame doesn't make sense
-- [ ] export -- chrome doesn't let choose where the file is saved
+- [x] export -- chrome doesn't let choose where the file is saved

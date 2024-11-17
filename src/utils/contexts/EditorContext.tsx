@@ -6,6 +6,8 @@ import {EditorSources, loadData, saveDataWithKey} from "../browser/browserLocalS
 interface IEditorContext {
     editorSources: EditorSources;
     setEditorSources: (sources: EditorSources) => void;
+    fileName: string;
+    setFileName: (fileName: string) => void;
     activeTab: string;
     setActiveTab: (activeTab: string) => void;
     showAddModal: boolean;
@@ -47,6 +49,7 @@ interface EditorContextProps {
 const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
     const savedData = loadData();
     const [editorSources, setEditorSources] = useState<EditorSources>(savedData.editorSources);
+    const [fileName, setFileName] = useState(savedData.fileName);
     const [activeTab, setActiveTab] = useState(savedData.activeTab);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -76,6 +79,7 @@ const EditorContextProvider: React.FC<EditorContextProps> = ({children}) => {
     return (
         <EditorContext.Provider value={{
             editorSources, setEditorSources: setEditorSourcesWithSave,
+            fileName, setFileName,
             activeTab, setActiveTab: setActiveTabWithSave,
             showAddModal, setShowAddModal,
             showEditModal, setShowEditModal,
