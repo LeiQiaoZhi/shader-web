@@ -2,11 +2,13 @@ import React, {useEffect} from 'react';
 import IconButton from "../../common/IconButton";
 import {MdCancel} from "react-icons/md";
 import {useEditorContext} from "../../../utils/contexts/EditorContext";
-import WarningText from "../../common/WarningText";
+import IconText from "../../common/IconText";
 import Select from "../../common/Select";
-import {FaDownload} from "react-icons/fa";
+import {FaDownload, FaInfo} from "react-icons/fa";
 import {downloadStringsAsZip} from "../../../utils/browser/download";
 import {useUniformContext} from "../../../utils/contexts/UniformsContext";
+import {IoWarning} from "react-icons/io5";
+import {FaCircleInfo} from "react-icons/fa6";
 
 interface EditorExportModalProps {
 }
@@ -81,8 +83,13 @@ const EditorExportModal: React.FC<EditorExportModalProps> = () => {
                     </IconButton>
                     {
                         warning !== "" &&
-                        <WarningText warningText={warning}/>
-                    }
+                        <IconText preset={"warn"} text={warning}/>                }
+                    <IconText
+                        preset={"info"}
+                        text={`To enable the "Save As" dialog in Chrome:
+1. Go to Settings > Downloads.
+2. Enable "Ask where to save each file before downloading".`}
+                    />
                 </div>
             </div>
         </div>

@@ -3,10 +3,11 @@ import IconButton from "../../common/IconButton";
 import {GiConfirmed} from "react-icons/gi";
 import {MdCancel} from "react-icons/md";
 import {useEditorContext} from "../../../utils/contexts/EditorContext";
-import WarningText from "../../common/WarningText";
+import IconText from "../../common/IconText";
 import Select from "../../common/Select";
 import {SHADER_SOURCE_TEMPLATE_MAP, ShaderFileType} from "../../../utils/webglConstants";
 import EditorTabModalBufferDimensionInput from "./EditorTabModalBufferDimensionInput";
+import {IoWarning} from "react-icons/io5";
 
 interface EditorAddTabModalProps {
 }
@@ -63,8 +64,7 @@ const EditorAddTabModal: React.FC<EditorAddTabModalProps> = () => {
 
                     {
                         warning !== "" &&
-                        <WarningText warningText={warning}/>
-                    }
+                        <IconText preset={"warn"} text={warning}/>                    }
                     <div>
                         <span>Type: </span>
                         <Select value={fileType}

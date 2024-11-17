@@ -4,9 +4,10 @@ import {GiConfirmed} from "react-icons/gi";
 import {EditorSources, toPascalCase} from "../../../utils/browser/browserLocalStorage";
 import {MdCancel, MdDelete} from "react-icons/md";
 import {useEditorContext} from "../../../utils/contexts/EditorContext";
-import WarningText from "../../common/WarningText";
+import IconText from "../../common/IconText";
 import {ShaderFileType} from "../../../utils/webglConstants";
 import EditorTabModalBufferDimensionInput from "./EditorTabModalBufferDimensionInput";
+import {IoWarning} from "react-icons/io5";
 
 interface EditorEditTabModalProps {
 }
@@ -84,8 +85,7 @@ const EditorEditTabModal: React.FC<EditorEditTabModalProps> = () => {
                     </div>
                     {
                         warning !== "" &&
-                        <WarningText warningText={warning}/>
-                    }
+                        <IconText preset={"warn"} text={warning}/>                }
                     {
                         editorSources[tabNameToEdit].type === ShaderFileType.Buffer &&
                         <EditorTabModalBufferDimensionInput width={width} setWidth={setWidth}

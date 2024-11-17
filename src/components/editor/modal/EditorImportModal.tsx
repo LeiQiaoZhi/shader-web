@@ -8,11 +8,12 @@ import FileSelect from "../../common/FileSelect";
 import {EditorSources} from "../../../utils/browser/browserLocalStorage";
 import {ShaderFileType} from "../../../utils/webglConstants";
 import {FaFileImport} from "react-icons/fa";
-import WarningText from "../../common/WarningText";
+import IconText from "../../common/IconText";
 import configManager from "../../../utils/ConfigManager";
 import {useUniformContext} from "../../../utils/contexts/UniformsContext";
 import {useShaderContext} from "../../../utils/contexts/ShaderContext";
 import {preprocessShaderSource} from "../../../utils/shaderPreprocessor";
+import {IoWarning} from "react-icons/io5";
 
 interface EditorImportModalProps {
 }
@@ -148,8 +149,7 @@ const EditorImportModal: React.FC<EditorImportModalProps> = () => {
                     </IconButton>
                     {
                         warning !== "" &&
-                        <WarningText warningText={warning}/>
-                    }
+                        <IconText preset={"warn"} text={warning}/>                }
                 </div>
             </div>
         </div>

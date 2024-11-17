@@ -14,6 +14,7 @@ live demo: https://shaderweb.netlify.app
 | Editor Tabs                                 | ✅                | ✅         |
 | Editor Keybindings (Vim, Emacs, ...)        | ✅                |           |
 | Editor Themes                               | ✅                |           |
+| Autocompletion                              | ✅                |           |
 | `#include` Preprocessor                     | ✅                |           |
 | Export and import from disk as zip files    | ✅                |           |
 | Shader Inputs (`iResolution`, `iTime`, ...) | ✅                | ✅         |
@@ -70,7 +71,8 @@ To start the development server and run your app locally:
 npm start
 ```
 
-This will start the app in development mode, and you should see the app running in your default browser at `http://localhost:3000/`.
+This will start the app in development mode, and you should see the app running in your default browser at
+`http://localhost:3000/`.
 
 ---
 
@@ -165,17 +167,18 @@ Detailed list, for the dev's reference
 - [x] pass uniforms not only to the main shader
 - [x] better shader error messages
 - [ ] make some modal buttons work
-  - [ ] edit uniform reset
+    - [ ] edit uniform reset
 - [x] confirm before reset
 - [x] error message shows line number
 - [x] editor syntax highlighting for new glsl version
-- [ ] save the name for export later, when importing 
+- [ ] save the name for export later, when importing
 - [ ] error message shows correct line number and file, before preprocessing
-  - [ ] show error in editor gutter using annotations
+    - [ ] show error in editor gutter using annotations
 - [ ] update logs
 - [ ] persistent editor settings
 
 Bugs and Issues:
+
 - [ ] add a uniform in a folder component => error
 - [ ] some keyboard shortcuts in editor
 - [ ] buffer -- no iResolution (can't deal with iMouse), perhaps / iMouse by resolution?

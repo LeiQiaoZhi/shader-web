@@ -3,7 +3,8 @@ import IconButton from "../../common/IconButton";
 import {MdCancel} from "react-icons/md";
 import {BiReset} from "react-icons/bi";
 import {resetAllSavedData} from "../../../utils/browser/browserLocalStorage";
-import WarningText from "../../common/WarningText";
+import IconText from "../../common/IconText";
+import {IoWarning} from "react-icons/io5";
 
 interface ResetConfirmModalProps {
 }
@@ -26,7 +27,9 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({setShow}: ResetCon
                     </IconButton>
                 </div>
                 <div className="modal-body">
-                    <WarningText warningText={"All saved data will be lost!"}/>
+                    <IconText icon={
+                        <IoWarning/>
+                    } text={"All saved data will be lost!"}/>
                     <IconButton onClick={e => {
                         console.log("reset all saved data");
                         resetAllSavedData();
