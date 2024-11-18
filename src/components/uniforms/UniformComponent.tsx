@@ -6,9 +6,6 @@ import EditUniformModalWindow from "./edit_modal/EditUniformModalWindow";
 import {UniformConfigData, UNIFORMS_UI_TYPE_TO_COMPONENT_MAP} from "./UniformsSpecification";
 import {UniformPanelMode, useUniformContext} from "../../utils/contexts/UniformsContext";
 import {MdDeleteOutline} from "react-icons/md";
-import {config} from "ace-builds";
-import UniformEditAddButton from "./UniformEditAddButton";
-import ConfigManager from "../../utils/ConfigManager";
 
 
 interface UniformsComponentProps {

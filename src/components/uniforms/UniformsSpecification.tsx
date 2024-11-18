@@ -47,7 +47,7 @@ export const UNIFORMS_UI_TYPE_TO_DEFAULT_VALUE: { [key: string]: any; } = {
     checkbox: false,
     slider: 0,
     color: "#ffffff",
-    folder: "",
+    folder: true,
     dropdown: 0,
 };
 

@@ -138,7 +138,8 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
                                 uniformConfig.ui.options = e.target.value.split(',');
                             }}
                         />)}
-                    {glType && <div><label>Uniform Type: </label>
+                    {glType && uniformConfig.ui.type !== "folder" &&
+                        <div><label>Uniform Type: </label>
                         <Select value={glType} values={UNIFORMS_UI_TYPES_TO_GL_TYPES_MAP[type]}
                                 onChange={e => {
                                     console.log("Setting GL type", e.target.value);
@@ -147,7 +148,7 @@ const EditUniformModalWindow: React.FC<EditUniformModalWindowProps> = (
                                     setGLType(e.target.value);
                                 }}/>
                     </div>}
-                    {uniformConfig.gl &&
+                    {uniformConfig.gl && uniformConfig.ui.type !== "folder" &&
                         <EditUniformModalInputField
                             label="Uniform Name: " defaultValue={uniformConfig.gl?.name} width={15}
                             onChange={e => {

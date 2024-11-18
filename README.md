@@ -179,7 +179,7 @@ Detailed list, for the dev's reference
 
 Bugs and Issues:
 
-- [ ] add a uniform in a folder component => error
+- [x] add a uniform in a folder component => error
 - [ ] some keyboard shortcuts in editor
 - [ ] buffer -- no iResolution (can't deal with iMouse), perhaps / iMouse by resolution?
 - [ ] buffer -- need to manually define uniform sampler iUniformName

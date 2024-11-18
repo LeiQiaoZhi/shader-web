@@ -13,6 +13,9 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({index, config
     // initialize
     useEffect(() => {
         setValue(config.ui.value);
+        if (config.children === undefined) {
+            config.children = [];
+        }
     }, [config]);
 
 

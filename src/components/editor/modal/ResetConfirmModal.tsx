@@ -27,9 +27,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({setShow}: ResetCon
                     </IconButton>
                 </div>
                 <div className="modal-body">
-                    <IconText icon={
-                        <IoWarning/>
-                    } text={"All saved data will be lost!"}/>
+                    <IconText preset={'warn'} text={"All saved data will be lost!"}/>
                     <IconButton onClick={e => {
                         console.log("reset all saved data");
                         resetAllSavedData();
