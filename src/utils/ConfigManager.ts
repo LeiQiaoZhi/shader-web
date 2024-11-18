@@ -77,33 +77,65 @@ class ConfigManager {
         return this.fileName;
     }
 
-    insertSingleUniform(index: number[]): void {
+    insertSingleUniform(index: number[], uniformToInsert: UniformConfigData): void {
         let currentLevelConfig: any[] = this.configData.uniforms;
         console.log("Before add", currentLevelConfig);
         for (const i of index.slice(0, -1)) {
             currentLevelConfig = currentLevelConfig[i].children;
         }
         const indexToInsert = index.slice(-1)[0];
-        const objToInsert: UniformConfigData = {
-            name: "New Uniform",
-            ui: {type: "checkbox", value: false},
-            gl: {type: "bool", name: "iUniformName"}
-        };
         console.log("Current level before add", currentLevelConfig);
-        currentLevelConfig.splice(indexToInsert, 0, objToInsert);
+        currentLevelConfig.splice(indexToInsert, 0, uniformToInsert);
         console.log(this.getUniforms());
         this.setConfigData({...this.configData});
     }
 
+    insertDefaultSingleUniform(index: number[]): void {
+        const defaultUniform: UniformConfigData = {
+            name: "New Uniform",
+            ui: {type: "checkbox", value: false},
+            gl: {type: "bool", name: "iUniformName"}
+        };
+        this.insertSingleUniform(index, defaultUniform);
+    }
+
     deleteAtPosition(index: number[]) {
-        let currentLevelConfig: any[] = this.configData.uniforms;
-        console.log("Before add", currentLevelConfig);
+        let currentLevelConfig: UniformConfigData[] = this.configData.uniforms;
+        console.log("Before delete", currentLevelConfig);
         for (const i of index.slice(0, -1)) {
             currentLevelConfig = currentLevelConfig[i].children;
         }
         const indexToDelete = index.slice(-1)[0];
         currentLevelConfig.splice(indexToDelete, 1);
         this.setConfigData({...this.configData});
+    }
+
+    moveUniform(fromIndex: number[], toIndex: number[]) {
+        const fromCompare = Number(fromIndex.join(""));
+        const toCompare = Number(toIndex.join(""));
+
+        const fromInFront = fromCompare < toCompare;
+        console.log(`Moving from ${fromIndex} to ${toIndex}, fromInFront: ${fromInFront}`);
+
+        let currentLevelConfig: UniformConfigData[] = this.configData.uniforms;
+        console.log("Before add", currentLevelConfig);
+        for (const i of fromIndex.slice(0, -1)) {
+            currentLevelConfig = currentLevelConfig[i].children;
+        }
+        const uniformToMove = currentLevelConfig[fromIndex.slice(-1)[0]];
+        console.log("Uniform to move", uniformToMove);
+
+        if (fromInFront) {
+            // insert, then delete
+            this.insertSingleUniform(toIndex, uniformToMove);
+            this.deleteAtPosition(fromIndex);
+        }
+        else {
+            // delete, then insert
+            this.deleteAtPosition(fromIndex);
+            this.insertSingleUniform(toIndex, uniformToMove);
+        }
+
     }
 
 }

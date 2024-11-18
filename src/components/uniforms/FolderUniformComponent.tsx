@@ -35,8 +35,9 @@ const FolderUniformComponent: React.FC<IUniformComponentProps> = ({index, config
                     config.children.map((uniformConfig: UniformConfigData, i: number) => {
                         return (
                             <div key={i}>
-                                <UniformEditAddButton index={[...index, i]}/>
-                                <UniformComponent index={[...index, i]} uniformConfig={uniformConfig}/>
+                                <UniformEditAddButton index={[...index, i]} key={uniformConfig.name + i + "add"}/>
+                                <UniformComponent index={[...index, i]} uniformConfig={uniformConfig}
+                                                  key={uniformConfig.name + i}/>
                             </div>
                         );
                     })

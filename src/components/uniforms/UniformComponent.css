@@ -1,5 +1,5 @@
 .uniform-component-outer-container {
-    display: flex;   
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
@@ -8,7 +8,7 @@
 
 .uniform-component-edit-add-button {
     font-size: var(--small-font-size);
-    color: var(--secondary-text-color);
+    color: var(--background-color);
     border: var(--small-border) solid var(--background-color);
     border-radius: var(--small-radius);
 }
@@ -17,6 +17,13 @@
     color: var(--secondary-text-color);
     background: var(--background-color);
     border: var(--small-border) solid var(--secondary-text-color);
+}
+
+.uniform-component-edit-add-button.over {
+    color: var(--secondary-color) !important;
+    background: var(--primary-color) !important;
+    border: var(--normal-border) solid var(--secondary-color);
+    padding: var(--normal-gap);
 }
 
 .uniform-component {

@@ -9,28 +9,32 @@ import CodeEditor from "./components/editor/CodeEditor";
 import {ThemeContextProvider} from "./utils/contexts/ThemeContext";
 import {UniformContextProvider} from "./utils/contexts/UniformsContext";
 import {EditorContextProvider} from "./utils/contexts/EditorContext";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 function App() {
     return (
-        <ShaderContextProvider>
-            <ThemeContextProvider>
-                <UniformContextProvider>
-                    <EditorContextProvider>
+        <DndProvider backend={HTML5Backend}>
+            <ShaderContextProvider>
+                <ThemeContextProvider>
+                    <UniformContextProvider>
+                        <EditorContextProvider>
 
-                        <div className="app">
-                            <AppHeader/>
-                            <div className="app-body">
-                                <UniformsPanel/>
-                                <ShaderCanvas/>
-                                <CodeEditor/>
+                            <div className="app">
+                                <AppHeader/>
+                                <div className="app-body">
+                                    <UniformsPanel/>
+                                    <ShaderCanvas/>
+                                    <CodeEditor/>
 
+                                </div>
                             </div>
-                        </div>
 
-                    </EditorContextProvider>
-                </UniformContextProvider>
-            </ThemeContextProvider>
-        </ShaderContextProvider>
+                        </EditorContextProvider>
+                    </UniformContextProvider>
+                </ThemeContextProvider>
+            </ShaderContextProvider>
+        </DndProvider>
     );
 }
 
