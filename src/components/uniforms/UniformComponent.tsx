@@ -53,7 +53,7 @@ const UniformComponent: React.FC<UniformsComponentProps> = (
             <div ref={previewRef}
                  style={{
                      position: "fixed",
-                     left: -100,
+                     left: -1000,
                      zIndex: isDragging ? 100000 : 0,
                      opacity: isDragging ? 0 : 1,
                      fontWeight: 'bold',
